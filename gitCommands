@@ -1,0 +1,23 @@
+Look up more information at http://progit.org/book/
+===============================
+
+Status: git status
+
+Add: git add .
+
+Commit: git commit -am '<message>'
+
+Pull: git pull origin <branch>
+
+Push: git push origin <branch>
+
+=================================
+
+git clone <remote> <path>
+e.g. git clone git@github.com:akofink/CSC216Project2 .
+
+git branch <new branch name>
+
+git checkout <branch name>
+
+git merge <branch name>
