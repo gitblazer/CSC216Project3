@@ -7,7 +7,7 @@ package edu.ncsu.csc216.solitaire;
 public class Deck {
 
 	//?
-	private Linkedlist<int> Cards;
+	private Linkedlist<int>52 Cards;
 	
 	public Deck() {
 		
