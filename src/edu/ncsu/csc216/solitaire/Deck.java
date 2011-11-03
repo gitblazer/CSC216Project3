@@ -6,5 +6,10 @@ package edu.ncsu.csc216.solitaire;
  */
 public class Deck {
 
-	//TESTTTT
+	//?
+	private Linkedlist<int> Cards;
+	
+	public Deck() {
+		
+	}
 }
