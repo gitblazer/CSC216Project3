@@ -2,8 +2,10 @@ package edu.ncsu.csc216.solitaire.ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.IllegalFormatException;
 import java.util.Scanner;
 
+import edu.ncsu.csc216.solitaire.model.Deck;
 import edu.ncsu.csc216.solitaire.model.Message;
 
 
@@ -18,7 +20,6 @@ public class UI {
 	 */
 	public static void main(String[] args) {
 		UserInterface();
-
 	}
 	
 	/**
@@ -31,17 +32,28 @@ public class UI {
 			String filename = console.nextLine();
 			File f = new File(filename);
 			Scanner in = new Scanner(f);
+			
+			//Look for proper file format
+			String messageString = "";
+			while (in.hasNextLine()) {
+				messageString += in.nextLine();
+			}
+			if (messageString.matches("\d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d")) {
+				
+			}
+			
+			//Gather file contents into an array of ints
 			int[] messageInts = new int[28];
 			for (int i = 0; i < messageInts.length; i++) {
 				messageInts[i] = in.nextInt();
 			}
 			Deck deck = new Deck(messageInts);
-			
-			String messageString = in.nextLine();
-			//Message messageObject = new Message(messageString);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found.");
 			e.printStackTrace();
+		} catch (IllegalFormatException ife) {
+			System.out.println("Invalid file.");
+			UserInterface();
 		}
 	}
 
