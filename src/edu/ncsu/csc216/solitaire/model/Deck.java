@@ -37,6 +37,25 @@ public class Deck {
 	
 	public int getKeySteamValue()  {
 		
+		// find A Joker (value 27)
+		// swap it with the card in position below it
+		// if joker is position 28, then it circulates to position 1
+		
+		// find B Joker (value 28)
+		// move it down 2 positions
+		// still circular, 28 connects back to 1
+		
+		// swap the top third of the deck with the bottom third of the deck
+		// the two jokers denote the split points
+		
+		// get the value of the bottom card (position 27)
+		// move that number of cards from the top of the deck to the bottom
+		// replace the bottom card on the bottom again
+		// if bottom card value = 27 or 28 (a joker) then use 27 regardless
+		
+		// read the top cards value (28 or 27 both are 27 again)
+		// go down into the deck that many cards
+		// return the value of the next card
 		
 		return 0;
 	}
