@@ -1,4 +1,4 @@
-package edu.ncsu.csc216.solitaire;
+package edu.ncsu.csc216.solitaire.ui;
 
 
 /**
@@ -16,10 +16,6 @@ public class UI {
 	}
 	
 	public static void UserInterface() {
-		
-	}
-	
-	public static void simulate() {
 		
 	}
 
