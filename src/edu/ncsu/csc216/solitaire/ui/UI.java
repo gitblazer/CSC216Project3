@@ -39,21 +39,23 @@ public class UI {
 			while (in.hasNextLine()) {
 				messageString += in.nextLine();
 			}
+			
 			//Match this regular expression, or the file format is wrong
-			System.out.println(messageString);
 			if (!messageString.matches("\\A(\\d+[ ]){27}\\d+\\z")) {
 				throw new DataFormatException();
 			}
-			
+			in = new Scanner(f);
 			//Gather file contents into an array of ints
 			int[] messageInts = new int[28];
 			for (int i = 0; i < messageInts.length; i++) {
 				messageInts[i] = in.nextInt();
 			}
+			
+			//Encrypt and Decrypt Runtime
 			Deck deck = new Deck(messageInts);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found.");
-			e.printStackTrace();
+			UserInterface();
 		} catch (DataFormatException dfe) {
 			System.out.println("Invalid file.");
 			UserInterface();
