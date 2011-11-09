@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.IllegalFormatException;
 import java.util.Scanner;
+import java.util.zip.DataFormatException;
 
 import edu.ncsu.csc216.solitaire.model.Deck;
 import edu.ncsu.csc216.solitaire.model.Message;
@@ -38,8 +39,10 @@ public class UI {
 			while (in.hasNextLine()) {
 				messageString += in.nextLine();
 			}
-			if (messageString.matches("\d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d \d")) {
-				
+			//Match this regular expression, or the file format is wrong
+			System.out.println(messageString);
+			if (!messageString.matches("\\A(\\d+[ ]){27}\\d+\\z")) {
+				throw new DataFormatException();
 			}
 			
 			//Gather file contents into an array of ints
@@ -51,7 +54,7 @@ public class UI {
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found.");
 			e.printStackTrace();
-		} catch (IllegalFormatException ife) {
+		} catch (DataFormatException dfe) {
 			System.out.println("Invalid file.");
 			UserInterface();
 		}
