@@ -52,21 +52,23 @@ public class UI {
 			
 			Deck deck = new Deck(deckInts);
 			
+			System.out.println("Encrypt or Decrypt?");
+			String response = console.nextLine();
+			
 			String messageString = "";
 			while (!messageString.matches("^\n$")) {
-				System.out.println("Encrypt or Decrypt?");
-				String response = console.nextLine();
 				System.out.println("Message:");
 				messageString = console.nextLine() + "\n";
 				Message message = new Message(messageString);
 				
-				if (response.toLowerCase().startsWith("e")) {
-					message.encrypt(deck);
+				if (messageString.matches("^\n$")) {
+					break;
+				} else if (response.toLowerCase().startsWith("e")) {
+					System.out.println(message.encrypt(deck));
 				} else if (response.toLowerCase().startsWith("d")) {
-					message.decrypt(deck);
+					System.out.println(message.decrypt(deck));
 				}
 			}
-			System.out.println("Done.");
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found.");
 			UserInterface();

@@ -6,12 +6,14 @@ public class Message {
 		
 	}
 
-	public void encrypt(Deck deck) {
+	public String encrypt(Deck deck) {
 		System.out.println("Encrypting...");
+		return "ENCRYPTED MESSAGE";
 	}
 
-	public void decrypt(Deck deck) {
+	public String decrypt(Deck deck) {
 		System.out.println("Decrypting...");
+		return "DECRYPTED MESSAGE";
 	}
 
 }
