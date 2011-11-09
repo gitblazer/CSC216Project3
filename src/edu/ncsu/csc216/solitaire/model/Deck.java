@@ -48,7 +48,7 @@ public class Deck {
 		
 		// find B Joker (value 28)
 		// move it down 2 positions
-		// still circular, 28 connects back to 1
+		// ** still circular, 28 connects back to 1 **
 		int tempVal2 = deck.get(deck.indexOf(28)-2);
 		int jokerIndex2= deck.indexOf(28);
 		deck.set(jokerIndex2-2,28);
@@ -60,12 +60,19 @@ public class Deck {
 		// get the value of the bottom card (position 27)
 		// move that number of cards from the top of the deck to the bottom
 		// replace the bottom card on the bottom again
-		// if bottom card value = 27 or 28 (a joker) then use 27 regardless
-		
-		// read the top cards value (28 or 27 both are 27 again)
+		// ** if bottom card value = 27 or 28 (a joker) then use 27 regardless *
+		int temp3 = deck.get(27);
+		for (int i = 0; i < temp3; i++) {
+			deck.addLast(0);
+		}
+		deck.addLast(deck.indexOf(temp3));
+						
+		// ** read the top cards value (28 or 27 both are 27 again) **
 		// go down into the deck that many cards
 		// return the value of the next card
+		int temp4 = deck.get(0);
+		int returnMe = deck.get(temp4 + 1);
 		
-		return 0;
+		return returnMe;
 	}
 }
