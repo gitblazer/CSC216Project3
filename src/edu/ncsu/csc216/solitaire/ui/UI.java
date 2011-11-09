@@ -2,12 +2,10 @@ package edu.ncsu.csc216.solitaire.ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.IllegalFormatException;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
-import edu.ncsu.csc216.solitaire.model.Deck;
-import edu.ncsu.csc216.solitaire.model.Message;
+import edu.ncsu.csc216.solitaire.model.*;
 
 
 /**
@@ -35,24 +33,34 @@ public class UI {
 			Scanner in = new Scanner(f);
 			
 			//Look for proper file format
-			String messageString = "";
+			String deckString = "";
 			while (in.hasNextLine()) {
-				messageString += in.nextLine();
+				deckString += in.nextLine();
 			}
 			
 			//Match this regular expression, or the file format is wrong
-			if (!messageString.matches("\\A(\\d+[ ]){27}\\d+\\z")) {
+			if (!deckString.matches("\\A(\\d+[ ]){27}\\d+\\z")) {
 				throw new DataFormatException();
 			}
-			in = new Scanner(f);
+
 			//Gather file contents into an array of ints
-			int[] messageInts = new int[28];
-			for (int i = 0; i < messageInts.length; i++) {
-				messageInts[i] = in.nextInt();
+			in = new Scanner(f);
+			int[] deckInts = new int[28];
+			for (int i = 0; i < deckInts.length; i++) {
+				deckInts[i] = in.nextInt();
 			}
 			
-			//Encrypt and Decrypt Runtime
-			Deck deck = new Deck(messageInts);
+			Deck deck = new Deck(deckInts);
+			
+			String messageString = "";
+			while (!messageString.matches("^\n$")) {
+				System.out.println("Encrypt or Decrypt?");
+				String response = console.nextLine();
+				System.out.println("Message:");
+				messageString = console.nextLine() + "\n";
+				Message message = new Message(messageString);
+			}
+			System.out.println("Done.");
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found.");
 			UserInterface();
@@ -61,5 +69,4 @@ public class UI {
 			UserInterface();
 		}
 	}
-
 }
