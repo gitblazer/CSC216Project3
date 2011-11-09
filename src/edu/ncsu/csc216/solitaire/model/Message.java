@@ -3,7 +3,15 @@ package edu.ncsu.csc216.solitaire.model;
 public class Message {
 
 	public Message(String messageString) {
-		// TODO Auto-generated constructor stub
+		
+	}
+
+	public void encrypt(Deck deck) {
+		System.out.println("Encrypting...");
+	}
+
+	public void decrypt(Deck deck) {
+		System.out.println("Decrypting...");
 	}
 
 }

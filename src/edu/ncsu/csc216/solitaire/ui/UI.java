@@ -43,7 +43,7 @@ public class UI {
 				throw new DataFormatException();
 			}
 
-			//Gather file contents into an array of ints
+			//Gather file contents into an array of integers
 			in = new Scanner(f);
 			int[] deckInts = new int[28];
 			for (int i = 0; i < deckInts.length; i++) {
@@ -59,6 +59,12 @@ public class UI {
 				System.out.println("Message:");
 				messageString = console.nextLine() + "\n";
 				Message message = new Message(messageString);
+				
+				if (response.toLowerCase().startsWith("e")) {
+					message.encrypt(deck);
+				} else if (response.toLowerCase().startsWith("d")) {
+					message.decrypt(deck);
+				}
 			}
 			System.out.println("Done.");
 		} catch (FileNotFoundException e) {
