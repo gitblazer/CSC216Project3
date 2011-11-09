@@ -41,18 +41,18 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		int tempVal = deck.get(deck.indexOf(27)-1);
-		int jokerIndex = deck.indexOf(27);
-		deck.set(jokerIndex-1,27);
-		deck.set(jokerIndex,tempVal);
+		int jokerIndexA = deck.indexOf(27);
+		deck.set(jokerIndexA-1,27);
+		deck.set(jokerIndexA,tempVal);
 		
 		
 		// find B Joker (value 28)
 		// move it down 2 positions
 		// ** still circular, 28 connects back to 1 **
 		int tempVal2 = deck.get(deck.indexOf(28)-2);
-		int jokerIndex2= deck.indexOf(28);
-		deck.set(jokerIndex2-2,28);
-		deck.set(jokerIndex2,tempVal2);
+		int jokerIndexB= deck.indexOf(28);
+		deck.set(jokerIndexB-2,28);
+		deck.set(jokerIndexB,tempVal2);
 		
 		// swap the top third of the deck with the bottom third of the deck
 		// the two jokers denote the split points
