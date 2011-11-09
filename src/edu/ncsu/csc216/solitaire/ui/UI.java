@@ -44,7 +44,7 @@ public class UI {
 			if (!messageString.matches("\\A(\\d+[ ]){27}\\d+\\z")) {
 				throw new DataFormatException();
 			}
-			
+			in = new Scanner(f);
 			//Gather file contents into an array of ints
 			int[] messageInts = new int[28];
 			for (int i = 0; i < messageInts.length; i++) {
