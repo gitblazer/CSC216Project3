@@ -50,6 +50,8 @@ public class UI {
 			for (int i = 0; i < messageInts.length; i++) {
 				messageInts[i] = in.nextInt();
 			}
+			
+			//Encrypt and Decrypt Runtime
 			Deck deck = new Deck(messageInts);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found.");
