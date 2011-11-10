@@ -33,7 +33,7 @@ public class Message {
 			}
 			characterArray[i] = (char)(message[i] + 'A' - 1);
 		}
-		return String.copyValueOf(characterArray).replaceAll("[", " ");
+		return String.copyValueOf(characterArray).replaceAll("[[]", " ");
 	}
 
 }
