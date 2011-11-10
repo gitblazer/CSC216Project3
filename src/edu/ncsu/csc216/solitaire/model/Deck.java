@@ -40,18 +40,43 @@ public class Deck {
 		// find A Joker (value 27)
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
-		int tempVal = deck.get(deck.indexOf(27)-1);
+		int tempVal = 0;
+		if (deck.indexOf(27)-1 < 0) {
+			tempVal = deck.get(27 + deck.indexOf(27)-1);
+		}
+		else {
+			tempVal = deck.get(deck.indexOf(27)-1);
+		}
+		
 		int jokerIndexA = deck.indexOf(27);
-		deck.set(jokerIndexA-1,27);
+		if (jokerIndexA-1 < 0) {
+			deck.set(27 + jokerIndexA-1,27);
+		}
+		else {
+			deck.set(jokerIndexA-1,27);
+		}
 		deck.set(jokerIndexA,tempVal);
 		
 		
 		// find B Joker (value 28)
 		// move it down 2 positions
 		// ** still circular, 28 connects back to 1 **
-		int tempVal2 = deck.get(deck.indexOf(28)-2);
+		int tempVal2 = 0;
+		if (deck.indexOf(28)-2 < 0) {
+			tempVal2 = deck.get(27 + deck.indexOf(28)-2);
+		}
+		else {
+			tempVal2 = deck.get(deck.indexOf(28)-2);
+		}
+		
 		int jokerIndexB= deck.indexOf(28);
-		deck.set(jokerIndexB-2,28);
+		if  (jokerIndexB-2 < 0) {
+			deck.set(27 + jokerIndexB-2,28);
+		}
+		else {
+			deck.set(jokerIndexB-2,28);
+		}
+		
 		deck.set(jokerIndexB,tempVal2);
 		
 		// swap the top third of the deck with the bottom third of the deck
@@ -63,15 +88,28 @@ public class Deck {
 		// ** if bottom card value = 27 or 28 (a joker) then use 27 regardless *
 		int temp3 = deck.get(27);
 		for (int i = 0; i < temp3; i++) {
-			deck.addLast(0);
+			deck.addLast(deck.get(0));
+			deck.remove(0);
 		}
 		deck.addLast(deck.indexOf(temp3));
+		deck.remove(deck.indexOf(temp3));
 						
 		// ** read the top cards value (28 or 27 both are 27 again) **
 		// go down into the deck that many cards
 		// return the value of the next card
 		int temp4 = deck.get(0);
-		int returnMe = deck.get(temp4 + 1);
+		if (temp4 == 28) {
+			temp4 = 27;
+		}
+		
+		int returnMe = 0;
+		if (temp4 + 1 > 27) {
+			returnMe = deck.get(temp4 + 1 - 27);
+		}
+		else {
+			returnMe = deck.get(temp4 + 1);
+		}
+	
 		
 		return returnMe;
 	}
