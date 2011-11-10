@@ -1,6 +1,7 @@
 package edu.ncsu.csc216.solitaire.test;
 
 import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ import edu.ncsu.csc216.solitaire.model.Message;
  * @author William Blazer, Andrew Kofink
  *
  */
-public class MessageTest {
+public class MessageTest extends TestCase {
 
 	public Message m = new Message("This is a test");
 	private Deck d = DeckTest.d;
