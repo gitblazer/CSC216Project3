@@ -14,7 +14,7 @@ import edu.ncsu.csc216.solitaire.model.Message;
 public class MessageTest {
 
 	public Message m = new Message("This is a test");
-	private Deck d = DeckTest.deck;
+	private Deck d = DeckTest.d;
 	
 	/**
 	 * Test that creating a Message works
