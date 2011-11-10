@@ -1,11 +1,14 @@
 /**
  * 
  */
-package edu.ncsu.csc216.solitaire.model;
+package edu.ncsu.csc216.solitaire.test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import edu.ncsu.csc216.solitaire.model.Deck;
+import edu.ncsu.csc216.solitaire.model.Message;
 
 /**
  * @author William
