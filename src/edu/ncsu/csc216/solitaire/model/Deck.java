@@ -41,49 +41,105 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		int tempVal = 0;
-		System.out.println("B joker position: " + deck.indexOf(28));
-		if (deck.indexOf(27)-1 == -1) {
-			tempVal = deck.get(27);
+		//System.out.println("B joker position1: " + deck.indexOf(28));
+		if (deck.indexOf(27)+1 == 28) {
+			tempVal = deck.get(0);
 		}
 		else {
-			tempVal = deck.get(deck.indexOf(27)-1);
+			tempVal = deck.get(deck.indexOf(27)+1);
 		}
-		
+		//System.out.println("B joker position2: " + deck.indexOf(28));
 		int jokerIndexA = deck.indexOf(27);
-		if (jokerIndexA - 1 == -1) {
-			deck.set(27,27);
+		if (jokerIndexA + 1 == 28) {
+			deck.set(0,27);
 		}
 		else {
-			deck.set(jokerIndexA-1,27);
+			deck.set(jokerIndexA + 1,27);
 		}
+		//System.out.println("B joker position3: " + deck.indexOf(28));
 		deck.set(jokerIndexA,tempVal);
 		
-		
+		//------------------------------------------------------------------------------
 		
 		// find B Joker (value 28)
 		// move it down 2 positions
 		// ** still circular, 28 connects back to 1 **
+				
+		//swaps forward the first of two positions
 		int tempVal2 = 0;
-		System.out.println("B joker position: " + deck.indexOf(28));
-		if (deck.indexOf(28)-2 < 0) {
-			tempVal2 = deck.get(28 + deck.indexOf(28)-2);
+		if (deck.indexOf(28) + 1 > 27) {
+			tempVal2 = deck.get(deck.indexOf(28) + 1 - 28);
 		}
 		else {
-			tempVal2 = deck.get(deck.indexOf(28)-2);
+			tempVal2 = deck.get(deck.indexOf(28) + 1);
 		}
 		
 		int jokerIndexB= deck.indexOf(28);
-		if  (jokerIndexB-2 < 0) {
-			deck.set(28 + jokerIndexB-2,28);
+		if  (jokerIndexB + 1 > 27) {
+			deck.set(jokerIndexB + 1 - 28,28);
 		}
 		else {
-			deck.set(jokerIndexB-2,28);
+			deck.set(jokerIndexB + 1,28);
+		}
+		deck.set(jokerIndexB,tempVal2);
+				
+		//swaps forward the first of two positions
+		tempVal2 = 0;
+		if (deck.indexOf(28) + 1 > 27) {
+			tempVal2 = deck.get(deck.indexOf(28) + 1 - 28);
+		}
+		else {
+			tempVal2 = deck.get(deck.indexOf(28) + 1);
 		}
 		
+		jokerIndexB= deck.indexOf(28);
+		if  (jokerIndexB + 1 > 27) {
+			deck.set(jokerIndexB + 1 - 28,28);
+		}
+		else {
+			deck.set(jokerIndexB + 1,28);
+		}
 		deck.set(jokerIndexB,tempVal2);
+		
+		//------------------------------------------------------------------------------
 		
 		// swap the top third of the deck with the bottom third of the deck
 		// the two jokers denote the split points
+		printDeck(deck);
+		
+		int cutJokerA = deck.indexOf(27);
+		int cutJokerB = deck.indexOf(28);
+		int bottomCutOff = deck.get(27);
+		
+		int topJoker = 0;
+		int bottomJoker = 0;
+		if (cutJokerA > cutJokerB) {
+			topJoker = cutJokerA;
+			bottomJoker = cutJokerB;
+		}
+		else {
+			topJoker = cutJokerB;
+			bottomJoker = cutJokerA;
+		}
+		System.out.println(topJoker);
+		System.out.println(bottomJoker);
+		
+		for (int i = 0; i < topJoker; i++) {
+			//move top value to bottom of deck and then delete
+			deck.addLast(deck.get(i));
+			deck.remove(i);
+		}
+		
+		printDeck(deck);
+		
+		for (int i = bottomJoker; i > bottomCutOff; i--) {
+			//move values between bottom joker and the decks original bottom to the top and delete
+			deck.addFirst(deck.get(i));
+			deck.remove(i);
+		}
+		
+		printDeck(deck);
+		//------------------------------------------------------------------------------
 		
 		// get the value of the bottom card (position 27)
 		// move that number of cards from the top of the deck to the bottom
@@ -96,6 +152,8 @@ public class Deck {
 		}
 		deck.addLast(deck.indexOf(temp3));
 		deck.remove(deck.indexOf(temp3));
+		
+		//------------------------------------------------------------------------------
 						
 		// ** read the top cards value (28 or 27 both are 27 again) **
 		// go down into the deck that many cards
@@ -114,17 +172,26 @@ public class Deck {
 		}
 	
 		System.out.println("Keystream Value returned: " + returnMe);
+		//printDeck(deck);
+		if (returnMe == 28) {
+			returnMe = 27;
+		}
+		
+		return returnMe;
+	}
+	
+	public static void printDeck(LinkedList<Integer> deck2) {
+		
 		// below is a loop to print out the arraylist  for debugging purposes
 		//--------------------------
 		System.out.print("Deck: ");
 		for (int i = 0; i < 28; i++) {
-			System.out.print(deck.get(i) + " ");
+			System.out.print(deck2.get(i) + " ");
 		}
 		System.out.println();
 		System.out.println("-----");
 		
 		
 		//----------------------
-		return returnMe;
 	}
 }
