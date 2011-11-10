@@ -152,16 +152,16 @@ public class Deck {
 		
 		for (int i = 0; i < topJoker; i++) {
 			//move top value to bottom of deck and then delete
-			deck.addLast(deck.get(i));
-			deck.remove(i);
+			deck.addLast(deck.get(0));
+			deck.remove(0);
 		}
 		
 		printDeck(deck);
 		
 		for (int i = bottomJoker; i > bottomCutOff; i--) {
 			//move values between bottom joker and the decks original bottom to the top and delete
-			deck.addFirst(deck.get(i));
-			deck.remove(i);
+			deck.addFirst(deck.get(bottomJoker + 1));
+			deck.remove(bottomJoker + 1);
 		}
 		
 		printDeck(deck);

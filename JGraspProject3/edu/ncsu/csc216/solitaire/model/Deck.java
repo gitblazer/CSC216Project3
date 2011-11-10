@@ -139,7 +139,7 @@ public class Deck {
 		
 		int topJoker = 0;
 		int bottomJoker = 0;
-		if (cutJokerA > cutJokerB) {
+		if (cutJokerA < cutJokerB) {
 			topJoker = cutJokerA;
 			bottomJoker = cutJokerB;
 		}
