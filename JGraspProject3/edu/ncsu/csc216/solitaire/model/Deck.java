@@ -8,14 +8,8 @@ import java.util.LinkedList;
  */
 public class Deck {
 
-	/**
-	 * 
-	 */
 	private LinkedList<Integer> deck = new LinkedList<Integer>();
 	
-	/**
-	 * @param deckArray
-	 */
 	public Deck(int[] deckArray ) {
 		// checks the int[] deck for the existance of 1-28 before
 		// building it into linked list
@@ -41,22 +35,8 @@ public class Deck {
 		}
 	}
 	
-	/**
-	 * @return
-	 */
 	public int getKeySteamValue()  {
 		
-		stepOne();
-		stepTwo();
-		stepThree();
-		stepFour();
-		return stepFive();
-	}
-	
-	/**
-	 * 
-	 */
-	private void stepOne() {
 		// find A Joker (value 27)
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
@@ -78,12 +58,9 @@ public class Deck {
 		}
 		//System.out.println("B joker position3: " + deck.indexOf(28));
 		deck.set(jokerIndexA,tempVal);
-	}
-	
-	/**
-	 * 
-	 */
-	private void stepTwo() {
+		
+		//------------------------------------------------------------------------------
+		
 		// find B Joker (value 28)
 		// move it down 2 positions
 		// ** still circular, 28 connects back to 1 **
@@ -123,12 +100,9 @@ public class Deck {
 			deck.set(jokerIndexB + 1,28);
 		}
 		deck.set(jokerIndexB,tempVal2);
-	}
-	
-	/**
-	 * 
-	 */
-	private void stepThree() {
+		
+		//------------------------------------------------------------------------------
+		
 		// swap the top third of the deck with the bottom third of the deck
 		// the two jokers denote the split points
 		printDeck(deck);
@@ -165,12 +139,8 @@ public class Deck {
 		}
 		
 		printDeck(deck);
-	}
-	
-	/**
-	 * 
-	 */
-	private void stepFour() {
+		//------------------------------------------------------------------------------
+		
 		// get the value of the bottom card (position 27)
 		// move that number of cards from the top of the deck to the bottom
 		// replace the bottom card on the bottom again
@@ -182,12 +152,9 @@ public class Deck {
 		}
 		deck.addLast(deck.indexOf(temp3));
 		deck.remove(deck.indexOf(temp3));
-	}
-	
-	/**
-	 * @return
-	 */
-	private int stepFive() {
+		
+		//------------------------------------------------------------------------------
+						
 		// ** read the top cards value (28 or 27 both are 27 again) **
 		// go down into the deck that many cards
 		// return the value of the next card
@@ -209,13 +176,12 @@ public class Deck {
 		if (returnMe == 28) {
 			returnMe = 27;
 		}
+		
 		return returnMe;
 	}
 	
-	/**
-	 * @param deck2
-	 */
-	public static void printDeck(LinkedList<Integer> deck2) { 
+	public static void printDeck(LinkedList<Integer> deck2) {
+		
 		// below is a loop to print out the arraylist  for debugging purposes
 		//--------------------------
 		System.out.print("Deck: ");
