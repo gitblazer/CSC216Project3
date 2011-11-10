@@ -110,7 +110,18 @@ public class Deck {
 			returnMe = deck.get(temp4 + 1);
 		}
 	
+		System.out.println("Keystream Value returned: " + returnMe);
+		// below is a loop to print out the arraylist  for debugging purposes
+		//--------------------------
+		System.out.print("Deck: ");
+		for (int i = 0; i < 28; i++) {
+			System.out.print(deck.get(i) + " ");
+		}
+		System.out.println();
+		System.out.println("-----");
 		
+		
+		//----------------------
 		return returnMe;
 	}
 }
