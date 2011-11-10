@@ -1,5 +1,5 @@
 !656;s
-A
+J
 SAU0PATH+=%<JGRASP_PATHS>%;
 SCU0PATH+=%<JGRASP_PATHS>%;\012CYGWIN=nodosfilewarning
 S+U0PATH+=%<JGRASP_PATHS>%;\012CYGWIN=nodosfilewarning
@@ -10,3 +10,11 @@ s#i0
 s#k0
 s#j0
 s#l0
+!154;g
+%\011edu%sncsu%scsc216%ssolitaire%sui%sUI.java
+%\011edu%sncsu%scsc216%ssolitaire%smodel%sDeck.java
+%\011edu%sncsu%scsc216%ssolitaire%smodel%sMessage.java
+!145;f
+%	edu%sncsu%scsc216%ssolitaire%sui%sUI.java
+%	edu%sncsu%scsc216%ssolitaire%smodel%sDeck.java
+%	edu%sncsu%scsc216%ssolitaire%smodel%sMessage.java
