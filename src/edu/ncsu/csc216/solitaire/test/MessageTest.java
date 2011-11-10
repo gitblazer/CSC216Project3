@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.ncsu.csc216.solitaire.test;
 
 import static org.junit.Assert.*;
@@ -11,25 +8,28 @@ import edu.ncsu.csc216.solitaire.model.Deck;
 import edu.ncsu.csc216.solitaire.model.Message;
 
 /**
- * @author William
+ * @author William Blazer, Andrew Kofink
  *
  */
 public class MessageTest {
 
+	public Message m = new Message("This is a test");
+	private Deck d = DeckTest.deck;
+	
 	/**
-	 * Test method for {@link edu.ncsu.csc216.solitaire.model.Message#Message(java.lang.String)}.
+	 * Test that creating a Message works
 	 */
 	@Test
 	public void testMessage() {
-		fail("Not yet implemented");
+		assertEquals(m.getClass(), (new Message("Test")).getClass());
 	}
 
 	/**
-	 * Test method for {@link edu.ncsu.csc216.solitaire.model.Message#encrypt(edu.ncsu.csc216.solitaire.model.Deck)}.
+	 * Encrypts the message
 	 */
 	@Test
 	public void testEncrypt() {
-		fail("Not yet implemented");
+		m.encrypt(d);
 	}
 
 	/**
