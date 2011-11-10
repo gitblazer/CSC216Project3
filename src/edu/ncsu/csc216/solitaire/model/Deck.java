@@ -30,7 +30,7 @@ public class Deck {
 	
 		// now the deckArray[] is turned into the actual linked list deck 
 	
-		for (int k = 0; k < 27; k++) {
+		for (int k = 0; k < 28; k++) {
 			deck.add(deckArray[k]);
 		}
 	}
