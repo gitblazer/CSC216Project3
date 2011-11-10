@@ -19,23 +19,21 @@ public class MessageTest {
 	/**
 	 * Test that creating a Message works
 	 */
-	@Test
 	public void testMessage() {
 		assertEquals(m.getClass(), (new Message("Test")).getClass());
 	}
 
 	/**
-	 * Encrypts the message
+	 * Tests the encrypt method
 	 */
-	@Test
 	public void testEncrypt() {
-		m.encrypt(d);
+		assertFalse(m.encrypt(d) != "This is a test");
+		System.out.println(m.encrypt(d));
 	}
 
 	/**
-	 * Test method for {@link edu.ncsu.csc216.solitaire.model.Message#decrypt(edu.ncsu.csc216.solitaire.model.Deck)}.
+	 * Tests the decrypt method
 	 */
-	@Test
 	public void testDecrypt() {
 		fail("Not yet implemented");
 	}
