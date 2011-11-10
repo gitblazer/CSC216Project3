@@ -41,16 +41,17 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		int tempVal = 0;
-		if (deck.indexOf(27)-1 < 0) {
-			tempVal = deck.get(27 + deck.indexOf(27)-1);
+		System.out.println("B joker position: " + deck.indexOf(28));
+		if (deck.indexOf(27)-1 == -1) {
+			tempVal = deck.get(27);
 		}
 		else {
 			tempVal = deck.get(deck.indexOf(27)-1);
 		}
 		
 		int jokerIndexA = deck.indexOf(27);
-		if (jokerIndexA-1 < 0) {
-			deck.set(27 + jokerIndexA-1,27);
+		if (jokerIndexA - 1 == -1) {
+			deck.set(27,27);
 		}
 		else {
 			deck.set(jokerIndexA-1,27);
@@ -58,12 +59,14 @@ public class Deck {
 		deck.set(jokerIndexA,tempVal);
 		
 		
+		
 		// find B Joker (value 28)
 		// move it down 2 positions
 		// ** still circular, 28 connects back to 1 **
 		int tempVal2 = 0;
+		System.out.println("B joker position: " + deck.indexOf(28));
 		if (deck.indexOf(28)-2 < 0) {
-			tempVal2 = deck.get(27 + deck.indexOf(28)-2);
+			tempVal2 = deck.get(28 + deck.indexOf(28)-2);
 		}
 		else {
 			tempVal2 = deck.get(deck.indexOf(28)-2);
@@ -71,7 +74,7 @@ public class Deck {
 		
 		int jokerIndexB= deck.indexOf(28);
 		if  (jokerIndexB-2 < 0) {
-			deck.set(27 + jokerIndexB-2,28);
+			deck.set(28 + jokerIndexB-2,28);
 		}
 		else {
 			deck.set(jokerIndexB-2,28);
