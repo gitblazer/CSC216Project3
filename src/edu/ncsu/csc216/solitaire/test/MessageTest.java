@@ -1,9 +1,6 @@
 package edu.ncsu.csc216.solitaire.test;
 
-import static org.junit.Assert.*;
 import junit.framework.TestCase;
-
-import org.junit.Test;
 
 import edu.ncsu.csc216.solitaire.model.Deck;
 import edu.ncsu.csc216.solitaire.model.Message;
