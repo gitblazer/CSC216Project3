@@ -20,7 +20,7 @@ public class Message {
 			message[i] = (message[i] + deck.getKeySteamValue()) % ('[' - 'A');
 			characterArray[i] = (char)(message[i] + 'A' - 1);
 		}
-		return String.copyValueOf(characterArray).replaceAll("[", " ");
+		return String.copyValueOf(characterArray).replaceAll("\\[", " ");
 	}
 
 	public String decrypt(Deck deck) {
