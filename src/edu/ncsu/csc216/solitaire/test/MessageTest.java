@@ -9,34 +9,30 @@ import edu.ncsu.csc216.solitaire.model.Deck;
 import edu.ncsu.csc216.solitaire.model.Message;
 
 /**
+ * Tests the Message class
  * @author William Blazer, Andrew Kofink
- *
  */
 public class MessageTest extends TestCase {
 
-	public Message m = new Message("This is a test");
+	private String unencryptedMessage = "Go Pack, Beat Carolina!";
+	private String encryptedMessage = "WPLYGBSWUSNDPDSUONRQC";
+	public Message m = new Message(unencryptedMessage);
 	private Deck d = DeckTest.d;
-	
-	/**
-	 * Test that creating a Message works
-	 */
-	public void testMessage() {
-		assertEquals(m.getClass(), (new Message("Test")).getClass());
-	}
 
 	/**
 	 * Tests the encrypt method
 	 */
 	public void testEncrypt() {
-		assertFalse(m.encrypt(d) != "This is a test");
-		System.out.println(m.encrypt(d));
+		m = new Message(unencryptedMessage);
+		assertFalse(m.encrypt(d) == encryptedMessage);
 	}
 
 	/**
 	 * Tests the decrypt method
 	 */
 	public void testDecrypt() {
-		fail("Not yet implemented");
+		m = new Message(encryptedMessage);
+		assertFalse(m.encrypt(d) != unencryptedMessage);
 	}
 
 }
