@@ -11,6 +11,8 @@ public class Deck {
 	private static final int JOKER1 = 27;
 	
 	private static final int JOKER2 = 28;
+	
+	public static final int DECK_SIZE = 27;
 
 	/**
 	 * The Deck ArrayList
@@ -25,9 +27,8 @@ public class Deck {
 		// checks the int[] deck for the existance of 1-28 before
 		// building it into linked list
 		boolean valueFound = false;
-		int j = 0;
 		
-		for (j = 1; j < 28; j++) {
+		for (int j = 1; j <= 28; j++) {
 			valueFound = false;
 			for (int i = 0; i < 28; i++) {
 				if (j == deckArray[i]) {
@@ -137,7 +138,6 @@ public class Deck {
 				
 		int cutJokerA = deck.indexOf(27);
 		int cutJokerB = deck.indexOf(28);
-		int bottomCutOff = deck.get(27);
 		
 		int topJoker = 0;
 		int bottomJoker = 0;
@@ -161,8 +161,8 @@ public class Deck {
 		
 		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1) {
 			//move values between bottom joker and the decks original bottom to the top and delete
-			deck.addFirst(deck.get(deck.indexOf(value) - 1));
-			deck.remove(deck.indexOf(value) - 1);
+			deck.addFirst(deck.get((deck.indexOf(value) - 1) % DECK_SIZE));
+			deck.remove((deck.indexOf(value) - 1) % DECK_SIZE);
 		}			
 	}
 	
@@ -175,7 +175,7 @@ public class Deck {
 		// replace the bottom card on the bottom again
 		// ** if bottom card value = 27 or 28 (a joker) then use 27 regardless *
 		
-		System.out.print("Before: ");
+		//System.out.print("Before: ");
 				
 		int temp3 = deck.get(27);
 		deck.remove(27);
@@ -185,7 +185,7 @@ public class Deck {
 		}
 		deck.addLast(temp3);
 				
-		System.out.print("After:  ");
+		//System.out.print("After:  ");
 		
 	}
 	
@@ -197,7 +197,7 @@ public class Deck {
 		// ** read the top cards value (28 or 27 both are 27 again) **
 		// go down into the deck that many cards
 		// return the value of the next card
-		printDeck(deck);
+		//printDeck(deck);
 		
 		int temp4 = deck.get(0);
 		if (temp4 == 28) {
@@ -221,8 +221,8 @@ public class Deck {
 		if (returnMe == 28) {
 			returnMe = 27;
 		}
-		printDeck(deck);
-		System.out.println("Return value: " + returnMe);
+		//printDeck(deck);
+		//System.out.println("Return value: " + returnMe);
 		
 		/*
 		int gr = '@' + 0;

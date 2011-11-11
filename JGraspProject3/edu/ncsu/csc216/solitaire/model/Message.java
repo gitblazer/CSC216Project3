@@ -36,7 +36,7 @@ public class Message {
 		System.out.println("Encrypting...");
 		char[] characterArray = new char[message.length];
 		for (int i = 0; i < message.length; i++) {
-			message[i] = (message[i] + deck.getKeystreamValue()) % ('[' - 'A');
+			message[i] = (message[i] + deck.getKeystreamValue()) % (Deck.DECK_SIZE);
 			characterArray[i] = (char)(message[i] + 'A' - 1);
 		}
 		return String.copyValueOf(characterArray).replaceAll("\\[", " ");
@@ -53,7 +53,7 @@ public class Message {
 		for (int i = 0; i < message.length; i++) {
 			message[i] = (message[i] - deck.getKeystreamValue());
 			if (message[i] <= 0) {
-				message[i] += '[' - 'A';
+				message[i] += Deck.DECK_SIZE;
 			}
 			characterArray[i] = (char)(message[i] + 'A' - 1);
 		}
