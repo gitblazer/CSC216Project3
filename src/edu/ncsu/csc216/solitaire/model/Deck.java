@@ -164,7 +164,7 @@ public class Deck {
 			deck.remove(0);
 		}
 		
-		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1) {
+		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1 && deck.indexOf(bottomJoker) != deck.indexOf(value)) {
 			//move values between bottom joker and the decks original bottom to the top and delete
 			
 			if (deck.indexOf(value) == 0) {
