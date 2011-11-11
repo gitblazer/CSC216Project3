@@ -7,6 +7,10 @@ import java.util.LinkedList;
  * @author Andrew Kofink, William Blazer
  */
 public class Deck {
+	
+	private static final int JOKER1 = 27;
+	
+	private static final int JOKER2 = 28;
 
 	/**
 	 * 
@@ -140,17 +144,18 @@ public class Deck {
 		int topJoker = 0;
 		int bottomJoker = 0;
 		if (cutJokerA < cutJokerB) {
-			topJoker = cutJokerA;
-			bottomJoker = cutJokerB;
+			topJoker = JOKER1;
+			bottomJoker = JOKER2;
 		}
 		else {
-			topJoker = cutJokerB;
-			bottomJoker = cutJokerA;
+			topJoker = JOKER2;
+			bottomJoker = JOKER1;
 		}
-		System.out.println(topJoker);
-		System.out.println(bottomJoker);
+		System.out.println(deck.indexOf(topJoker));
+		System.out.println(deck.indexOf(bottomJoker));
 		
-		for (int i = 0; i < topJoker; i++) {
+		int value = deck.get(0);
+		while (deck.indexOf(topJoker) != 0) {
 			//move top value to bottom of deck and then delete
 			deck.addLast(deck.get(0));
 			deck.remove(0);
@@ -158,10 +163,10 @@ public class Deck {
 		
 		printDeck(deck);
 		
-		for (int i = bottomJoker; i > bottomCutOff; i--) {
+		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1) {
 			//move values between bottom joker and the decks original bottom to the top and delete
-			deck.addFirst(deck.get(bottomJoker + 1));
-			deck.remove(bottomJoker + 1);
+			deck.addFirst(deck.get(deck.indexOf(value) - 1));
+			deck.remove(deck.indexOf(value) - 1);
 		}
 		
 		printDeck(deck);
