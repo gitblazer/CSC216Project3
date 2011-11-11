@@ -27,7 +27,32 @@ public class Deck {
 		// checks the int[] deck for the existance of 1-28 before
 		// building it into linked list
 		boolean valueFound = false;
+	
+		//checks for values greater or less than 1-28
+		for (int j = 0; j <= 27; j++) {
+			if (deckArray[j] < 1)  {
+				throw new IllegalArgumentException("A value below zero exists");
+			}
+			if ( deckArray[j] > 28) {
+				throw new IllegalArgumentException("A value above 28 exists");
+			}
+					
+		}
 		
+		//checks for duplicate values
+		boolean[] exists = new boolean[29];
+		for (int i = 0; i < 29; i++ ) {
+			exists[i] = false;
+		}
+		for (int j = 0; j <= 27; j++) {
+			if (exists[deckArray[j]]) {
+				System.out.println("The value: " + deckArray[j] + " exists twice!");
+				throw new IllegalArgumentException("A duplicate value exists");
+			}	
+			exists[deckArray[j]] = true;
+		}
+		
+		//makes sure 1-28 exist in the deck
 		for (int j = 1; j <= 28; j++) {
 			valueFound = false;
 			for (int i = 0; i < deckArray.length; i++) {
@@ -70,14 +95,14 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		int tempVal = 0;
-		if (deck.indexOf(27) + 1 == 28) {
+		if (deck.indexOf(27) == DECK_SIZE) {
 			tempVal = deck.get(0);
 		}
 		else {
 			tempVal = deck.get(deck.indexOf(27) + 1);
 		}	
 		int jokerIndexA = deck.indexOf(27);
-		if (jokerIndexA + 1 == 28) {
+		if (jokerIndexA == DECK_SIZE) {
 			deck.set(0 , 27);
 		}
 		else {
