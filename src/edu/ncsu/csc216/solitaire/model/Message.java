@@ -37,8 +37,8 @@ public class Message {
 		char[] characterArray = new char[message.length];
 		for (int i = 0; i < message.length; i++) {
 			int keystream = deck.getKeystreamValue();
-			if (keystream + message[i] > Deck.DECK_SIZE) {
-				keystream -= Deck.DECK_SIZE;
+			if (keystream + message[i] > Deck.DECK_SIZE - 1) {
+				keystream -= (Deck.DECK_SIZE - 1);
 			}
 			message[i] = message[i] + keystream;
 			characterArray[i] = (char)(message[i] + 'A' - 1);
@@ -57,7 +57,7 @@ public class Message {
 		for (int i = 0; i < message.length; i++) {
 			message[i] = (message[i] - deck.getKeystreamValue());
 			if (message[i] <= 0) {
-				message[i] += Deck.DECK_SIZE;
+				message[i] += Deck.DECK_SIZE - 1;
 			}
 			characterArray[i] = (char)(message[i] + 'A' - 1);
 		}

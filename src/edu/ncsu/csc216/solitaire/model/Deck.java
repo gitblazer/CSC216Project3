@@ -15,7 +15,7 @@ public class Deck {
 	/**
 	 * Final value for the size of the deck
 	 */
-	public static final int DECK_SIZE = 27;
+	public static final int DECK_SIZE = 28;
 
 	/**
 	 * The Deck ArrayList
@@ -40,17 +40,21 @@ public class Deck {
 			}					
 		}		
 		//checks for duplicate values
-		boolean[] exists = new boolean[29];
-		for (int i = 0; i < 29; i++ ) {
+		if (deckArray.length != DECK_SIZE) {
+			throw new IllegalArgumentException("Not enough values in the deck!");
+		}
+		boolean[] exists = new boolean[DECK_SIZE + 1];
+		for (int i = 1; i < DECK_SIZE + 1; i++ ) {
 			exists[i] = false;
 		}
-		for (int j = 0; j <= 27; j++) {
-			if (exists[deckArray[j]]) {
-				System.out.println("The value: " + deckArray[j] + " exists twice!");
+		for (int i = 0; i < DECK_SIZE; i++) {
+			if (exists[deckArray[i]]) {
+				System.out.println("The value: " + deckArray[i] + " exists twice!");
 				throw new IllegalArgumentException("A duplicate value exists");
 			}	
-			exists[deckArray[j]] = true;
-		}		
+			exists[deckArray[i]] = true;
+		}
+		
 		//makes sure 1-28 exist in the deck
 		for (int j = 1; j <= 28; j++) {
 			valueFound = false;
@@ -95,14 +99,14 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		int tempVal = 0;
-		if (deck.indexOf(27) == DECK_SIZE) {
+		if (deck.indexOf(27) == DECK_SIZE - 1) {
 			tempVal = deck.get(0);
 		}
 		else {
 			tempVal = deck.get(deck.indexOf(27) + 1);
 		}	
 		int jokerIndexA = deck.indexOf(27);
-		if (jokerIndexA == DECK_SIZE) {
+		if (jokerIndexA == DECK_SIZE - 1) {
 			deck.set(0 , 27);
 		}
 		else {
@@ -173,7 +177,7 @@ public class Deck {
 			bottomJoker = JOKER1;
 		}
 		
-		int value = deck.get(DECK_SIZE);
+		int value = deck.get(DECK_SIZE - 1);
 		if (deck.get(0) != topJoker && deck.get(0) != bottomJoker) {
 			value = deck.get(0);
 		} else if (deck.get(0) == topJoker) {
@@ -188,13 +192,13 @@ public class Deck {
 		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1 && deck.indexOf(bottomJoker) != deck.indexOf(value)) {
 			//move values between bottom joker and the decks original bottom to the top and delete
 			if (deck.indexOf(value) == 0) {
-				deck.addFirst(deck.get(deck.indexOf(value) + DECK_SIZE - 1));
+				deck.addFirst(deck.get(deck.indexOf(value) + DECK_SIZE - 2));
 			} else {
 				deck.addFirst(deck.get(deck.indexOf(value) - 1));
 			}
 			
 			if (deck.indexOf(value) == 0) {
-				deck.remove(deck.indexOf(value) + DECK_SIZE - 1);
+				deck.remove(deck.indexOf(value) + DECK_SIZE - 2);
 			} else {
 				deck.remove(deck.indexOf(value) - 1);
 			}
