@@ -78,8 +78,11 @@ public class Deck {
 	 */
 	public int getKeystreamValue()  {
 		
+		//printDeck(deck);
 		stepOne();
+		//printDeck(deck);
 		stepTwo();
+		//printDeck(deck);
 		stepThree();
 		stepFour();
 		int value = stepFive();
@@ -277,17 +280,19 @@ public class Deck {
 	 * used to print the deck for debugging
 	 * @param deck2 deck to be printed
 	 */
-//	public static void printDeck(LinkedList<Integer> deck2) { 
-//		// below is a loop to print out the arraylist  for debugging purposes
-//		//--------------------------
-//		System.out.print("Deck: ");
-//		for (int i = 0; i < 28; i++) {
-//			System.out.print(deck2.get(i) + " ");
-//		}
-//		System.out.println();
-//		System.out.println("-----");
-//		
-//		
-//		//----------------------
-//	}
+/*	public static void printDeck(LinkedList<Integer> deck2) { 
+		// below is a loop to print out the arraylist  for debugging purposes
+		//--------------------------
+		System.out.print("Deck: ");
+		for (int i = 0; i < 28; i++) {
+			System.out.print(deck2.get(i) + " ");
+		}
+		System.out.println();
+		System.out.println("-----");
+	
+		
+		//----------------------
+	}
+*/
+	
 }
