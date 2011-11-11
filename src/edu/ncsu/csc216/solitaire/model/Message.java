@@ -12,7 +12,9 @@ public class Message {
 			message[i] = characterArray[i] - 'A' + 1;
 		}
 	}
-
+	// the @ sybol is value 64, right before 'A' value of 65, check boundary down here
+	// the characters for ' ' spaces are one more than they should be. I.E , a 'X' is being returned when it should be a 'W' for spaces
+	
 	public String encrypt(Deck deck) {
 		System.out.println("Encrypting...");
 		char[] characterArray = new char[message.length];

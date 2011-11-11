@@ -65,22 +65,19 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		int tempVal = 0;
-		//System.out.println("B joker position1: " + deck.indexOf(28));
 		if (deck.indexOf(27)+1 == 28) {
 			tempVal = deck.get(0);
 		}
 		else {
 			tempVal = deck.get(deck.indexOf(27)+1);
-		}
-		//System.out.println("B joker position2: " + deck.indexOf(28));
+		}	
 		int jokerIndexA = deck.indexOf(27);
 		if (jokerIndexA + 1 == 28) {
 			deck.set(0,27);
 		}
 		else {
 			deck.set(jokerIndexA + 1,27);
-		}
-		//System.out.println("B joker position3: " + deck.indexOf(28));
+		}		
 		deck.set(jokerIndexA,tempVal);
 	}
 	
@@ -135,8 +132,7 @@ public class Deck {
 	private void stepThree() {
 		// swap the top third of the deck with the bottom third of the deck
 		// the two jokers denote the split points
-		printDeck(deck);
-		
+				
 		int cutJokerA = deck.indexOf(27);
 		int cutJokerB = deck.indexOf(28);
 		int bottomCutOff = deck.get(27);
@@ -151,8 +147,8 @@ public class Deck {
 			topJoker = JOKER2;
 			bottomJoker = JOKER1;
 		}
-		System.out.println(deck.indexOf(topJoker));
-		System.out.println(deck.indexOf(bottomJoker));
+		//System.out.println(deck.indexOf(topJoker));
+		//System.out.println(deck.indexOf(bottomJoker));
 		
 		int value = deck.get(0);
 		while (deck.indexOf(topJoker) != 0) {
@@ -161,15 +157,11 @@ public class Deck {
 			deck.remove(0);
 		}
 		
-		printDeck(deck);
-		
 		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1) {
 			//move values between bottom joker and the decks original bottom to the top and delete
 			deck.addFirst(deck.get(deck.indexOf(value) - 1));
 			deck.remove(deck.indexOf(value) - 1);
-		}
-		
-		printDeck(deck);
+		}			
 	}
 	
 	/**
@@ -180,13 +172,19 @@ public class Deck {
 		// move that number of cards from the top of the deck to the bottom
 		// replace the bottom card on the bottom again
 		// ** if bottom card value = 27 or 28 (a joker) then use 27 regardless *
+		
+		System.out.print("Before: ");
+				
 		int temp3 = deck.get(27);
+		deck.remove(27);
 		for (int i = 0; i < temp3; i++) {
 			deck.addLast(deck.get(0));
 			deck.remove(0);
 		}
-		deck.addLast(deck.indexOf(temp3));
-		deck.remove(deck.indexOf(temp3));
+		deck.addLast(temp3);
+				
+		System.out.print("After:  ");
+		
 	}
 	
 	/**
@@ -196,24 +194,46 @@ public class Deck {
 		// ** read the top cards value (28 or 27 both are 27 again) **
 		// go down into the deck that many cards
 		// return the value of the next card
+		printDeck(deck);
+		
 		int temp4 = deck.get(0);
 		if (temp4 == 28) {
 			temp4 = 27;
 		}
 		
 		int returnMe = 0;
+		/*
 		if (temp4 + 1 > 27) {
 			returnMe = deck.get(temp4 + 1 - 27);
 		}
 		else {
 			returnMe = deck.get(temp4 + 1);
 		}
+		*/
+		
+		returnMe = deck.get(temp4);
 	
-		System.out.println("Keystream Value returned: " + returnMe);
+		//System.out.println("Keystream Value returned: " + returnMe);
 		//printDeck(deck);
 		if (returnMe == 28) {
 			returnMe = 27;
 		}
+		printDeck(deck);
+		System.out.println("Return value: " + returnMe);
+		
+		/*
+		int gr = '@' + 0;
+		System.out.println("value of @: " + gr);
+		int gr1 = 'Z' + 0;
+		System.out.println("value of Z: " + gr1);
+		int gr2 = 'z' + 0;
+		System.out.println("value of z: " + gr2);
+		int gr3 = 'a' + 0;
+		System.out.println("value of a: " + gr3);
+		int gr4 = 'A' + 0;
+		System.out.println("value of A: " + gr4);
+		*/
+		
 		return returnMe;
 	}
 	
