@@ -30,7 +30,7 @@ public class Deck {
 		
 		for (int j = 1; j <= 28; j++) {
 			valueFound = false;
-			for (int i = 0; i < 28; i++) {
+			for (int i = 0; i < deckArray.length; i++) {
 				if (j == deckArray[i]) {
 					valueFound = true;
 				}
@@ -57,7 +57,9 @@ public class Deck {
 		stepTwo();
 		stepThree();
 		stepFour();
-		return stepFive();
+		int value = stepFive();
+		System.out.println(value);
+		return value;
 	}
 	
 	/**
@@ -152,7 +154,10 @@ public class Deck {
 		//System.out.println(deck.indexOf(topJoker));
 		//System.out.println(deck.indexOf(bottomJoker));
 		
-		int value = deck.get(0);
+		int value = DECK_SIZE;
+		if (deck.get(0) != 27 && deck.get(0) != 28) {
+			value = deck.get(0);
+		}
 		while (deck.indexOf(topJoker) != 0) {
 			//move top value to bottom of deck and then delete
 			deck.addLast(deck.get(0));
@@ -161,8 +166,18 @@ public class Deck {
 		
 		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1) {
 			//move values between bottom joker and the decks original bottom to the top and delete
-			deck.addFirst(deck.get((deck.indexOf(value) - 1) % DECK_SIZE));
-			deck.remove((deck.indexOf(value) - 1) % DECK_SIZE);
+			
+			if (deck.indexOf(value) == 0) {
+				deck.addFirst(deck.get(deck.indexOf(value) + DECK_SIZE - 1));
+			} else {
+				deck.addFirst(deck.get(deck.indexOf(value) - 1));
+			}
+			
+			if (deck.indexOf(value) == 0) {
+				deck.remove(deck.indexOf(value) + DECK_SIZE - 1);
+			} else {
+				deck.remove(deck.indexOf(value) - 1);
+			}
 		}			
 	}
 	
@@ -224,19 +239,6 @@ public class Deck {
 		//printDeck(deck);
 		//System.out.println("Return value: " + returnMe);
 		
-		/*
-		int gr = '@' + 0;
-		System.out.println("value of @: " + gr);
-		int gr1 = 'Z' + 0;
-		System.out.println("value of Z: " + gr1);
-		int gr2 = 'z' + 0;
-		System.out.println("value of z: " + gr2);
-		int gr3 = 'a' + 0;
-		System.out.println("value of a: " + gr3);
-		int gr4 = 'A' + 0;
-		System.out.println("value of A: " + gr4);
-		*/
-		
 		return returnMe;
 	}
 	
@@ -244,17 +246,17 @@ public class Deck {
 	 * used to print the deck for debugging
 	 * @param deck2 deck to be printed
 	 */
-	public static void printDeck(LinkedList<Integer> deck2) { 
-		// below is a loop to print out the arraylist  for debugging purposes
-		//--------------------------
-		System.out.print("Deck: ");
-		for (int i = 0; i < 28; i++) {
-			System.out.print(deck2.get(i) + " ");
-		}
-		System.out.println();
-		System.out.println("-----");
-		
-		
-		//----------------------
-	}
+//	public static void printDeck(LinkedList<Integer> deck2) { 
+//		// below is a loop to print out the arraylist  for debugging purposes
+//		//--------------------------
+//		System.out.print("Deck: ");
+//		for (int i = 0; i < 28; i++) {
+//			System.out.print(deck2.get(i) + " ");
+//		}
+//		System.out.println();
+//		System.out.println("-----");
+//		
+//		
+//		//----------------------
+//	}
 }
