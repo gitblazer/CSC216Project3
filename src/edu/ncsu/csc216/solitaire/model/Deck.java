@@ -58,7 +58,7 @@ public class Deck {
 		stepThree();
 		stepFour();
 		int value = stepFive();
-		System.out.println(value);
+		//System.out.println(value);
 		return value;
 	}
 	

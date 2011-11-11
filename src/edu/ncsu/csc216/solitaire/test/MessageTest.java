@@ -5,13 +5,14 @@ import junit.framework.TestCase;
 import edu.ncsu.csc216.solitaire.model.Deck;
 import edu.ncsu.csc216.solitaire.model.Message;
 
-/**
+/**, 28
  * Tests the Message class
  * @author William Blazer, Andrew Kofink
  */
 public class MessageTest extends TestCase {
 
-	private String startingMessage = "GO PACK BEAT CAROLINA";
+	private String startingMessage = "GO PACK BEAT CAROLINA AS WELL AS THOSE OTHER KIND OF UGLY SCHOOLS THIS " +
+			"RATHER LONG STRING IS A TEST OF XYLOPHONES AND LONGNESS TO CREATE RANDOM LISTS";
 
 	/**
 	 * Tests the encrypt method
