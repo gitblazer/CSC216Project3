@@ -123,8 +123,7 @@ public class Deck {
 		int tempVal2 = 0;
 		if (deck.indexOf(28) + 1 > 27) {
 			tempVal2 = deck.get(deck.indexOf(28) + 1 - 28);
-		}
-		else {
+		} else {
 			tempVal2 = deck.get(deck.indexOf(28) + 1);
 		}
 		
@@ -217,12 +216,18 @@ public class Deck {
 		//System.out.print("Before: ");
 				
 		int temp3 = deck.get(27);
+		int temp = temp3;
+		
+		if (temp3 == 28) {
+			temp3 = 27;
+		}
+		
 		deck.remove(27);
 		for (int i = 0; i < temp3; i++) {
 			deck.addLast(deck.get(0));
 			deck.remove(0);
 		}
-		deck.addLast(temp3);
+		deck.addLast(temp);
 				
 		//System.out.print("After:  ");
 		

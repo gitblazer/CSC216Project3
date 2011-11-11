@@ -18,7 +18,7 @@ public class Message {
 	 */
 	public Message(String messageString) {
 		//Replace all non-alphabetic characters with '' and spaces with '[' (The ASCII value of 'Z' + 1)
-		char[] characterArray = messageString.toUpperCase().replaceAll("[^A-Z ]+","").replaceAll("[ ]" , "[").toCharArray();
+		char[] characterArray = messageString.toUpperCase().replaceAll("[^A-Z ]+" , "").replaceAll("[ ]" , "[").toCharArray();
 		message = new int[characterArray.length];
 		for (int i = 0; i < characterArray.length; i++) {
 			message[i] = characterArray[i] - 'A' + 1;
@@ -36,7 +36,11 @@ public class Message {
 		System.out.println("Encrypting...");
 		char[] characterArray = new char[message.length];
 		for (int i = 0; i < message.length; i++) {
-			message[i] = (message[i] + deck.getKeystreamValue()) % (Deck.DECK_SIZE);
+			int keystream = deck.getKeystreamValue();
+			if (keystream + message[i] > Deck.DECK_SIZE) {
+				keystream -= Deck.DECK_SIZE;
+			}
+			message[i] = message[i] + keystream;
 			characterArray[i] = (char)(message[i] + 'A' - 1);
 		}
 		return String.copyValueOf(characterArray).replaceAll("\\[", " ");

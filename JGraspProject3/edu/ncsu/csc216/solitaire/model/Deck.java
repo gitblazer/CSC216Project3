@@ -12,6 +12,9 @@ public class Deck {
 	
 	private static final int JOKER2 = 28;
 	
+	/**
+	 * Final value for the size of the deck
+	 */
 	public static final int DECK_SIZE = 27;
 
 	/**
@@ -26,8 +29,29 @@ public class Deck {
 	public Deck(int[] deckArray ) {
 		// checks the int[] deck for the existance of 1-28 before
 		// building it into linked list
-		boolean valueFound = false;
-		
+		boolean valueFound = false;	
+		//checks for values greater or less than 1-28
+		for (int j = 0; j < deckArray.length; j++) {
+			if (deckArray[j] < 1)  {
+				throw new IllegalArgumentException("A value below zero exists");
+			}
+			if ( deckArray[j] > 28) {
+				throw new IllegalArgumentException("A value above 28 exists");
+			}					
+		}		
+		//checks for duplicate values
+		boolean[] exists = new boolean[29];
+		for (int i = 0; i < 29; i++ ) {
+			exists[i] = false;
+		}
+		for (int j = 0; j <= 27; j++) {
+			if (exists[deckArray[j]]) {
+				System.out.println("The value: " + deckArray[j] + " exists twice!");
+				throw new IllegalArgumentException("A duplicate value exists");
+			}	
+			exists[deckArray[j]] = true;
+		}		
+		//makes sure 1-28 exist in the deck
 		for (int j = 1; j <= 28; j++) {
 			valueFound = false;
 			for (int i = 0; i < deckArray.length; i++) {
@@ -38,10 +62,8 @@ public class Deck {
 			if (!valueFound) {
 				throw new IllegalArgumentException("There deck is invalid, missing a number between 1 and 28");
 			}
-		}
-	
-		// now the deckArray[] is turned into the actual linked list deck 
-	
+		}	
+		// now the deckArray[] is turned into the actual linked list deck 	
 		for (int k = 0; k < 28; k++) {
 			deck.add(deckArray[k]);
 		}
@@ -53,12 +75,15 @@ public class Deck {
 	 */
 	public int getKeystreamValue()  {
 		
+		//printDeck(deck);
 		stepOne();
+		//printDeck(deck);
 		stepTwo();
+		//printDeck(deck);
 		stepThree();
 		stepFour();
 		int value = stepFive();
-		System.out.println(value);
+		//System.out.println(value);
 		return value;
 	}
 	
@@ -70,18 +95,18 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		int tempVal = 0;
-		if (deck.indexOf(27) + 1 == 28) {
+		if (deck.indexOf(27) == DECK_SIZE) {
 			tempVal = deck.get(0);
 		}
 		else {
 			tempVal = deck.get(deck.indexOf(27) + 1);
 		}	
 		int jokerIndexA = deck.indexOf(27);
-		if (jokerIndexA + 1 == 28) {
+		if (jokerIndexA == DECK_SIZE) {
 			deck.set(0 , 27);
 		}
 		else {
-			deck.set(jokerIndexA + 1,27);
+			deck.set(jokerIndexA + 1 , 27);
 		}		
 		deck.set(jokerIndexA , tempVal);
 	}
@@ -105,10 +130,10 @@ public class Deck {
 		
 		int jokerIndexB = deck.indexOf(28);
 		if  (jokerIndexB + 1 > 27) {
-			deck.set(jokerIndexB + 1 - 28,28);
+			deck.set(jokerIndexB + 1 - 28 , 28);
 		}
 		else {
-			deck.set(jokerIndexB + 1,28);
+			deck.set(jokerIndexB + 1 , 28);
 		}
 		deck.set(jokerIndexB , tempVal2);
 				
@@ -123,10 +148,10 @@ public class Deck {
 		
 		jokerIndexB = deck.indexOf(28);
 		if  (jokerIndexB + 1 > 27) {
-			deck.set(jokerIndexB + 1 - 28,28);
+			deck.set(jokerIndexB + 1 - 28 , 28);
 		}
 		else {
-			deck.set(jokerIndexB + 1,28);
+			deck.set(jokerIndexB + 1 , 28);
 		}
 		deck.set(jokerIndexB , tempVal2); 
 	}
@@ -135,12 +160,9 @@ public class Deck {
 	 * Step Three
 	 */
 	private void stepThree() {
-		// swap the top third of the deck with the bottom third of the deck
-		// the two jokers denote the split points
-				
+		// swap the top third of the deck with the bottom third of the deck, the two jokers denote the split points
 		int cutJokerA = deck.indexOf(27);
 		int cutJokerB = deck.indexOf(28);
-		
 		int topJoker = 0;
 		int bottomJoker = 0;
 		if (cutJokerA < cutJokerB) {
@@ -151,8 +173,6 @@ public class Deck {
 			topJoker = JOKER2;
 			bottomJoker = JOKER1;
 		}
-		//System.out.println(deck.indexOf(topJoker));
-		//System.out.println(deck.indexOf(bottomJoker));
 		
 		int value = deck.get(DECK_SIZE);
 		if (deck.get(0) != topJoker && deck.get(0) != bottomJoker) {
@@ -165,11 +185,9 @@ public class Deck {
 			//move top value to bottom of deck and then delete
 			deck.addLast(deck.get(0));
 			deck.remove(0);
-		}
-		
+		}		
 		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1 && deck.indexOf(bottomJoker) != deck.indexOf(value)) {
 			//move values between bottom joker and the decks original bottom to the top and delete
-			
 			if (deck.indexOf(value) == 0) {
 				deck.addFirst(deck.get(deck.indexOf(value) + DECK_SIZE - 1));
 			} else {
@@ -252,17 +270,19 @@ public class Deck {
 	 * used to print the deck for debugging
 	 * @param deck2 deck to be printed
 	 */
-//	public static void printDeck(LinkedList<Integer> deck2) { 
-//		// below is a loop to print out the arraylist  for debugging purposes
-//		//--------------------------
-//		System.out.print("Deck: ");
-//		for (int i = 0; i < 28; i++) {
-//			System.out.print(deck2.get(i) + " ");
-//		}
-//		System.out.println();
-//		System.out.println("-----");
-//		
-//		
-//		//----------------------
-//	}
+/*	public static void printDeck(LinkedList<Integer> deck2) { 
+		// below is a loop to print out the arraylist  for debugging purposes
+		//--------------------------
+		System.out.print("Deck: ");
+		for (int i = 0; i < 28; i++) {
+			System.out.print(deck2.get(i) + " ");
+		}
+		System.out.println();
+		System.out.println("-----");
+	
+		
+		//----------------------
+	}
+*/
+	
 }
