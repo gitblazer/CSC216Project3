@@ -18,7 +18,7 @@ public class Message {
 	 */
 	public Message(String messageString) {
 		//Replace all non-alphabetic characters with '' and spaces with '[' (The ASCII value of 'Z' + 1)
-		char[] characterArray = messageString.toUpperCase().replaceAll("[^A-Z ]+","").replaceAll("[ ]" , "[").toCharArray();
+		char[] characterArray = messageString.toUpperCase().replaceAll("[^A-Z ]+" , "").replaceAll("[ ]" , "[").toCharArray();
 		message = new int[characterArray.length];
 		for (int i = 0; i < characterArray.length; i++) {
 			message[i] = characterArray[i] - 'A' + 1;
