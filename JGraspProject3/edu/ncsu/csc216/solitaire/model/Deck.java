@@ -155,8 +155,11 @@ public class Deck {
 		//System.out.println(deck.indexOf(bottomJoker));
 		
 		int value = deck.get(DECK_SIZE);
-		if (deck.get(0) != 27 && deck.get(0) != 28) {
+		if (deck.get(0) != topJoker && deck.get(0) != bottomJoker) {
 			value = deck.get(0);
+		} else if (deck.get(0) == topJoker) {
+			deck.add(-1);
+			value = -1;
 		}
 		while (deck.indexOf(topJoker) != 0) {
 			//move top value to bottom of deck and then delete
@@ -178,7 +181,10 @@ public class Deck {
 			} else {
 				deck.remove(deck.indexOf(value) - 1);
 			}
-		}			
+		}
+		if (value == -1) {
+			deck.removeLast();
+		}
 	}
 	
 	/**

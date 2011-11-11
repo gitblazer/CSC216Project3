@@ -36,7 +36,11 @@ public class Message {
 		System.out.println("Encrypting...");
 		char[] characterArray = new char[message.length];
 		for (int i = 0; i < message.length; i++) {
-			message[i] = (message[i] + deck.getKeystreamValue()) % (Deck.DECK_SIZE);
+			int keystream = deck.getKeystreamValue();
+			if (keystream + message[i] > Deck.DECK_SIZE) {
+				keystream -= Deck.DECK_SIZE;
+			}
+			message[i] = message[i] + keystream;
 			characterArray[i] = (char)(message[i] + 'A' - 1);
 		}
 		return String.copyValueOf(characterArray).replaceAll("\\[", " ");

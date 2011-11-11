@@ -11,28 +11,30 @@ import edu.ncsu.csc216.solitaire.model.Message;
  */
 public class MessageTest extends TestCase {
 
-	private String decryptedMessage = "GO PACK BEAT CAROLINA";
-	private String encryptedMessage = "WPLYGBSWUSNDPDSUONRQC";
-	private Message m = new Message(decryptedMessage);
-	private int[] originalDeck = {27, 1, 4, 7, 10, 13, 16, 19, 22, 25, 3, 6, 9, 12, 15, 18, 21, 24, 2, 5, 8, 11, 14, 17, 20, 28, 23, 26};
-	private Deck d = new Deck(originalDeck);
+	private String startingMessage = "GO PACK BEAT CAROLINA";
 
 	/**
 	 * Tests the encrypt method
 	 */
 	public void testEncrypt() {
-		d = new Deck(originalDeck);
-		m = new Message(decryptedMessage);
-		assertEquals(m.encrypt(d), encryptedMessage);
+		for (int i = 0; i < DeckTest.testDecks.length; i++) {
+			Deck d1 = new Deck(DeckTest.testDecks[i]);
+			Message md = new Message(startingMessage);
+			String encryptedMessage = md.encrypt(d1);
+			
+			Deck d2 = new Deck(DeckTest.testDecks[i]);
+			Message me = new Message(encryptedMessage);
+			String decryptedMessage = me.decrypt(d2);
+			System.out.println(encryptedMessage + " | " + decryptedMessage);
+			assertEquals(decryptedMessage, startingMessage);
+		}
 	}
 
 	/**
 	 * Tests the decrypt method
 	 */
 	public void testDecrypt() {
-		d = new Deck(originalDeck);
-		m = new Message(encryptedMessage);
-		assertEquals(m.decrypt(d), decryptedMessage);
+		testEncrypt();
 	}
 
 }
