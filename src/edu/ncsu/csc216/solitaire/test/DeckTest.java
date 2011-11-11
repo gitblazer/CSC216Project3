@@ -13,16 +13,19 @@ public class DeckTest extends TestCase {
 	
 	private static int[] answersInOrder = {9, 24};
 	
+	/**
+	 * the deck to be test
+	 */
 	public static Deck d;
 	
 	/**
 	 * Test method for getKeyStreamValue()
 	 */
-	public void testGetKeySteamValue() {
+	public void testGetKeysteamValue() {
 		d = new Deck(originalDeck);
 		int i = 0;
-		assertEquals(d.getKeySteamValue(), answersInOrder[i++]);
-		assertEquals(d.getKeySteamValue(), answersInOrder[i++]);
+		assertEquals(d.getKeystreamValue(), answersInOrder[i++]);
+		assertEquals(d.getKeystreamValue(), answersInOrder[i++]);
 	}
 
 }

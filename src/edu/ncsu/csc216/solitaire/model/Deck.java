@@ -13,12 +13,13 @@ public class Deck {
 	private static final int JOKER2 = 28;
 
 	/**
-	 * 
+	 * The Deck ArrayList
 	 */
 	private LinkedList<Integer> deck = new LinkedList<Integer>();
 	
 	/**
-	 * @param deckArray
+	 * Creates the deck arrayList
+	 * @param deckArray Array with the deck values
 	 */
 	public Deck(int[] deckArray ) {
 		// checks the int[] deck for the existance of 1-28 before
@@ -26,17 +27,17 @@ public class Deck {
 		boolean valueFound = false;
 		int j = 0;
 		
-		for (j = 1; j < 28; j++)
+		for (j = 1; j < 28; j++) {
 			valueFound = false;
 			for (int i = 0; i < 27; i++) {
 				if (j == deckArray[i]) {
 					valueFound = true;
 				}
 			}
-			if (valueFound == false) {
+			if (!valueFound) {
 				throw new IllegalArgumentException("There deck is invalid, missing a number between 1 and 28");
 			}
-	
+		}
 	
 		// now the deckArray[] is turned into the actual linked list deck 
 	
@@ -46,9 +47,10 @@ public class Deck {
 	}
 	
 	/**
-	 * @return
+	 * returns the next keystream value
+	 * @return keyStream Valye
 	 */
-	public int getKeySteamValue()  {
+	public int getKeystreamValue()  {
 		
 		stepOne();
 		stepTwo();
@@ -58,31 +60,31 @@ public class Deck {
 	}
 	
 	/**
-	 * 
+	 * Step one
 	 */
 	private void stepOne() {
 		// find A Joker (value 27)
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		int tempVal = 0;
-		if (deck.indexOf(27)+1 == 28) {
+		if (deck.indexOf(27) + 1 == 28) {
 			tempVal = deck.get(0);
 		}
 		else {
-			tempVal = deck.get(deck.indexOf(27)+1);
+			tempVal = deck.get(deck.indexOf(27) + 1);
 		}	
 		int jokerIndexA = deck.indexOf(27);
 		if (jokerIndexA + 1 == 28) {
-			deck.set(0,27);
+			deck.set(0 , 27);
 		}
 		else {
 			deck.set(jokerIndexA + 1,27);
 		}		
-		deck.set(jokerIndexA,tempVal);
+		deck.set(jokerIndexA , tempVal);
 	}
 	
 	/**
-	 * 
+	 * Step two
 	 */
 	private void stepTwo() {
 		// find B Joker (value 28)
@@ -98,14 +100,14 @@ public class Deck {
 			tempVal2 = deck.get(deck.indexOf(28) + 1);
 		}
 		
-		int jokerIndexB= deck.indexOf(28);
+		int jokerIndexB = deck.indexOf(28);
 		if  (jokerIndexB + 1 > 27) {
 			deck.set(jokerIndexB + 1 - 28,28);
 		}
 		else {
 			deck.set(jokerIndexB + 1,28);
 		}
-		deck.set(jokerIndexB,tempVal2);
+		deck.set(jokerIndexB , tempVal2);
 				
 		//swaps forward the first of two positions
 		tempVal2 = 0;
@@ -116,18 +118,18 @@ public class Deck {
 			tempVal2 = deck.get(deck.indexOf(28) + 1);
 		}
 		
-		jokerIndexB= deck.indexOf(28);
+		jokerIndexB = deck.indexOf(28);
 		if  (jokerIndexB + 1 > 27) {
 			deck.set(jokerIndexB + 1 - 28,28);
 		}
 		else {
 			deck.set(jokerIndexB + 1,28);
 		}
-		deck.set(jokerIndexB,tempVal2);
+		deck.set(jokerIndexB , tempVal2); 
 	}
 	
 	/**
-	 * 
+	 * Step Three
 	 */
 	private void stepThree() {
 		// swap the top third of the deck with the bottom third of the deck
@@ -165,7 +167,7 @@ public class Deck {
 	}
 	
 	/**
-	 * 
+	 * Step four
 	 */
 	private void stepFour() {
 		// get the value of the bottom card (position 27)
@@ -188,7 +190,8 @@ public class Deck {
 	}
 	
 	/**
-	 * @return
+	 * fifth step
+	 * @return the value for keyValue
 	 */
 	private int stepFive() {
 		// ** read the top cards value (28 or 27 both are 27 again) **
@@ -238,7 +241,8 @@ public class Deck {
 	}
 	
 	/**
-	 * @param deck2
+	 * used to print the deck for debugging
+	 * @param deck2 deck to be printed
 	 */
 	public static void printDeck(LinkedList<Integer> deck2) { 
 		// below is a loop to print out the arraylist  for debugging purposes
