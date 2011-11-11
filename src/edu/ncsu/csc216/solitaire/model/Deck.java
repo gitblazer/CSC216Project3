@@ -11,6 +11,8 @@ public class Deck {
 	private static final int JOKER1 = 27;
 	
 	private static final int JOKER2 = 28;
+	
+	public static final int DECK_SIZE = 27;
 
 	/**
 	 * The Deck ArrayList

@@ -9,14 +9,14 @@ import edu.ncsu.csc216.solitaire.model.Deck;
  */
 public class DeckTest extends TestCase {
 
-	private static int[] originalDeck = {21, 24, 2, 5, 9, 15, 18, 1, 16, 12, 27, 4, 10, 19, 7, 20, 23, 26, 13, 3, 28, 25, 22, 8, 6, 14, 11, 17};
+	private static int[] originalDeck = {27, 1, 4, 7, 10, 13, 16, 19, 22, 25, 3, 6, 9, 12, 15, 18, 21, 24, 2, 5, 8, 11, 14, 17, 20, 28, 23, 26};
 	
-	private static int[] answersInOrder = {9, 24};
+	private static int[] answersInOrder = {16, 1, 12, 9, 6, 26, 8, 23, 19, 14, 13, 11, 16, 1, 18, 3, 27, 2, 9, 3, 2};
 	
 	/**
 	 * the deck to be test
 	 */
-	public static Deck d;
+	private static Deck d;
 	
 	/**
 	 * Test method for getKeyStreamValue()
@@ -24,8 +24,9 @@ public class DeckTest extends TestCase {
 	public void testGetKeysteamValue() {
 		d = new Deck(originalDeck);
 		int i = 0;
-		assertEquals(d.getKeystreamValue(), answersInOrder[i++]);
-		assertEquals(d.getKeystreamValue(), answersInOrder[i++]);
+		while (i < answersInOrder.length) {
+			assertEquals(d.getKeystreamValue(), answersInOrder[i++]);
+		}
 	}
 
 }

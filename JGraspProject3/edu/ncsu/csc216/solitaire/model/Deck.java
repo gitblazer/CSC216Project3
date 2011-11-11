@@ -29,7 +29,7 @@ public class Deck {
 		
 		for (j = 1; j < 28; j++) {
 			valueFound = false;
-			for (int i = 0; i < 27; i++) {
+			for (int i = 0; i < 28; i++) {
 				if (j == deckArray[i]) {
 					valueFound = true;
 				}
