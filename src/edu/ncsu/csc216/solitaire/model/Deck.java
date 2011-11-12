@@ -1,6 +1,7 @@
 package edu.ncsu.csc216.solitaire.model;
 
-import java.util.LinkedList;
+// changed this from java.util.linked to what is below...
+import edu.ncsu.csc216.solitaire.model.DeckLinkedList;
 
 /**
  * The Deck of Cards
@@ -19,8 +20,9 @@ public class Deck {
 
 	/**
 	 * The Deck ArrayList
+	 * 
 	 */
-	private LinkedList<Integer> deck = new LinkedList<Integer>();
+	private DeckLinkedList deck = new DeckLinkedList(); //I removed the <Integer> types from this, mite be needed though
 	
 	/**
 	 * Creates the deck arrayList

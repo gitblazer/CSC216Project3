@@ -48,4 +48,16 @@ public class DeckLinkedList {
 		return -1;
 	}
 	
+	public void set(int index, int value) {
+		
+	}
+	
+	public void addLast(int value) {
+		
+	}
+	
+	public void removeLast() {
+		
+	}
+	
 }
