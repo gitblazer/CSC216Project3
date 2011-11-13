@@ -1,7 +1,6 @@
-package edu.ncsu.csc216.solitaire.test;
+package edu.ncsu.csc216.solitaire.model;
 
 import junit.framework.TestCase;
-import edu.ncsu.csc216.solitaire.model.Deck;
 
 /**
  * Tests the Deck class

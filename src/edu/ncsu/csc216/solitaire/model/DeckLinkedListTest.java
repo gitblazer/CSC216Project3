@@ -1,4 +1,4 @@
-package edu.ncsu.csc216.solitaire.test;
+package edu.ncsu.csc216.solitaire.model;
 
 import junit.framework.TestCase;
 

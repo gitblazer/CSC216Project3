@@ -1,11 +1,12 @@
-package edu.ncsu.csc216.solitaire.test;
+package edu.ncsu.csc216.solitaire.model;
 
 import junit.framework.TestCase;
 
 public class ListNodeTest extends TestCase {
 
 	public void testListNodeIntListNode() {
-		fail("Not yet implemented");
+		ListNode testNode = new ListNode();
+		assertEquals(testNode.next, null);
 	}
 
 }
