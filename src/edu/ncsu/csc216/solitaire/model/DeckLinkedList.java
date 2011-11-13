@@ -71,12 +71,31 @@ public class DeckLinkedList {
 	}
 	
 	/**
-	 * @param index
-	 * @return
+	 * Detaches a deck linked list at a certain index of the current
+	 * deck linked list.
+	 * @param index The index where the list will be detached
+	 * @return The detached deck linked list
 	 */
 	public DeckLinkedList detachAt(int index) {
-		
-		return null;
+		DeckLinkedList detatchedList = new DeckLinkedList();
+		ListNode nodeBeforeSplit = findNode(index - 1, front);
+		detatchedList.front = nodeBeforeSplit.next;
+		nodeBeforeSplit.next = null;
+		return detatchedList;
+	}
+	
+	/**
+	 * Helper method to return the node at an index
+	 * @param index The index to return the node at
+	 * @param current The current node in the recursion
+	 * @return The list node in question
+	 */
+	private ListNode findNode(int index, ListNode current) {
+		if (index == 0) {
+			return current;
+		} else {
+			return findNode(index - 1, current.next);
+		}
 	}
 	
 	/**
