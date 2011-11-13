@@ -188,7 +188,7 @@ public class Deck {
 		}
 		while (deck.indexOf(topJoker) != 0) {
 			//move top value to bottom of deck and then delete
-			deck.addLast(deck.get(0));
+			deck.add(deck.get(0));
 			deck.remove(0);
 		}		
 		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1 && deck.indexOf(bottomJoker) != deck.indexOf(value)) {
@@ -230,10 +230,10 @@ public class Deck {
 		
 		deck.remove(27);
 		for (int i = 0; i < temp3; i++) {
-			deck.addLast(deck.get(0));
+			deck.add(deck.get(0));
 			deck.remove(0);
 		}
-		deck.addLast(temp);
+		deck.add(temp);
 				
 		//System.out.print("After:  ");
 		

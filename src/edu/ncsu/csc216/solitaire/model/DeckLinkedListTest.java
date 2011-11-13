@@ -4,20 +4,44 @@ import junit.framework.TestCase;
 
 public class DeckLinkedListTest extends TestCase {
 
+	/**
+	 * A list to run tests on
+	 */
+	private DeckLinkedList testList;
+	
+	/**
+	 * sets up the tests for DeckLinkedList
+	 */
 	protected void setUp() throws Exception {
 		super.setUp();
+		testList = new DeckLinkedList();
 	}
 
 	public void testAdd() {
-		fail("Not yet implemented");
+		testList.add(5);
+		assertEquals(testList.get(0),5);
+		testList.add(10);
+		assertEquals(testList.get(1),10);
+		testList.add(15);
+		assertEquals(testList.get(2),15);
 	}
 
 	public void testAddFirst() {
-		fail("Not yet implemented");
+		testList.addFirst(25);
+		assertEquals(testList.get(0), 25);
+		testList.addFirst(2);
+		assertEquals(testList.get(0), 2);
+		testList.addFirst(5);
+		assertEquals(testList.get(0), 5);
 	}
 
 	public void testClear() {
-		fail("Not yet implemented");
+		int[] intArr = {4,2,3,5,7};
+		testList.add(intArr);
+		assertEquals(testList.get(3), 5);
+		testList.clear();
+		testList.add(14);
+		assertEquals(testList.get(0), 14);
 	}
 
 	public void testConcat() {

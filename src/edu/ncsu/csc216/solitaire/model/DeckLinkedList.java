@@ -12,16 +12,10 @@ public class DeckLinkedList {
 	private ListNode front;
 	
 	/**
-	 * The last node of the list
-	 */
-	private ListNode last;
-	
-	/**
 	 * The LinkedList for the Deck of cards
 	 */
 	public DeckLinkedList() {
 		front = null;
-		last = null;
 	}
 	
 	/**
@@ -32,15 +26,27 @@ public class DeckLinkedList {
 		add(value, front);
 	}
 	
+	public void add(int[] values) {
+		for (int value: values) {
+			add(value);
+		}
+	}
+	
 	/**
 	 * A helper method for add(int value)
 	 * @param value The value to be added
 	 * @param index The current parsed index
 	 */
 	private void add(int value, ListNode current) {
-		if (current == null) {
-			current = new ListNode(0);
-			last = current;
+		if (front == null) {
+			front = new ListNode(value);
+			front.next = front;
+			front.previous = front;
+		} else if (current.next == front) {
+			current.next = new ListNode(value);
+			current.next.next = front;
+			current.next.previous = current;
+			front.previous = current.next;
 		} else {
 			add(value, current.next);
 		}
@@ -51,8 +57,15 @@ public class DeckLinkedList {
 	 * @param value The value to be added
 	 */
 	public void addFirst(int value) {
-		ListNode temp = new ListNode(value, front.next);
-		front.next = temp;
+		if (front == null) {
+			front = new ListNode(value);
+			front.next = front;
+			front.previous = front;
+		} else {
+			ListNode newNode = new ListNode(value, front, front.previous);
+			front.previous = newNode;
+			front = newNode;
+		}
 	}
 	
 	/**
@@ -60,14 +73,13 @@ public class DeckLinkedList {
 	 */
 	public void clear() {
 		front = null;
-		last = null;
 	}
 	
 	/**
 	 * @param list The list to concatenate
 	 */
 	public void concat(DeckLinkedList list) {
-		last.next = list.front;
+		
 	}
 	
 	/**
@@ -111,8 +123,7 @@ public class DeckLinkedList {
 	 * @return
 	 */
 	public int get(int index) {
-		
-		return -1;
+		return findNode(index, front).data;
 	}
 	
 	/**
@@ -134,24 +145,18 @@ public class DeckLinkedList {
 	}
 	
 	/**
-	 * @param index
-	 * @param value
+	 * Changes the data value of a node at an index
+	 * @param index The index of the value to change
+	 * @param value The value to change the node to
 	 */
 	public void set(int index, int value) {
-		
+		findNode(index, front).data = value;
 	}
 	
 	/**
-	 * @param value
-	 */
-	public void addLast(int value) {
-		
-	}
-	
-	/**
-	 * 
+	 * Removes the last node in the list
 	 */
 	public void removeLast() {
-		
+		remove(-1);
 	}
 }
