@@ -26,9 +26,19 @@ public class DeckLinkedList {
 		add(value, front);
 	}
 	
+	/**
+	 * Adds an array of values to the end of the LinkedList
+	 * @param values Array of integers to add
+	 */
 	public void add(int[] values) {
-		for (int value: values) {
-			add(value);
+		if (front == null) {
+			for (int i = values.length - 1; i >= 0; i--) {
+				addFirst (values[i]);
+			}
+		} else {
+			for (int value: values) {
+				add(value);
+			}
 		}
 	}
 	
@@ -76,10 +86,16 @@ public class DeckLinkedList {
 	}
 	
 	/**
+	 * Concatenates another list onto the end of the receiver list
 	 * @param list The list to concatenate
 	 */
 	public void concat(DeckLinkedList list) {
+		front.previous.next = list.front;
+		list.front.previous.next = front;
 		
+		ListNode middleLeft = front.previous;
+		front.previous = list.front.previous;
+		list.front.previous = middleLeft;
 	}
 	
 	/**
@@ -103,10 +119,12 @@ public class DeckLinkedList {
 	 * @return The list node in question
 	 */
 	private ListNode findNode(int index, ListNode current) {
-		if (index == 0) {
-			return current;
-		} else {
+		if (index < 0) {
+			return findNode(index + 1, current.previous);
+		} else if (index > 0) {
 			return findNode(index - 1, current.next);
+		} else {
+			return current;
 		}
 	}
 	
@@ -123,6 +141,9 @@ public class DeckLinkedList {
 	 * @return
 	 */
 	public int get(int index) {
+		if (front == null) {
+			throw new IndexOutOfBoundsException();
+		}
 		return findNode(index, front).data;
 	}
 	

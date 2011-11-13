@@ -45,7 +45,24 @@ public class DeckLinkedListTest extends TestCase {
 	}
 
 	public void testConcat() {
-		fail("Not yet implemented");
+		int[] intArr1 = {4,2,3,5,7};
+		int[] intArr2 = {9,15,24,38};
+		
+		DeckLinkedList dll1 = new DeckLinkedList();
+		DeckLinkedList dll2 = new DeckLinkedList();
+		
+		dll1.add(intArr1);
+		dll2.add(intArr2);
+		
+		dll1.concat(dll2);
+		
+		assertEquals(dll1.get(0), 4);
+		assertEquals(dll1.get(4), 7);
+		assertEquals(dll1.get(5), 9);
+		assertEquals(dll1.get(8), 38);
+		assertEquals(dll1.get(9), 4);
+		assertEquals(dll1.get(-1), 38);
+		System.out.println(dll1.get(18));
 	}
 
 	public void testDetachAt() {
