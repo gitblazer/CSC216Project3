@@ -12,10 +12,16 @@ public class DeckLinkedList {
 	private ListNode front;
 	
 	/**
+	 * The last node of the list
+	 */
+	private ListNode last;
+	
+	/**
 	 * The LinkedList for the Deck of cards
 	 */
 	public DeckLinkedList() {
 		front = null;
+		last = null;
 	}
 	
 	/**
@@ -34,30 +40,34 @@ public class DeckLinkedList {
 	private void add(int value, ListNode current) {
 		if (current == null) {
 			current = new ListNode(0);
+			last = current;
 		} else {
 			add(value, current.next);
 		}
 	}
 	
 	/**
-	 * @param value
+	 * Adds a value to the front of the linked list
+	 * @param value The value to be added
 	 */
 	public void addFirst(int value) {
-		
+		ListNode temp = new ListNode(value, front.next);
+		front.next = temp;
 	}
 	
 	/**
-	 * 
+	 * Clears the linked list
 	 */
 	public void clear() {
-		
+		front = null;
+		last = null;
 	}
 	
 	/**
-	 * @param list
+	 * @param list The list to concatenate
 	 */
 	public void concat(DeckLinkedList list) {
-		
+		last.next = list.front;
 	}
 	
 	/**
