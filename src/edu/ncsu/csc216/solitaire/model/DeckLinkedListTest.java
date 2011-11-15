@@ -78,9 +78,10 @@ public class DeckLinkedListTest extends TestCase {
 
 	public void testDetachAt() {
 		int[] intArr = {4,6,8,10,12,14,16};
-		DeckLinkedList dll = new DeckLinkedList();
-		dll.add(intArr);
+		DeckLinkedList dll;
 		
+		dll = new DeckLinkedList();
+		dll.add(intArr);
 		DeckLinkedList dll2 = dll.detachAt(3);
 		assertEquals(dll2.get(0), 10);
 		
@@ -96,7 +97,28 @@ public class DeckLinkedListTest extends TestCase {
 	}
 
 	public void testExchange() {
-		fail("Not yet implemented");
+		int[] intArr = {4,6,8,10,12,14,16};
+		DeckLinkedList dll;
+		
+		dll = new DeckLinkedList();
+		dll.add(intArr);
+		dll.exchange(0,1);
+		assertEquals(dll.get(0), 6);
+
+		dll = new DeckLinkedList();
+		dll.add(intArr);
+		dll.exchange(0,0);
+		assertEquals(dll.get(0), 4);
+		
+		dll = new DeckLinkedList();
+		dll.add(intArr);
+		dll.exchange(2,6);
+		assertEquals(dll.get(2), 16);
+		
+		dll = new DeckLinkedList();
+		dll.add(intArr);
+		dll.exchange(-1,6);
+		assertEquals(dll.get(-1), 16);
 	}
 
 	public void testGet() {

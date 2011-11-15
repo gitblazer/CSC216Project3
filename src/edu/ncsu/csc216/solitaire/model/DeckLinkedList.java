@@ -134,14 +134,17 @@ public class DeckLinkedList {
 	}
 	
 	/**
-	 * @param index1
-	 * @param index2
+	 * Exchanges two values in the list
+	 * @param index1 The index of value 1
+	 * @param index2 The index of value 2
 	 */
 	public void exchange(int index1, int index2) {
 		ListNode node1 = findNode(index1, front);
 		ListNode node2 = findNode(index2, front);
 		
-		
+		int temp = node1.data;
+		node1.data = node2.data;
+		node2.data = temp;
 	}
 	
 	/**
