@@ -148,8 +148,9 @@ public class DeckLinkedList {
 	}
 	
 	/**
-	 * @param index
-	 * @return
+	 * Gets a value from the list at an index
+	 * @param index The index of the value
+	 * @return The value to be returned
 	 */
 	public int get(int index) {
 		if (front == null) {
@@ -159,12 +160,33 @@ public class DeckLinkedList {
 	}
 	
 	/**
-	 * @param value
-	 * @return
+	 * Gets the index of the value in question
+	 * @param value The value to search for
+	 * @return The index of the value or -1 if not found
 	 */
 	public int indexOf(int value) {
-		
-		return -1;
+		ListNode node = findValue(value, front);
+		if (node != null) {
+			return node.data;
+		} else {
+			return -1;
+		}
+	}
+	
+	/**
+	 * Finds the node at the value
+	 * @param value The value to search for
+	 * @param current The current node in the recursion
+	 * @return The node at which the value is found or null if it is not found
+	 */
+	private ListNode findValue(int value, ListNode current) {
+		if (current == front.previous && front.previous.data != value) {
+			return null;
+		} else if (current.data != value) {
+			return findValue(value, current.next);
+		} else {
+			return current;
+		}
 	}
 	
 	/**
@@ -172,8 +194,12 @@ public class DeckLinkedList {
 	 * @return
 	 */
 	public int remove(int index) {
+		ListNode node = findNode(index, front);
 		
-		return -1;
+		node.previous.next = node.next;
+		node.next.previous = node.previous;
+		
+		return node.data;
 	}
 	
 	/**
