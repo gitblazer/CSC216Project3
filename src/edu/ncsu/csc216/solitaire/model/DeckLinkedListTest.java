@@ -123,11 +123,19 @@ public class DeckLinkedListTest extends TestCase {
 
 	public void testGet() {
 		int[] intArr = {4,6,8,10,12,14,16};
-		DeckLinkedList dll;
 		
-		dll = new DeckLinkedList();
+		DeckLinkedList dll = new DeckLinkedList();
+		
 		dll.add(intArr);
-		
+		/*
+		dll.add(4);
+		dll.add(6);
+		dll.add(8);
+		dll.add(10);
+		dll.add(12);
+		dll.add(14);
+		dll.add(16);
+		*/
 		assertEquals(dll.get(0), 4);
 		assertEquals(dll.get(1), 6);
 		assertEquals(dll.get(2), 8);
@@ -135,7 +143,17 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(dll.get(4), 12);
 		assertEquals(dll.get(5), 14);
 		assertEquals(dll.get(6), 16);
+		
 		assertEquals(dll.get(7), 4);
+		assertEquals(dll.get(8), 6);
+		assertEquals(dll.get(9), 8);
+		assertEquals(dll.get(10), 10);
+
+		assertEquals(dll.get(-1), 16);
+		assertEquals(dll.get(-2), 14);
+		assertEquals(dll.get(-3), 12);
+		assertEquals(dll.get(-4), 10);
+		assertEquals(dll.get(-5), 8);
 	}
 
 	public void testIndexOf() {
