@@ -122,7 +122,20 @@ public class DeckLinkedListTest extends TestCase {
 	}
 
 	public void testGet() {
-		fail("Not yet implemented");
+		int[] intArr = {4,6,8,10,12,14,16};
+		DeckLinkedList dll;
+		
+		dll = new DeckLinkedList();
+		dll.add(intArr);
+		
+		assertEquals(dll.get(0), 4);
+		assertEquals(dll.get(1), 6);
+		assertEquals(dll.get(2), 8);
+		assertEquals(dll.get(3), 10);
+		assertEquals(dll.get(4), 12);
+		assertEquals(dll.get(5), 14);
+		assertEquals(dll.get(6), 16);
+		assertEquals(dll.get(7), 4);
 	}
 
 	public void testIndexOf() {

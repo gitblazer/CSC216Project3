@@ -190,14 +190,15 @@ public class DeckLinkedList {
 	}
 	
 	/**
-	 * @param index
-	 * @return
+	 * Removes the value at an index
+	 * @param index The index of the value to remove
+	 * @return The value that was removed
 	 */
 	public int remove(int index) {
 		ListNode node = findNode(index, front);
-		
-		node.previous.next = node.next;
+
 		node.next.previous = node.previous;
+		node.previous.next = node.next;
 		
 		return node.data;
 	}
