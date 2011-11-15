@@ -17,6 +17,9 @@ public class DeckLinkedListTest extends TestCase {
 		testList = new DeckLinkedList();
 	}
 
+	/**
+	 * Tests the add method
+	 */
 	public void testAdd() {
 		testList.add(5);
 		assertEquals(testList.get(0),5);
@@ -26,6 +29,9 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(testList.get(2),15);
 	}
 
+	/**
+	 * Tests the addFirst method
+	 */
 	public void testAddFirst() {
 		testList.addFirst(25);
 		assertEquals(testList.get(0), 25);
@@ -35,6 +41,9 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(testList.get(0), 5);
 	}
 
+	/**
+	 * Tests the clear method
+	 */
 	public void testClear() {
 		int[] intArr = {4,2,3,5,7};
 		testList.add(intArr);
@@ -44,6 +53,9 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(testList.get(0), 14);
 	}
 
+	/**
+	 * Tests the concat method
+	 */
 	public void testConcat() {
 		int[] intArr1 = {4,2,3,5,7};
 		int[] intArr2 = {9,15,24,38};
@@ -62,11 +74,25 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(dll1.get(8), 38);
 		assertEquals(dll1.get(9), 4);
 		assertEquals(dll1.get(-1), 38);
-		System.out.println(dll1.get(18));
 	}
 
 	public void testDetachAt() {
-		fail("Not yet implemented");
+		int[] intArr = {4,6,8,10,12,14,16};
+		DeckLinkedList dll = new DeckLinkedList();
+		dll.add(intArr);
+		
+		DeckLinkedList dll2 = dll.detachAt(3);
+		assertEquals(dll2.get(0), 10);
+		
+		dll = new DeckLinkedList();
+		dll.add(intArr);
+		dll2 = dll.detachAt(1);
+		assertEquals(dll2.get(0), 6);
+
+		dll = new DeckLinkedList();
+		dll.add(intArr);
+		dll2 = dll.detachAt(0);
+		assertEquals(dll2.get(0), 4);
 	}
 
 	public void testExchange() {

@@ -101,14 +101,19 @@ public class DeckLinkedList {
 	/**
 	 * Detaches a deck linked list at a certain index of the current
 	 * deck linked list.
-	 * @param index The index where the list will be detached
+	 * @param index - 1 The index where the list will be detached
 	 * @return The detached deck linked list
 	 */
 	public DeckLinkedList detachAt(int index) {
 		DeckLinkedList detatchedList = new DeckLinkedList();
-		ListNode nodeBeforeSplit = findNode(index - 1, front);
-		detatchedList.front = nodeBeforeSplit.next;
-		nodeBeforeSplit.next = null;
+		if (index < 1) {
+			detatchedList.front = front;
+			front = null;
+		} else {
+			ListNode nodeBeforeSplit = findNode(index - 1, front);
+			detatchedList.front = nodeBeforeSplit.next;
+			nodeBeforeSplit.next = front;
+		}
 		return detatchedList;
 	}
 	
@@ -133,6 +138,9 @@ public class DeckLinkedList {
 	 * @param index2
 	 */
 	public void exchange(int index1, int index2) {
+		ListNode node1 = findNode(index1, front);
+		ListNode node2 = findNode(index2, front);
+		
 		
 	}
 	
