@@ -12,9 +12,15 @@ public class DeckLinkedList {
 	private ListNode front;
 	
 	/**
+	 * The currens size of the list
+	 */
+	private int size;
+	
+	/**
 	 * The LinkedList for the Deck of cards
 	 */
 	public DeckLinkedList() {
+		size = 0;
 		front = null;
 	}
 	
@@ -52,11 +58,13 @@ public class DeckLinkedList {
 			front = new ListNode(value);
 			front.next = front;
 			front.previous = front;
+			size++;
 		} else if (current.next == front) {
 			current.next = new ListNode(value);
 			current.next.next = front;
 			current.next.previous = current;
 			front.previous = current.next;
+			size++;
 		} else {
 			add(value, current.next);
 		}
@@ -68,14 +76,13 @@ public class DeckLinkedList {
 	 */
 	public void addFirst(int value) {
 		if (front == null) {
-			front = new ListNode(value);
-			front.next = front;
-			front.previous = front;
+			add(value, front);
 		} else {
 			ListNode newNode = new ListNode(value, front, front.previous);
 			front.previous = newNode;
 			newNode.previous.next = newNode;
 			front = newNode;
+			size++;
 		}
 	}
 	
@@ -84,6 +91,7 @@ public class DeckLinkedList {
 	 */
 	public void clear() {
 		front = null;
+		size = 0;
 	}
 	
 	/**
@@ -97,6 +105,8 @@ public class DeckLinkedList {
 		ListNode middleLeft = front.previous;
 		front.previous = list.front.previous;
 		list.front.previous = middleLeft;
+		
+		size += list.size;
 	}
 	
 	/**
@@ -166,12 +176,7 @@ public class DeckLinkedList {
 	 * @return The index of the value or -1 if not found
 	 */
 	public int indexOf(int value) {
-		ListNode node = findValue(value, front);
-		if (node != null) {
-			return node.data;
-		} else {
-			return -1;
-		}
+		return findValue(value, front, 0);
 	}
 	
 	/**
@@ -180,13 +185,13 @@ public class DeckLinkedList {
 	 * @param current The current node in the recursion
 	 * @return The node at which the value is found or null if it is not found
 	 */
-	private ListNode findValue(int value, ListNode current) {
+	private int findValue(int value, ListNode current, int count) {
 		if (current == front.previous && front.previous.data != value) {
-			return null;
+			return -1;
 		} else if (current.data != value) {
-			return findValue(value, current.next);
+			return findValue(value, current.next, count + 1);
 		} else {
-			return current;
+			return count;
 		}
 	}
 	
