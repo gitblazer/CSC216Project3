@@ -100,21 +100,8 @@ public class Deck {
 		// find A Joker (value 27)
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
-		int tempVal = 0;
-		if (deck.indexOf(27) == DECK_SIZE - 1) {
-			tempVal = deck.get(0);
-		}
-		else {
-			tempVal = deck.get(deck.indexOf(27) + 1);
-		}	
-		int jokerIndexA = deck.indexOf(27);
-		if (jokerIndexA == DECK_SIZE - 1) {
-			deck.set(0 , 27);
-		}
-		else {
-			deck.set(jokerIndexA + 1 , 27);
-		}		
-		deck.set(jokerIndexA , tempVal);
+		
+		deck.exchange(deck.indexOf(27) , deck.indexOf(27) - 1);
 	}
 	
 	/**
@@ -124,41 +111,10 @@ public class Deck {
 		// find B Joker (value 28)
 		// move it down 2 positions
 		// ** still circular, 28 connects back to 1 **
-				
 		//swaps forward the first of two positions
-		int tempVal2 = 0;
-		if (deck.indexOf(28) + 1 > 27) {
-			tempVal2 = deck.get(deck.indexOf(28) + 1 - 28);
-		} else {
-			tempVal2 = deck.get(deck.indexOf(28) + 1);
-		}
 		
-		int jokerIndexB = deck.indexOf(28);
-		if  (jokerIndexB + 1 > 27) {
-			deck.set(jokerIndexB + 1 - 28 , 28);
-		}
-		else {
-			deck.set(jokerIndexB + 1 , 28);
-		}
-		deck.set(jokerIndexB , tempVal2);
-				
-		//swaps forward the first of two positions
-		tempVal2 = 0;
-		if (deck.indexOf(28) + 1 > 27) {
-			tempVal2 = deck.get(deck.indexOf(28) + 1 - 28);
-		}
-		else {
-			tempVal2 = deck.get(deck.indexOf(28) + 1);
-		}
-		
-		jokerIndexB = deck.indexOf(28);
-		if  (jokerIndexB + 1 > 27) {
-			deck.set(jokerIndexB + 1 - 28 , 28);
-		}
-		else {
-			deck.set(jokerIndexB + 1 , 28);
-		}
-		deck.set(jokerIndexB , tempVal2); 
+		deck.exchange(deck.indexOf(28) , deck.indexOf(28) - 1);
+		deck.exchange(deck.indexOf(28) , deck.indexOf(28) - 1);
 	}
 	
 	/**
@@ -178,6 +134,8 @@ public class Deck {
 			topJoker = JOKER2;
 			bottomJoker = JOKER1;
 		}
+		
+		/*
 		
 		int value = deck.get(DECK_SIZE - 1);
 		if (deck.get(0) != topJoker && deck.get(0) != bottomJoker) {
@@ -208,6 +166,12 @@ public class Deck {
 		if (value == -1) {
 			deck.removeLast();
 		}
+		
+		*/
+		
+		//ITERATION 2....
+		deck.detachAt(deck.get(bottomJoker)).concat(deck);
+		deck.detachAt(deck.get(topJoker)).concat(deck);
 	}
 	
 	/**
@@ -218,24 +182,9 @@ public class Deck {
 		// move that number of cards from the top of the deck to the bottom
 		// replace the bottom card on the bottom again
 		// ** if bottom card value = 27 or 28 (a joker) then use 27 regardless *
+
+		deck.detachAt(deck.get(27)).concat(deck);
 		
-		//System.out.print("Before: ");
-				
-		int temp3 = deck.get(27);
-		int temp = temp3;
-		
-		if (temp3 == 28) {
-			temp3 = 27;
-		}
-		
-		deck.remove(27);
-		for (int i = 0; i < temp3; i++) {
-			deck.add(deck.get(0));
-			deck.remove(0);
-		}
-		deck.add(temp);
-				
-		//System.out.print("After:  ");
 		
 	}
 	
