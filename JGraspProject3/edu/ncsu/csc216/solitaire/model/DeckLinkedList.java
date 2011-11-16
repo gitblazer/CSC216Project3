@@ -74,6 +74,7 @@ public class DeckLinkedList {
 		} else {
 			ListNode newNode = new ListNode(value, front, front.previous);
 			front.previous = newNode;
+			newNode.previous.next = newNode;
 			front = newNode;
 		}
 	}
