@@ -2,8 +2,7 @@ package edu.ncsu.csc216.solitaire.model;
 
 /**
  * The message class
- * @author William Blazer + Andrew Kofink
- *
+ * @author William Blazer, Andrew Kofink
  */
 public class Message {
 	
@@ -24,7 +23,7 @@ public class Message {
 			message[i] = characterArray[i] - 'A' + 1;
 		}
 	}
-	// the @ sybol is value 64, right before 'A' value of 65, check boundary down here
+	// the @ symbol is value 64, right before 'A' value of 65, check boundary down here
 	// the characters for ' ' spaces are one more than they should be. I.E , a 'X' is being returned when it should be a 'W' for spaces
 	
 	/**
@@ -37,8 +36,8 @@ public class Message {
 		char[] characterArray = new char[message.length];
 		for (int i = 0; i < message.length; i++) {
 			int keystream = deck.getKeystreamValue();
-			if (keystream + message[i] > Deck.DECK_SIZE) {
-				keystream -= Deck.DECK_SIZE;
+			if (keystream + message[i] > Deck.DECK_SIZE - 1) {
+				keystream -= (Deck.DECK_SIZE - 1);
 			}
 			message[i] = message[i] + keystream;
 			characterArray[i] = (char)(message[i] + 'A' - 1);
@@ -57,7 +56,7 @@ public class Message {
 		for (int i = 0; i < message.length; i++) {
 			message[i] = (message[i] - deck.getKeystreamValue());
 			if (message[i] <= 0) {
-				message[i] += Deck.DECK_SIZE;
+				message[i] += Deck.DECK_SIZE - 1;
 			}
 			characterArray[i] = (char)(message[i] + 'A' - 1);
 		}
