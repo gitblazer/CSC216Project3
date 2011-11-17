@@ -142,6 +142,15 @@ public class DeckLinkedList {
 	}
 	
 	/**
+	 * Method to return the node at an index
+	 * @param index The index to return the node at
+	 * @return The list node in question
+	 */
+	public ListNode findNode(int index) {
+		return findNode(index, front);
+	}
+	
+	/**
 	 * Helper method to return the node at an index
 	 * @param index The index to return the node at
 	 * @param current The current node in the recursion
