@@ -170,8 +170,12 @@ public class Deck {
 		*/
 		
 		//ITERATION 2....
-		deck.detachAt(deck.get(bottomJoker)).concat(deck);
-		deck.detachAt(deck.get(topJoker)).concat(deck);
+		DeckLinkedList deck2 = deck.detachAt(deck.indexOf(bottomJoker));
+		deck2.concat(deck.detachAt(topJoker));
+		deck2.concat(deck);
+		
+		deck = deck2;
+	
 	}
 	
 	/**
