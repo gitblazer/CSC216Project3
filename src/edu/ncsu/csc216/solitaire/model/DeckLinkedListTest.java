@@ -287,12 +287,33 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(dll.get(0),1);
 	}
 
-	public void testAddLast() {
-		fail("Not yet implemented");
-	}
-
 	public void testRemoveLast() {
-		fail("Not yet implemented");
+		int[] intArr = {4,6,8,10,12,14,16};
+		DeckLinkedList dll = new DeckLinkedList();
+		
+		try {
+			dll.removeLast();
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		
+		dll.add(intArr);
+		
+		assertEquals(dll.removeLast(), 16);
+		assertEquals(dll.removeLast(), 14);
+		assertEquals(dll.removeLast(), 12);
+		assertEquals(dll.removeLast(), 10);
+		assertEquals(dll.removeLast(), 8);
+		assertEquals(dll.removeLast(), 6);
+		assertEquals(dll.removeLast(), 4);
+		
+		try {
+			dll.removeLast();
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
 	}
 
 }

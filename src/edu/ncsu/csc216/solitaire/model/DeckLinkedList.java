@@ -265,7 +265,7 @@ public class DeckLinkedList {
 	/**
 	 * Removes the last node in the list
 	 */
-	public void removeLast() {
-		remove(-1);
+	public int removeLast() {
+		return remove(size - 1);
 	}
 }
