@@ -1,6 +1,7 @@
 package edu.ncsu.csc216.solitaire.model;
 
-import java.util.LinkedList;
+// changed this from java.util.linked to what is below...
+import edu.ncsu.csc216.solitaire.model.DeckLinkedList;
 
 /**
  * The Deck of Cards
@@ -15,12 +16,13 @@ public class Deck {
 	/**
 	 * Final value for the size of the deck
 	 */
-	public static final int DECK_SIZE = 27;
+	public static final int DECK_SIZE = 28;
 
 	/**
 	 * The Deck ArrayList
+	 * 
 	 */
-	private LinkedList<Integer> deck = new LinkedList<Integer>();
+	private DeckLinkedList deck = new DeckLinkedList(); //I removed the <Integer> types from this, mite be needed though
 	
 	/**
 	 * Creates the deck arrayList
@@ -40,17 +42,21 @@ public class Deck {
 			}					
 		}		
 		//checks for duplicate values
-		boolean[] exists = new boolean[29];
-		for (int i = 0; i < 29; i++ ) {
+		if (deckArray.length != DECK_SIZE) {
+			throw new IllegalArgumentException("Not enough values in the deck!");
+		}
+		boolean[] exists = new boolean[DECK_SIZE + 1];
+		for (int i = 1; i < DECK_SIZE + 1; i++ ) {
 			exists[i] = false;
 		}
-		for (int j = 0; j <= 27; j++) {
-			if (exists[deckArray[j]]) {
-				System.out.println("The value: " + deckArray[j] + " exists twice!");
+		for (int i = 0; i < DECK_SIZE; i++) {
+			if (exists[deckArray[i]]) {
+				System.out.println("The value: " + deckArray[i] + " exists twice!");
 				throw new IllegalArgumentException("A duplicate value exists");
 			}	
-			exists[deckArray[j]] = true;
-		}		
+			exists[deckArray[i]] = true;
+		}
+		
 		//makes sure 1-28 exist in the deck
 		for (int j = 1; j <= 28; j++) {
 			valueFound = false;
@@ -94,21 +100,8 @@ public class Deck {
 		// find A Joker (value 27)
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
-		int tempVal = 0;
-		if (deck.indexOf(27) == DECK_SIZE) {
-			tempVal = deck.get(0);
-		}
-		else {
-			tempVal = deck.get(deck.indexOf(27) + 1);
-		}	
-		int jokerIndexA = deck.indexOf(27);
-		if (jokerIndexA == DECK_SIZE) {
-			deck.set(0 , 27);
-		}
-		else {
-			deck.set(jokerIndexA + 1 , 27);
-		}		
-		deck.set(jokerIndexA , tempVal);
+		
+		deck.exchange(deck.indexOf(27) , deck.indexOf(27) - 1);
 	}
 	
 	/**
@@ -118,42 +111,10 @@ public class Deck {
 		// find B Joker (value 28)
 		// move it down 2 positions
 		// ** still circular, 28 connects back to 1 **
-				
 		//swaps forward the first of two positions
-		int tempVal2 = 0;
-		if (deck.indexOf(28) + 1 > 27) {
-			tempVal2 = deck.get(deck.indexOf(28) + 1 - 28);
-		}
-		else {
-			tempVal2 = deck.get(deck.indexOf(28) + 1);
-		}
 		
-		int jokerIndexB = deck.indexOf(28);
-		if  (jokerIndexB + 1 > 27) {
-			deck.set(jokerIndexB + 1 - 28 , 28);
-		}
-		else {
-			deck.set(jokerIndexB + 1 , 28);
-		}
-		deck.set(jokerIndexB , tempVal2);
-				
-		//swaps forward the first of two positions
-		tempVal2 = 0;
-		if (deck.indexOf(28) + 1 > 27) {
-			tempVal2 = deck.get(deck.indexOf(28) + 1 - 28);
-		}
-		else {
-			tempVal2 = deck.get(deck.indexOf(28) + 1);
-		}
-		
-		jokerIndexB = deck.indexOf(28);
-		if  (jokerIndexB + 1 > 27) {
-			deck.set(jokerIndexB + 1 - 28 , 28);
-		}
-		else {
-			deck.set(jokerIndexB + 1 , 28);
-		}
-		deck.set(jokerIndexB , tempVal2); 
+		deck.exchange(deck.indexOf(28) , deck.indexOf(28) - 1);
+		deck.exchange(deck.indexOf(28) , deck.indexOf(28) - 1);
 	}
 	
 	/**
@@ -174,7 +135,9 @@ public class Deck {
 			bottomJoker = JOKER1;
 		}
 		
-		int value = deck.get(DECK_SIZE);
+		/*
+		
+		int value = deck.get(DECK_SIZE - 1);
 		if (deck.get(0) != topJoker && deck.get(0) != bottomJoker) {
 			value = deck.get(0);
 		} else if (deck.get(0) == topJoker) {
@@ -183,19 +146,19 @@ public class Deck {
 		}
 		while (deck.indexOf(topJoker) != 0) {
 			//move top value to bottom of deck and then delete
-			deck.addLast(deck.get(0));
+			deck.add(deck.get(0));
 			deck.remove(0);
 		}		
 		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1 && deck.indexOf(bottomJoker) != deck.indexOf(value)) {
 			//move values between bottom joker and the decks original bottom to the top and delete
 			if (deck.indexOf(value) == 0) {
-				deck.addFirst(deck.get(deck.indexOf(value) + DECK_SIZE - 1));
+				deck.addFirst(deck.get(deck.indexOf(value) + DECK_SIZE - 2));
 			} else {
 				deck.addFirst(deck.get(deck.indexOf(value) - 1));
 			}
 			
 			if (deck.indexOf(value) == 0) {
-				deck.remove(deck.indexOf(value) + DECK_SIZE - 1);
+				deck.remove(deck.indexOf(value) + DECK_SIZE - 2);
 			} else {
 				deck.remove(deck.indexOf(value) - 1);
 			}
@@ -203,6 +166,16 @@ public class Deck {
 		if (value == -1) {
 			deck.removeLast();
 		}
+		
+		*/
+		
+		//ITERATION 2....
+		DeckLinkedList deck2 = deck.detachAt(deck.indexOf(bottomJoker));
+		deck2.concat(deck.detachAt(topJoker));
+		deck2.concat(deck);
+		
+		deck = deck2;
+	
 	}
 	
 	/**
@@ -213,18 +186,9 @@ public class Deck {
 		// move that number of cards from the top of the deck to the bottom
 		// replace the bottom card on the bottom again
 		// ** if bottom card value = 27 or 28 (a joker) then use 27 regardless *
+
+		deck.detachAt(deck.get(27)).concat(deck);
 		
-		//System.out.print("Before: ");
-				
-		int temp3 = deck.get(27);
-		deck.remove(27);
-		for (int i = 0; i < temp3; i++) {
-			deck.addLast(deck.get(0));
-			deck.remove(0);
-		}
-		deck.addLast(temp3);
-				
-		//System.out.print("After:  ");
 		
 	}
 	
