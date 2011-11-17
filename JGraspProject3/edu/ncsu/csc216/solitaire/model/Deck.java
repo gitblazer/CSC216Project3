@@ -101,7 +101,7 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		
-		deck.exchange(deck.indexOf(27) , deck.indexOf(27) - 1);
+		deck.exchange(deck.indexOf(27) , deck.indexOf(deck.findNode(deck.indexOf(27)).previous.data));
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public class Deck {
 		
 		//ITERATION 2....
 		DeckLinkedList deck2 = deck.detachAt(deck.indexOf(bottomJoker));
-		deck2.concat(deck.detachAt(topJoker));
+		deck2.concat(deck.detachAt(deck.indexOf(topJoker)));
 		deck2.concat(deck);
 		
 		deck = deck2;
@@ -217,7 +217,7 @@ public class Deck {
 		}
 		*/
 		
-		returnMe = deck.get(temp4);
+		returnMe = deck.get(deck.indexOf(temp4));
 	
 		//System.out.println("Keystream Value returned: " + returnMe);
 		//printDeck(deck);

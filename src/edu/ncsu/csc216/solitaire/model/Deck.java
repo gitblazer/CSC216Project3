@@ -101,7 +101,7 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		
-		deck.exchange(deck.indexOf(27) , deck.indexOf(deck.findNode(deck.indexOf(27)).previous.data));
+		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).previous.data));
 	}
 	
 	/**
@@ -113,8 +113,8 @@ public class Deck {
 		// ** still circular, 28 connects back to 1 **
 		//swaps forward the first of two positions
 		
-		deck.exchange(deck.indexOf(28) , deck.indexOf(28) - 1);
-		deck.exchange(deck.indexOf(28) , deck.indexOf(28) - 1);
+		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).previous.data));
+		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).previous.data));
 	}
 	
 	/**
@@ -217,7 +217,7 @@ public class Deck {
 		}
 		*/
 		
-		returnMe = deck.get(temp4);
+		returnMe = deck.get(deck.indexOf(temp4));
 	
 		//System.out.println("Keystream Value returned: " + returnMe);
 		//printDeck(deck);
