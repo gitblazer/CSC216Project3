@@ -72,8 +72,18 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(dll1.get(4), 7);
 		assertEquals(dll1.get(5), 9);
 		assertEquals(dll1.get(8), 38);
-		assertEquals(dll1.get(9), 4);
-		assertEquals(dll1.get(-1), 38);
+		try {
+			assertEquals(dll1.get(9), 4);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		try {
+			assertEquals(dll1.get(-1), 38);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
 	}
 
 	public void testDetachAt() {
@@ -122,29 +132,12 @@ public class DeckLinkedListTest extends TestCase {
 	}
 
 	public void testGet() {
-		//int[] intArr = {4,6,8,10,12,14,16};
+		int[] intArr = {4,6,8,10,12,14,16};
 		
 		DeckLinkedList dll = new DeckLinkedList();
 		
-		//dll.add(intArr);
+		dll.add(intArr);
 
-		dll.add(16);
-		dll.addFirst(14);
-		dll.addFirst(12);
-		dll.addFirst(10);
-		dll.addFirst(8);
-		dll.addFirst(6);
-		dll.addFirst(4);
-		
-		/*
-		dll.add(4);
-		dll.add(6);
-		dll.add(8);
-		dll.add(10);
-		dll.add(12);
-		dll.add(14);
-		dll.add(16);
-		*/
 		assertEquals(dll.get(0), 4);
 		assertEquals(dll.get(1), 6);
 		assertEquals(dll.get(2), 8);
@@ -166,15 +159,62 @@ public class DeckLinkedListTest extends TestCase {
 	}
 
 	public void testIndexOf() {
-		fail("Not yet implemented");
+		int[] intArr = {4,6,8,10,12,14,16};
+		
+		DeckLinkedList dll = new DeckLinkedList();
+		
+		dll.add(intArr);
+		
+		assertEquals(dll.indexOf(4), 0);
+		assertEquals(dll.indexOf(6), 1);
+		assertEquals(dll.indexOf(8), 2);
+		assertEquals(dll.indexOf(10), 3);
+		assertEquals(dll.indexOf(12), 4);
+		assertEquals(dll.indexOf(14), 5);
+		assertEquals(dll.indexOf(16), 6);
 	}
 
 	public void testRemove() {
-		fail("Not yet implemented");
+		int[] intArr = {4,6,8,10,12,14,16};
+		
+		DeckLinkedList dll = new DeckLinkedList();
+		
+		assertEquals(dll.remove(0), -1);
+		
+		dll.add(intArr);
+		
+		assertEquals(dll.remove(6), 16);
+		assertEquals(dll.remove(0), 4);
+		assertEquals(dll.remove(0), 6);
+		assertEquals(dll.remove(0), 8);
+		assertEquals(dll.remove(0), 10);
+		assertEquals(dll.remove(0), 12);
+		assertEquals(dll.remove(0), 14);
+		assertEquals(dll.remove(0), -1);
+		
 	}
 
 	public void testSet() {
-		fail("Not yet implemented");
+		int[] intArr = {4,6,8,10,12,14,16};
+		DeckLinkedList dll = new DeckLinkedList();
+		dll.add(intArr);
+		
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
 	}
 
 	public void testAddLast() {

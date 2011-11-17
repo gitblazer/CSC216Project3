@@ -1,5 +1,7 @@
 package edu.ncsu.csc216.solitaire.model;
 
+import java.util.NoSuchElementException;
+
 /**
  * The LinkedList for the Deck of cards
  * @author William Blazer, Andrew Kofink
@@ -12,9 +14,15 @@ public class DeckLinkedList {
 	private ListNode front;
 	
 	/**
+	 * The currens size of the list
+	 */
+	private int size;
+	
+	/**
 	 * The LinkedList for the Deck of cards
 	 */
 	public DeckLinkedList() {
+		size = 0;
 		front = null;
 	}
 	
@@ -52,11 +60,13 @@ public class DeckLinkedList {
 			front = new ListNode(value);
 			front.next = front;
 			front.previous = front;
+			size++;
 		} else if (current.next == front) {
 			current.next = new ListNode(value);
 			current.next.next = front;
 			current.next.previous = current;
 			front.previous = current.next;
+			size++;
 		} else {
 			add(value, current.next);
 		}
@@ -68,14 +78,13 @@ public class DeckLinkedList {
 	 */
 	public void addFirst(int value) {
 		if (front == null) {
-			front = new ListNode(value);
-			front.next = front;
-			front.previous = front;
+			add(value, front);
 		} else {
 			ListNode newNode = new ListNode(value, front, front.previous);
 			front.previous = newNode;
 			newNode.previous.next = newNode;
 			front = newNode;
+			size++;
 		}
 	}
 	
@@ -84,6 +93,7 @@ public class DeckLinkedList {
 	 */
 	public void clear() {
 		front = null;
+		size = 0;
 	}
 	
 	/**
@@ -97,6 +107,8 @@ public class DeckLinkedList {
 		ListNode middleLeft = front.previous;
 		front.previous = list.front.previous;
 		list.front.previous = middleLeft;
+		
+		size += list.size;
 	}
 	
 	/**
@@ -106,14 +118,24 @@ public class DeckLinkedList {
 	 * @return The detached deck linked list
 	 */
 	public DeckLinkedList detachAt(int index) {
+		if (index >= size || index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		
 		DeckLinkedList detatchedList = new DeckLinkedList();
 		if (index < 1) {
 			detatchedList.front = front;
 			front = null;
+			size = 0;
 		} else {
 			ListNode nodeBeforeSplit = findNode(index - 1, front);
 			detatchedList.front = nodeBeforeSplit.next;
 			nodeBeforeSplit.next = front;
+			detatchedList.front.previous = front.previous;
+			front.previous = nodeBeforeSplit;
+			detatchedList.front.previous.next = detatchedList.front;
+			detatchedList.size = size - index;
+			size = index;
 		}
 		return detatchedList;
 	}
@@ -140,6 +162,10 @@ public class DeckLinkedList {
 	 * @param index2 The index of value 2
 	 */
 	public void exchange(int index1, int index2) {
+		if (index1 >= size || index1 < 0 || index2 >= size || index2 < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		
 		ListNode node1 = findNode(index1, front);
 		ListNode node2 = findNode(index2, front);
 		
@@ -154,7 +180,7 @@ public class DeckLinkedList {
 	 * @return The value to be returned
 	 */
 	public int get(int index) {
-		if (front == null) {
+		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException();
 		}
 		return findNode(index, front).data;
@@ -166,12 +192,7 @@ public class DeckLinkedList {
 	 * @return The index of the value or -1 if not found
 	 */
 	public int indexOf(int value) {
-		ListNode node = findValue(value, front);
-		if (node != null) {
-			return node.data;
-		} else {
-			return -1;
-		}
+		return findValue(value, front, 0);
 	}
 	
 	/**
@@ -180,13 +201,13 @@ public class DeckLinkedList {
 	 * @param current The current node in the recursion
 	 * @return The node at which the value is found or null if it is not found
 	 */
-	private ListNode findValue(int value, ListNode current) {
+	private int findValue(int value, ListNode current, int count) {
 		if (current == front.previous && front.previous.data != value) {
-			return null;
+			throw new NoSuchElementException();
 		} else if (current.data != value) {
-			return findValue(value, current.next);
+			return findValue(value, current.next, count + 1);
 		} else {
-			return current;
+			return count;
 		}
 	}
 	
@@ -196,10 +217,25 @@ public class DeckLinkedList {
 	 * @return The value that was removed
 	 */
 	public int remove(int index) {
+		if (index >= size || index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		
 		ListNode node = findNode(index, front);
-
-		node.next.previous = node.previous;
-		node.previous.next = node.next;
+		
+		if (node == null) {
+			return -1;
+		} else if (size == 1) {
+			front = null;
+		} else {
+			if (index == 0) {
+				front = node.next;
+			}
+			node.next.previous = node.previous;
+			node.previous.next = node.next;
+		}
+		
+		size--;
 		
 		return node.data;
 	}
@@ -210,6 +246,9 @@ public class DeckLinkedList {
 	 * @param value The value to change the node to
 	 */
 	public void set(int index, int value) {
+		if (index >= size || index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
 		findNode(index, front).data = value;
 	}
 	

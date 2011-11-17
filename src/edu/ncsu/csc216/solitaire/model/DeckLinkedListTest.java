@@ -1,5 +1,7 @@
 package edu.ncsu.csc216.solitaire.model;
 
+import java.util.NoSuchElementException;
+
 import junit.framework.TestCase;
 
 public class DeckLinkedListTest extends TestCase {
@@ -72,8 +74,18 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(dll1.get(4), 7);
 		assertEquals(dll1.get(5), 9);
 		assertEquals(dll1.get(8), 38);
-		assertEquals(dll1.get(9), 4);
-		assertEquals(dll1.get(-1), 38);
+		try {
+			assertEquals(dll1.get(9), 4);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		try {
+			assertEquals(dll1.get(-1), 38);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
 	}
 
 	public void testDetachAt() {
@@ -114,11 +126,16 @@ public class DeckLinkedListTest extends TestCase {
 		dll.add(intArr);
 		dll.exchange(2,6);
 		assertEquals(dll.get(2), 16);
+
+		try {
+			dll = new DeckLinkedList();
+			dll.add(intArr);
+			dll.exchange(-1,6);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
 		
-		dll = new DeckLinkedList();
-		dll.add(intArr);
-		dll.exchange(-1,6);
-		assertEquals(dll.get(-1), 16);
 	}
 
 	public void testGet() {
@@ -136,16 +153,47 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(dll.get(5), 14);
 		assertEquals(dll.get(6), 16);
 		
-		assertEquals(dll.get(7), 4);
-		assertEquals(dll.get(8), 6);
-		assertEquals(dll.get(9), 8);
-		assertEquals(dll.get(10), 10);
-
-		assertEquals(dll.get(-1), 16);
-		assertEquals(dll.get(-2), 14);
-		assertEquals(dll.get(-3), 12);
-		assertEquals(dll.get(-4), 10);
-		assertEquals(dll.get(-5), 8);
+		try {
+			dll.get(7);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		
+		try {
+			dll.get(8);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		
+		try {
+			dll.get(30);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		
+		try {
+			dll.get(-1);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		
+		try {
+			dll.get(-2);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		
+		try {
+			dll.get(-50);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
 	}
 
 	public void testIndexOf() {
@@ -162,14 +210,81 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(dll.indexOf(12), 4);
 		assertEquals(dll.indexOf(14), 5);
 		assertEquals(dll.indexOf(16), 6);
+		
+		try {
+			dll.indexOf(-50);
+			fail("Should have thrown exception");
+		} catch (NoSuchElementException nsee) {
+			
+		}
+		
+		try {
+			dll.indexOf(5);
+			fail("Should have thrown exception");
+		} catch (NoSuchElementException nsee) {
+			
+		}
+		
+		try {
+			dll.indexOf(17);
+			fail("Should have thrown exception");
+		} catch (NoSuchElementException nsee) {
+			
+		}
 	}
 
 	public void testRemove() {
-		fail("Not yet implemented");
+		int[] intArr = {4,6,8,10,12,14,16};
+		
+		DeckLinkedList dll = new DeckLinkedList();
+		
+		try {
+			dll.remove(0);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		
+		dll.add(intArr);
+		
+		assertEquals(dll.remove(6), 16);
+		assertEquals(dll.remove(0), 4);
+		assertEquals(dll.remove(0), 6);
+		assertEquals(dll.remove(0), 8);
+		assertEquals(dll.remove(0), 10);
+		assertEquals(dll.remove(0), 12);
+		assertEquals(dll.remove(0), 14);
+		
+		try {
+			dll.remove(0);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		
 	}
 
 	public void testSet() {
-		fail("Not yet implemented");
+		int[] intArr = {4,6,8,10,12,14,16};
+		DeckLinkedList dll = new DeckLinkedList();
+		dll.add(intArr);
+		
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
+		dll.set(0, 1);
+		assertEquals(dll.get(0),1);
 	}
 
 	public void testAddLast() {
