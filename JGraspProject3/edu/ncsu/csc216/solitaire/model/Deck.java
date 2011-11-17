@@ -101,7 +101,7 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		
-		deck.exchange(deck.indexOf(27) , deck.indexOf(deck.findNode(deck.indexOf(27)).previous.data));
+		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).previous.data));
 	}
 	
 	/**
@@ -113,8 +113,8 @@ public class Deck {
 		// ** still circular, 28 connects back to 1 **
 		//swaps forward the first of two positions
 		
-		deck.exchange(deck.indexOf(28) , deck.indexOf(28) - 1);
-		deck.exchange(deck.indexOf(28) , deck.indexOf(28) - 1);
+		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).previous.data));
+		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).previous.data));
 	}
 	
 	/**
@@ -170,11 +170,16 @@ public class Deck {
 		*/
 		
 		//ITERATION 2....
+		/*
 		DeckLinkedList deck2 = deck.detachAt(deck.indexOf(bottomJoker));
 		deck2.concat(deck.detachAt(deck.indexOf(topJoker)));
 		deck2.concat(deck);
+		*/
 		
-		deck = deck2;
+		DeckLinkedList center = deck.detachAt(deck.indexOf(topJoker));
+		DeckLinkedList right = center.detachAt(center.indexOf((center.findNode(deck.indexOf(bottomJoker)).next.data)));
+		deck.concat(center);
+		deck.concat(right);
 	
 	}
 	
