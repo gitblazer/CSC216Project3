@@ -88,6 +88,9 @@ public class DeckLinkedListTest extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests the detachAt method
+	 */
 	public void testDetachAt() {
 		int[] intArr = {4,6,8,10,12,14,16};
 		DeckLinkedList dll;
@@ -108,6 +111,9 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(dll2.get(0), 4);
 	}
 
+	/**
+	 * Tests the exchange method
+	 */
 	public void testExchange() {
 		int[] intArr = {4,6,8,10,12,14,16};
 		DeckLinkedList dll;
@@ -138,6 +144,9 @@ public class DeckLinkedListTest extends TestCase {
 		
 	}
 
+	/**
+	 * Tests the get method
+	 */
 	public void testGet() {
 		int[] intArr = {4,6,8,10,12,14,16};
 		
@@ -196,6 +205,9 @@ public class DeckLinkedListTest extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests the indexOf method
+	 */
 	public void testIndexOf() {
 		int[] intArr = {4,6,8,10,12,14,16};
 		
@@ -233,6 +245,9 @@ public class DeckLinkedListTest extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests the remove method
+	 */
 	public void testRemove() {
 		int[] intArr = {4,6,8,10,12,14,16};
 		
@@ -264,6 +279,9 @@ public class DeckLinkedListTest extends TestCase {
 		
 	}
 
+	/**
+	 * Tests the set method
+	 */
 	public void testSet() {
 		int[] intArr = {4,6,8,10,12,14,16};
 		DeckLinkedList dll = new DeckLinkedList();
@@ -287,6 +305,9 @@ public class DeckLinkedListTest extends TestCase {
 		assertEquals(dll.get(0),1);
 	}
 
+	/**
+	 * Tests the removeLast method
+	 */
 	public void testRemoveLast() {
 		int[] intArr = {4,6,8,10,12,14,16};
 		DeckLinkedList dll = new DeckLinkedList();
@@ -315,5 +336,4 @@ public class DeckLinkedListTest extends TestCase {
 			
 		}
 	}
-
 }
