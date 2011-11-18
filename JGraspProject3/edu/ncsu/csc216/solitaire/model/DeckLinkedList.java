@@ -101,14 +101,16 @@ public class DeckLinkedList {
 	 * @param list The list to concatenate
 	 */
 	public void concat(DeckLinkedList list) {
-		front.previous.next = list.front;
-		list.front.previous.next = front;
-		
-		ListNode middleLeft = front.previous;
-		front.previous = list.front.previous;
-		list.front.previous = middleLeft;
-		
-		size += list.size;
+		if (list.front != null) {
+			front.previous.next = list.front;
+			list.front.previous.next = front;
+			
+			ListNode middleLeft = front.previous;
+			front.previous = list.front.previous;
+			list.front.previous = middleLeft;
+			
+			size += list.size;
+		}
 	}
 	
 	/**
@@ -126,6 +128,7 @@ public class DeckLinkedList {
 		if (index < 1) {
 			detatchedList.front = front;
 			front = null;
+			detatchedList.size = size;
 			size = 0;
 		} else {
 			ListNode nodeBeforeSplit = findNode(index - 1, front);
@@ -138,6 +141,15 @@ public class DeckLinkedList {
 			size = index;
 		}
 		return detatchedList;
+	}
+	
+	/**
+	 * Method to return the node at an index
+	 * @param index The index to return the node at
+	 * @return The list node in question
+	 */
+	public ListNode findNode(int index) {
+		return findNode(index, front);
 	}
 	
 	/**
@@ -255,7 +267,7 @@ public class DeckLinkedList {
 	/**
 	 * Removes the last node in the list
 	 */
-	public void removeLast() {
-		remove(-1);
+	public int removeLast() {
+		return remove(size - 1);
 	}
 }

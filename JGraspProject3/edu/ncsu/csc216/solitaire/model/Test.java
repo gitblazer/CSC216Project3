@@ -4,10 +4,12 @@ public class Test {
 	public static void main(String[] args) {
 		int[] intArr = {4,6,8,10,12,14,16};
 		
-		DeckLinkedList dll = new DeckLinkedList();
+		DeckLinkedList dll1 = new DeckLinkedList();
+		DeckLinkedList dll2 = new DeckLinkedList();
 		
-		dll.add(intArr);
-
-		dll.detachAt(0);
+		//dll1.add(intArr);
+		dll2.add(intArr);
+		
+		dll1.concat(dll2);
 	}
 }
