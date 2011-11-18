@@ -11,9 +11,17 @@ s#i0
 s#k0
 s#j0
 s#l0
-!114;g
-%\011edu%sncsu%scsc216%ssolitaire%smodel%sTest.java
+!287;g
+%\011edu%sncsu%scsc216%ssolitaire%smodel%sListNode.java
 %\011edu%sncsu%scsc216%ssolitaire%smodel%sDeckLinkedList.java
-!108;f
-%	edu%sncsu%scsc216%ssolitaire%smodel%sTest.java
+%\011edu%sncsu%scsc216%ssolitaire%smodel%sMessage.java
+%\011edu%sncsu%scsc216%ssolitaire%smodel%sDeck.java
+%\011edu%sncsu%scsc216%ssolitaire%sui%sUI.java
+%\011Test.java
+!269;f
+%	edu%sncsu%scsc216%ssolitaire%smodel%sListNode.java
 %	edu%sncsu%scsc216%ssolitaire%smodel%sDeckLinkedList.java
+%	edu%sncsu%scsc216%ssolitaire%smodel%sMessage.java
+%	edu%sncsu%scsc216%ssolitaire%smodel%sDeck.java
+%	edu%sncsu%scsc216%ssolitaire%sui%sUI.java
+%	Test.java
