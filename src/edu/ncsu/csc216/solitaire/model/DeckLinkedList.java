@@ -219,7 +219,7 @@ public class DeckLinkedList {
 	 * @return The node at which the value is found or null if it is not found
 	 */
 	private int findValue(int value, ListNode current, int count) {
-		if (current == front.previous && front.previous.data != value) {
+		if (front == null || (current == front.previous && front.previous.data != value)) {
 			throw new NoSuchElementException();
 		} else if (current.data != value) {
 			return findValue(value, current.next, count + 1);

@@ -213,6 +213,13 @@ public class DeckLinkedListTest extends TestCase {
 		
 		DeckLinkedList dll = new DeckLinkedList();
 		
+		try {
+			dll.indexOf(5);
+			fail("Should have thrown exception");
+		} catch (NoSuchElementException nsee) {
+			
+		}
+		
 		dll.add(intArr);
 		
 		assertEquals(dll.indexOf(4), 0);
