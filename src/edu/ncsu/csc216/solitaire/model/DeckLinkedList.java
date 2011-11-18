@@ -103,6 +103,7 @@ public class DeckLinkedList {
 	public void concat(DeckLinkedList list) {
 		if (front == null) {
 			front = list.front;
+			size = list.size;
 		} else if (list.front == null) {
 			return;
 		} else if (list.front != null) {

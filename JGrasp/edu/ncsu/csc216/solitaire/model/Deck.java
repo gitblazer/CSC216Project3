@@ -101,11 +101,7 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		
-<<<<<<< HEAD
-		deck.exchange(deck.indexOf(27) , deck.indexOf(27) - 1);
-=======
 		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).previous.data));
->>>>>>> decf4701c0b3c2c752e9fd695e8b8d1d0646c78e
 	}
 	
 	/**
@@ -117,13 +113,8 @@ public class Deck {
 		// ** still circular, 28 connects back to 1 **
 		//swaps forward the first of two positions
 		
-<<<<<<< HEAD
-		deck.exchange(deck.indexOf(28) , deck.indexOf(28) - 1);
-		deck.exchange(deck.indexOf(28) , deck.indexOf(28) - 1);
-=======
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).previous.data));
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).previous.data));
->>>>>>> decf4701c0b3c2c752e9fd695e8b8d1d0646c78e
 	}
 	
 	/**
@@ -179,13 +170,6 @@ public class Deck {
 		*/
 		
 		//ITERATION 2....
-<<<<<<< HEAD
-		DeckLinkedList deck2 = deck.detachAt(deck.indexOf(bottomJoker));
-		deck2.concat(deck.detachAt(topJoker));
-		deck2.concat(deck);
-		
-		deck = deck2;
-=======
 		/*
 		DeckLinkedList deck2 = deck.detachAt(deck.indexOf(bottomJoker));
 		deck2.concat(deck.detachAt(deck.indexOf(topJoker)));
@@ -194,14 +178,17 @@ public class Deck {
 		
 		DeckLinkedList centerAndRight = deck.detachAt(deck.indexOf(topJoker));
 		DeckLinkedList left = deck;
-		DeckLinkedList right = centerAndRight.detachAt(centerAndRight.indexOf(centerAndRight.findNode(centerAndRight.indexOf(bottomJoker)).next.data));
+		DeckLinkedList right = new DeckLinkedList();
+		if (centerAndRight.indexOf(centerAndRight.findNode(centerAndRight.indexOf(bottomJoker)).next.data) != 0) {
+			right = centerAndRight.detachAt(centerAndRight.indexOf(centerAndRight.findNode(centerAndRight.indexOf(bottomJoker)).next.data));
+		}
 		DeckLinkedList center = centerAndRight;
 		
-		left.concat(center);
-		DeckLinkedList leftAndCenter = left;
-		leftAndCenter.concat(right);
->>>>>>> decf4701c0b3c2c752e9fd695e8b8d1d0646c78e
+		right.concat(center);
+		DeckLinkedList rightAndCenter = right;
+		rightAndCenter.concat(left);
 	
+		deck = rightAndCenter;
 	}
 	
 	/**
@@ -213,8 +200,11 @@ public class Deck {
 		// replace the bottom card on the bottom again
 		// ** if bottom card value = 27 or 28 (a joker) then use 27 regardless *
 
-		deck.detachAt(deck.get(27)).concat(deck);
-		
+		DeckLinkedList whatIsLeft = deck.detachAt(deck.get(27));
+		int last = whatIsLeft.removeLast();
+		whatIsLeft.concat(deck);
+		deck = whatIsLeft;
+		deck.add(last);
 		
 	}
 	
@@ -243,7 +233,7 @@ public class Deck {
 		}
 		*/
 		
-		returnMe = deck.get(deck.indexOf(temp4));
+		returnMe = deck.get(temp4);
 	
 		//System.out.println("Keystream Value returned: " + returnMe);
 		//printDeck(deck);
@@ -251,7 +241,7 @@ public class Deck {
 			returnMe = 27;
 		}
 		//printDeck(deck);
-		//System.out.println("Return value: " + returnMe);
+		System.out.println("Return value: " + returnMe);
 		
 		return returnMe;
 	}
