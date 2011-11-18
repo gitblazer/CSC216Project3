@@ -176,10 +176,14 @@ public class Deck {
 		deck2.concat(deck);
 		*/
 		
-		DeckLinkedList center = deck.detachAt(deck.indexOf(topJoker));
-		DeckLinkedList right = center.detachAt(center.indexOf((center.findNode(deck.indexOf(bottomJoker)).next.data)));
-		deck.concat(center);
-		deck.concat(right);
+		DeckLinkedList centerAndRight = deck.detachAt(deck.indexOf(topJoker));
+		DeckLinkedList left = deck;
+		DeckLinkedList right = centerAndRight.detachAt(centerAndRight.indexOf(centerAndRight.findNode(centerAndRight.indexOf(bottomJoker)).next.data));
+		DeckLinkedList center = centerAndRight;
+		
+		left.concat(center);
+		DeckLinkedList leftAndCenter = left;
+		leftAndCenter.concat(right);
 	
 	}
 	

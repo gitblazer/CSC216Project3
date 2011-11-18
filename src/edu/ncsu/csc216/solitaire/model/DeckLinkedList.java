@@ -101,14 +101,16 @@ public class DeckLinkedList {
 	 * @param list The list to concatenate
 	 */
 	public void concat(DeckLinkedList list) {
-		front.previous.next = list.front;
-		list.front.previous.next = front;
-		
-		ListNode middleLeft = front.previous;
-		front.previous = list.front.previous;
-		list.front.previous = middleLeft;
-		
-		size += list.size;
+		if (list.front != null) {
+			front.previous.next = list.front;
+			list.front.previous.next = front;
+			
+			ListNode middleLeft = front.previous;
+			front.previous = list.front.previous;
+			list.front.previous = middleLeft;
+			
+			size += list.size;
+		}
 	}
 	
 	/**
