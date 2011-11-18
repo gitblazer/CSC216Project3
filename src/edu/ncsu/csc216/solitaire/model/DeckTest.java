@@ -43,6 +43,7 @@ public class DeckTest extends TestCase {
 			d = new Deck(testDecks[i]);
 			int j = 0;
 			while (j < answersInOrderForFirst.length && i == 0) {
+				System.out.println(i);
 				assertEquals(d.getKeystreamValue(), answersInOrderForFirst[j++]);
 			}
 		}

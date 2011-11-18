@@ -105,7 +105,7 @@ public class DeckLinkedList {
 			front = list.front;
 		} else if (list.front == null) {
 			return;
-		} else {
+		} else if (list.front != null) {
 			front.previous.next = list.front;
 			list.front.previous.next = front;
 			
