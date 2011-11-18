@@ -65,6 +65,29 @@ public class DeckLinkedListTest extends TestCase {
 		DeckLinkedList dll1 = new DeckLinkedList();
 		DeckLinkedList dll2 = new DeckLinkedList();
 		
+		dll1.concat(dll2);
+		
+		try {
+			dll1.get(0);
+			fail("Should have thrown exception");
+		} catch (IndexOutOfBoundsException iobe) {
+			
+		}
+		
+		dll1.add(intArr1);
+		dll2.concat(dll1);
+		assertEquals(4, dll2.get(0));
+
+		dll1.clear();
+		dll2.clear();
+		
+		dll2.add(intArr2);
+		dll1.concat(dll2);
+		assertEquals(9, dll1.get(0));
+		
+		dll1.clear();
+		dll2.clear();
+		
 		dll1.add(intArr1);
 		dll2.add(intArr2);
 		
