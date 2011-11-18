@@ -336,4 +336,18 @@ public class DeckLinkedListTest extends TestCase {
 			
 		}
 	}
+	
+	/**
+	 * Tests the size getter
+	 */
+	public void testSize() {
+		int[] intArr = {4,6,8,10,12,14,16};
+		DeckLinkedList dll = new DeckLinkedList();
+		
+		assertEquals(dll.size(), 0);
+		dll.add(4);
+		assertEquals(dll.size(), 1);
+		dll.add(intArr);
+		assertEquals(dll.size(), 8);
+	}
 }

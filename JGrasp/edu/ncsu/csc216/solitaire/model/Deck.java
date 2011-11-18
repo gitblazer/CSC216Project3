@@ -81,7 +81,7 @@ public class Deck {
 	 */
 	public int getKeystreamValue()  {
 		
-		//printDeck(deck);
+		printDeck(deck);
 		stepOne();
 		//printDeck(deck);
 		stepTwo();
@@ -101,7 +101,7 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		
-		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).previous.data));
+		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).next.data));
 	}
 	
 	/**
@@ -113,8 +113,8 @@ public class Deck {
 		// ** still circular, 28 connects back to 1 **
 		//swaps forward the first of two positions
 		
-		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).previous.data));
-		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).previous.data));
+		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
+		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
 	}
 	
 	/**
@@ -241,7 +241,7 @@ public class Deck {
 			returnMe = 27;
 		}
 		//printDeck(deck);
-		System.out.println("Return value: " + returnMe);
+		//System.out.println("Return value: " + returnMe);
 		
 		return returnMe;
 	}
@@ -250,7 +250,7 @@ public class Deck {
 	 * used to print the deck for debugging
 	 * @param deck2 deck to be printed
 	 */
-/*	public static void printDeck(LinkedList<Integer> deck2) { 
+	public static void printDeck(DeckLinkedList deck2) { 
 		// below is a loop to print out the arraylist  for debugging purposes
 		//--------------------------
 		System.out.print("Deck: ");
@@ -263,6 +263,5 @@ public class Deck {
 		
 		//----------------------
 	}
-*/
 	
 }

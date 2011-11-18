@@ -3,8 +3,10 @@ import edu.ncsu.csc216.solitaire.model.Deck;
 
 public class Test {
 	public static void main(String[] args) {
-		int[] testDeck = {27, 1, 4, 7, 10, 13, 16, 19, 22, 25, 3, 6, 9, 12, 15, 18, 21, 24, 2, 5, 8, 11, 14, 17, 20, 28, 23, 26};
+		int[] testDeck = {8, 16, 23, 21, 24, 19, 3, 4, 1, 7, 14, 6, 17, 22, 5, 2, 11, 9, 18, 28, 12, 15, 10, 20, 13, 25, 26, 27};
 		Deck d = new Deck(testDeck);
-		d.getKeystreamValue();
+		for(int i = 0; i < 100; i++) {
+			d.getKeystreamValue();
+		}
 	}
 }

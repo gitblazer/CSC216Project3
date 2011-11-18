@@ -81,7 +81,7 @@ public class Deck {
 	 */
 	public int getKeystreamValue()  {
 		
-		//printDeck(deck);
+		printDeck(deck);
 		stepOne();
 		//printDeck(deck);
 		stepTwo();
@@ -200,8 +200,14 @@ public class Deck {
 		// replace the bottom card on the bottom again
 		// ** if bottom card value = 27 or 28 (a joker) then use 27 regardless *
 
-		DeckLinkedList whatIsLeft = deck.detachAt(deck.get(27));
-		int last = whatIsLeft.removeLast();
+		System.out.println(deck.size());
+		
+		int last = deck.get(deck.size() - 1);
+		if (last == JOKER2) {
+			last = JOKER1;
+		}
+		DeckLinkedList whatIsLeft = deck.detachAt(last);
+		last = whatIsLeft.removeLast();
 		whatIsLeft.concat(deck);
 		deck = whatIsLeft;
 		deck.add(last);
@@ -241,7 +247,7 @@ public class Deck {
 			returnMe = 27;
 		}
 		//printDeck(deck);
-		System.out.println("Return value: " + returnMe);
+		//System.out.println("Return value: " + returnMe);
 		
 		return returnMe;
 	}
@@ -250,12 +256,15 @@ public class Deck {
 	 * used to print the deck for debugging
 	 * @param deck2 deck to be printed
 	 */
-/*	public static void printDeck(LinkedList<Integer> deck2) { 
+	public static void printDeck(DeckLinkedList deck2) { 
 		// below is a loop to print out the arraylist  for debugging purposes
 		//--------------------------
 		System.out.print("Deck: ");
 		for (int i = 0; i < 28; i++) {
-			System.out.print(deck2.get(i) + " ");
+			System.out.print(deck2.get(i));
+			if (i != 27) {
+				System.out.print(", ");
+			}
 		}
 		System.out.println();
 		System.out.println("-----");
@@ -263,6 +272,5 @@ public class Deck {
 		
 		//----------------------
 	}
-*/
 	
 }

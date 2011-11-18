@@ -275,4 +275,12 @@ public class DeckLinkedList {
 	public int removeLast() {
 		return remove(size - 1);
 	}
+	
+	/**
+	 * Gets the size of the DeckLinkedList
+	 * @return The size of the DeckLinkedList
+	 */
+	public int size() {
+		return size;
+	}
 }
