@@ -2,6 +2,7 @@ package edu.ncsu.csc216.solitaire.model;
 
 // changed this from java.util.linked to what is below...
 import edu.ncsu.csc216.solitaire.model.DeckLinkedList;
+import java.util.Iterator;
 
 /**
  * The Deck of Cards
