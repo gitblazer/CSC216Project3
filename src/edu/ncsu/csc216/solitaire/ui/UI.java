@@ -1,11 +1,14 @@
 package edu.ncsu.csc216.solitaire.ui;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import edu.ncsu.csc216.solitaire.model.*;
 
@@ -22,7 +25,20 @@ public class UI extends JFrame {
 	public static void main(String[] args) {
 		UI display = new UI();
 		display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		display.show();
+		
+		JPanel mainPanel = new JPanel();
+		display.add(mainPanel);
+		
+		mainPanel.setLayout(new FlowLayout());
+		
+		CardIcons.initIcons();
+		JPanel[] cardPanels = CardIcons.cardPanels();
+		
+		for (int i = 0; i < cardPanels.length; i++) {
+			mainPanel.add(cardPanels[i]);
+		}
+		
+		display.setVisible(true);
 		
 		UserInterface();
 	}
@@ -31,6 +47,7 @@ public class UI extends JFrame {
 	 * Interfaces with the user and accepts the input file
 	 */
 	public static void UserInterface() {
+		//Use a JFilechooser!!
 		try {
 			Scanner console = new Scanner(System.in);
 			System.out.println("Please enter a filename to use:");
