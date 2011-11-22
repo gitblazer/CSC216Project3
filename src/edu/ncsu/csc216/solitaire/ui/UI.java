@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
+import javax.swing.JFrame;
+
 import edu.ncsu.csc216.solitaire.model.*;
 
 
@@ -12,12 +14,16 @@ import edu.ncsu.csc216.solitaire.model.*;
  * The userInterface
  * @author Andrew Kofink, William Blazer
  */
-public class UI {
+public class UI extends JFrame {
 
 	/**
 	 * @param args The input parameters to the program
 	 */
 	public static void main(String[] args) {
+		UI display = new UI();
+		display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		display.show();
+		
 		UserInterface();
 	}
 	

@@ -9,13 +9,21 @@ public class CardIcons {
 	/**
 	 * The icons of the deck
 	 */
-	private ImageIcon icons[];
+	private static ImageIcon icons[];
 	
-	public void initIcons() {
+	/**
+	 * Parses the images and populates the
+	 * CardIcons variable
+	 */
+	public static void initIcons() {
 		
 	}
 	
-	public void displayDeck(Deck d) {
+	/**
+	 * Displays the deck of CardIcons
+	 * @param d The deck to display
+	 */
+	public static void displayDeck(Deck d) {
 		
 	}
 }
