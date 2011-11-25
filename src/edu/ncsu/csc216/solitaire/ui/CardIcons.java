@@ -28,7 +28,7 @@ public class CardIcons {
 		icons = new ImageIcon[cardFilenames.length];
 		cardPanels = new JPanel[cardFilenames.length];
 		for (int i = 0; i < cardFilenames.length; i++) {
-			icons[i] = new ImageIcon("cards/" + cardFilenames[i]);
+			icons[i] = new ImageIcon("cards/spades/" + cardFilenames[i]);
 			cardPanels[i] = new JPanel();
 			cardPanels[i].add(new JLabel(icons[i]));
 		}
