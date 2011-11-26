@@ -23,7 +23,7 @@ public class Deck {
 	 * The Deck ArrayList
 	 * 
 	 */
-	private DeckLinkedList deck = new DeckLinkedList(); //I removed the <Integer> types from this, mite be needed though
+	private DeckLinkedList deck = new DeckLinkedList();
 	
 	/**
 	 * Creates the deck arrayList
@@ -274,4 +274,7 @@ public class Deck {
 		//----------------------
 	}
 	
+	public DeckLinkedList deck() {
+		return deck;
+	}
 }

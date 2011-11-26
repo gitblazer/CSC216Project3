@@ -1,10 +1,9 @@
 package edu.ncsu.csc216.solitaire.ui;
 
-import java.io.File;
-
 import javax.swing.*;
 
 import edu.ncsu.csc216.solitaire.model.Deck;
+import edu.ncsu.csc216.solitaire.model.DeckLinkedList;
 
 public class CardIcons {
 	
@@ -14,28 +13,17 @@ public class CardIcons {
 	private static ImageIcon[] icons;
 	
 	/**
-	 * The panels of the cards
-	 */
-	private static JPanel[] cardPanels;
-	
-	/**
 	 * Parses the images and populates the
 	 * CardIcons variable
 	 */
 	public static void initIcons() {
-		File cardDir = new File("cards");
-		String[] cardFilenames = cardDir.list();
-		icons = new ImageIcon[cardFilenames.length];
-		cardPanels = new JPanel[cardFilenames.length];
-		for (int i = 0; i < cardFilenames.length; i++) {
-			icons[i] = new ImageIcon("cards/spades/" + cardFilenames[i]);
-			cardPanels[i] = new JPanel();
-			cardPanels[i].add(new JLabel(icons[i]));
-		}
+		Deck d = UI.getDeck();
+		icons = new ImageIcon[d.deck().size()];
+		displayDeck(d);
 	}
 	
-	public static JPanel[] cardPanels() {
-		return cardPanels;
+	public static ImageIcon[] icons() {
+		return icons;
 	}
 	
 	/**
@@ -43,8 +31,9 @@ public class CardIcons {
 	 * @param d The deck to display
 	 */
 	public static void displayDeck(Deck d) {
+		DeckLinkedList cards = d.deck();
 		for (int i = 0; i < icons.length; i++) {
-			
+			icons[i] = new ImageIcon("cards/" + cards.get(i) + ".gif");
 		}
 	}
 }

@@ -27,11 +27,11 @@ public class UI {
 	 * @param args The input parameters to the program
 	 */
 	public static void main(String[] args) {
+		userInterface();
+
 		df = new DeckFrame();
 		mf = new MessageFrame();
 
-		userInterface();
-		
 		mf.setVisible(true);
 	}
 	
@@ -153,6 +153,8 @@ class MessageFrame extends JFrame implements ActionListener {
 
 class DeckFrame extends JFrame implements ActionListener {
 	
+	private static final int NUM_PANELS = 4;
+	
 	public DeckFrame() {
 		super();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -160,13 +162,23 @@ class DeckFrame extends JFrame implements ActionListener {
 		JPanel mainPanel = new JPanel();
 		add(mainPanel);
 		
-		mainPanel.setLayout(new FlowLayout());
+		mainPanel.setLayout(new GridLayout(NUM_PANELS, 1));
+		
+		JPanel panels[] = new JPanel[NUM_PANELS];
+		
+		for (int i = 0; i < panels.length; i++) {
+			panels[i] = new JPanel();
+			panels[i].setLayout(new FlowLayout());
+			mainPanel.add(panels[i]);
+		}
 		
 		CardIcons.initIcons();
-		JPanel[] cardPanels = CardIcons.cardPanels();
+		ImageIcon icons[] = CardIcons.icons();
 		
-		for (int i = 0; i < cardPanels.length; i++) {
-			mainPanel.add(cardPanels[i]);
+		for (int i = 0; i < panels.length; i++) {
+			for (int j = i * icons.length / NUM_PANELS; j < (i + 1) * icons.length / NUM_PANELS; j++) {
+				panels[i].add(new JLabel(icons[j]));
+			}
 		}
 		
 		pack();
