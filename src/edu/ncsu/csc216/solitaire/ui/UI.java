@@ -31,7 +31,7 @@ public class UI {
 
 		df = new DeckFrame();
 		mf = new MessageFrame();
-
+		
 		mf.setVisible(true);
 	}
 	
@@ -136,9 +136,9 @@ class MessageFrame extends JFrame implements ActionListener {
 		UI.deckFrame().setVisible(true);
 		
 		if (ae.getActionCommand().toLowerCase().startsWith("e")) {
-			m.encrypt(UI.getDeck());
+			encType = 'e';
 		} else {
-			m.decrypt(UI.getDeck());
+			encType = 'd';
 		}
 	}
 	
@@ -154,22 +154,38 @@ class MessageFrame extends JFrame implements ActionListener {
 class DeckFrame extends JFrame implements ActionListener {
 	
 	private static final int NUM_PANELS = 4;
+	private JRadioButton stepByStepRadio;
+	private JRadioButton letterByLetterRadio;
+	private JRadioButton wholeMessageRadio;
 	
 	public DeckFrame() {
 		super();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		//Create panels
+		//Main Panel
 		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BorderLayout());
 		add(mainPanel);
 		
-		mainPanel.setLayout(new GridLayout(NUM_PANELS, 1));
+		//Card Panel
+		JPanel cardPanel = new JPanel();
+		cardPanel.setLayout(new GridLayout(NUM_PANELS, 1));
+		mainPanel.add(cardPanel, BorderLayout.CENTER);
 		
+		//Control Panel
+		JPanel controlPanel = new JPanel();
+		controlPanel.setLayout(new GridLayout(NUM_PANELS, 1));
+		mainPanel.add(controlPanel, BorderLayout.EAST);
+		
+		//Add components to panels
+		//Card Panel
 		JPanel panels[] = new JPanel[NUM_PANELS];
 		
 		for (int i = 0; i < panels.length; i++) {
 			panels[i] = new JPanel();
 			panels[i].setLayout(new FlowLayout());
-			mainPanel.add(panels[i]);
+			cardPanel.add(panels[i]);
 		}
 		
 		CardIcons.initIcons();
@@ -180,6 +196,29 @@ class DeckFrame extends JFrame implements ActionListener {
 				panels[i].add(new JLabel(icons[j]));
 			}
 		}
+		
+		//Control Panel
+		ButtonGroup radioMenu = new ButtonGroup();
+		
+		stepByStepRadio = new JRadioButton("Step By Step");
+		letterByLetterRadio = new JRadioButton("Letter By Letter");
+		wholeMessageRadio = new JRadioButton("Whole Message");
+		
+		radioMenu.add(stepByStepRadio);
+		radioMenu.add(letterByLetterRadio);
+		radioMenu.add(wholeMessageRadio);
+
+		JPanel runButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JButton runButton = new JButton("Run to Completion");
+		runButtonPanel.add(runButton);
+		
+		controlPanel.add(stepByStepRadio);
+		controlPanel.add(letterByLetterRadio);
+		controlPanel.add(wholeMessageRadio);
+		controlPanel.add(runButtonPanel);
+		
+		runButton.addActionListener(this);
+		
 		
 		pack();
 	}
