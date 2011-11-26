@@ -29,9 +29,7 @@ public class UI {
 	public static void main(String[] args) {
 		userInterface();
 
-		df = new DeckFrame();
 		mf = new MessageFrame();
-		
 		mf.setVisible(true);
 	}
 	
@@ -91,6 +89,10 @@ public class UI {
 	public static DeckFrame deckFrame() {
 		return df;
 	}
+	
+	public static void setDeckFrame(DeckFrame df) {
+		UI.df = df;
+	}
 }
 
 class MessageFrame extends JFrame implements ActionListener {
@@ -133,6 +135,7 @@ class MessageFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		Message m = new Message(messageTextArea.getText());
 		setVisible(false);
+		UI.setDeckFrame(new DeckFrame());
 		UI.deckFrame().setVisible(true);
 		
 		if (ae.getActionCommand().toLowerCase().startsWith("e")) {
@@ -178,6 +181,11 @@ class DeckFrame extends JFrame implements ActionListener {
 		controlPanel.setLayout(new GridLayout(NUM_PANELS, 1));
 		mainPanel.add(controlPanel, BorderLayout.EAST);
 		
+		//Message Panel
+		JPanel messagePanel = new JPanel();
+		messagePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		mainPanel.add(messagePanel, BorderLayout.NORTH);
+		
 		//Add components to panels
 		//Card Panel
 		JPanel panels[] = new JPanel[NUM_PANELS];
@@ -219,11 +227,20 @@ class DeckFrame extends JFrame implements ActionListener {
 		
 		runButton.addActionListener(this);
 		
+		//Message Panel
+		JLabel messageLabel = new JLabel(UI.messageFrame().getMessageText());
+		messagePanel.add(messageLabel);
 		
 		pack();
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		
+		if (stepByStepRadio.isEnabled()) {
+			
+		} else if (letterByLetterRadio.isEnabled()) {
+			
+		} else {
+			
+		}
 	}
 }
