@@ -1,5 +1,7 @@
 package edu.ncsu.csc216.solitaire.model;
 
+import edu.ncsu.csc216.solitaire.ui.UI;
+
 /**
  * The message class
  * @author William Blazer, Andrew Kofink
@@ -32,7 +34,6 @@ public class Message {
 	 * @return the encrypted character
 	 */
 	public String encrypt(Deck deck) {
-		System.out.println("Encrypting...");
 		char[] characterArray = new char[message.length];
 		for (int i = 0; i < message.length; i++) {
 			int keystream = deck.getKeystreamValue();
@@ -44,6 +45,26 @@ public class Message {
 		}
 		return String.copyValueOf(characterArray).replaceAll("\\[", " ");
 	}
+	
+	public void encryptStepOne() {
+		
+	}
+	
+	public void encryptStepTwo() {
+		
+	}
+	
+	public void encryptStepThree() {
+		
+	}
+	
+	public void encryptStepFour() {
+		
+	}
+	
+	public void encryptStepFive() {
+		
+	}
 
 	/**
 	 * The decryption Method
@@ -51,7 +72,6 @@ public class Message {
 	 * @return a decrypted character
 	 */
 	public String decrypt(Deck deck) {
-		System.out.println("Decrypting...");
 		char[] characterArray = new char[message.length];
 		for (int i = 0; i < message.length; i++) {
 			message[i] = (message[i] - deck.getKeystreamValue());
@@ -62,5 +82,16 @@ public class Message {
 		}
 		return String.copyValueOf(characterArray).replaceAll("\\[", " ");
 	}
-
+	
+	public String getMessage() {
+		return String.copyValueOf(translate(message));
+	}
+	
+	private char[] translate(int[] intArr) {
+		char[] characterArray = new char[intArr.length];
+		for (int i = 0; i < intArr.length; i++) {
+			characterArray[i] = (char)(message[i] + 'A' - 1);
+		}
+		return characterArray;
+	}
 }

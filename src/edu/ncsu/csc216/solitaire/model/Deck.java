@@ -2,6 +2,9 @@ package edu.ncsu.csc216.solitaire.model;
 
 // changed this from java.util.linked to what is below...
 import edu.ncsu.csc216.solitaire.model.DeckLinkedList;
+import edu.ncsu.csc216.solitaire.ui.CardIcons;
+import edu.ncsu.csc216.solitaire.ui.UI;
+
 import java.util.Iterator;
 
 /**
@@ -97,18 +100,19 @@ public class Deck {
 	/**
 	 * Step one
 	 */
-	private void stepOne() {
+	public void stepOne() {
 		// find A Joker (value 27)
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		
 		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).next.data));
+		CardIcons.displayDeck(this);
 	}
 	
 	/**
 	 * Step two
 	 */
-	private void stepTwo() {
+	public void stepTwo() {
 		// find B Joker (value 28)
 		// move it down 2 positions
 		// ** still circular, 28 connects back to 1 **
@@ -116,12 +120,14 @@ public class Deck {
 		
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
+		
+		CardIcons.displayDeck(this);
 	}
 	
 	/**
 	 * Step Three
 	 */
-	private void stepThree() {
+	public void stepThree() {
 		// swap the top third of the deck with the bottom third of the deck, the two jokers denote the split points
 		int cutJokerA = deck.indexOf(27);
 		int cutJokerB = deck.indexOf(28);
@@ -136,47 +142,6 @@ public class Deck {
 			bottomJoker = JOKER1;
 		}
 		
-		/*
-		
-		int value = deck.get(DECK_SIZE - 1);
-		if (deck.get(0) != topJoker && deck.get(0) != bottomJoker) {
-			value = deck.get(0);
-		} else if (deck.get(0) == topJoker) {
-			deck.add(-1);
-			value = -1;
-		}
-		while (deck.indexOf(topJoker) != 0) {
-			//move top value to bottom of deck and then delete
-			deck.add(deck.get(0));
-			deck.remove(0);
-		}		
-		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1 && deck.indexOf(bottomJoker) != deck.indexOf(value)) {
-			//move values between bottom joker and the decks original bottom to the top and delete
-			if (deck.indexOf(value) == 0) {
-				deck.addFirst(deck.get(deck.indexOf(value) + DECK_SIZE - 2));
-			} else {
-				deck.addFirst(deck.get(deck.indexOf(value) - 1));
-			}
-			
-			if (deck.indexOf(value) == 0) {
-				deck.remove(deck.indexOf(value) + DECK_SIZE - 2);
-			} else {
-				deck.remove(deck.indexOf(value) - 1);
-			}
-		}
-		if (value == -1) {
-			deck.removeLast();
-		}
-		
-		*/
-		
-		//ITERATION 2....
-		/*
-		DeckLinkedList deck2 = deck.detachAt(deck.indexOf(bottomJoker));
-		deck2.concat(deck.detachAt(deck.indexOf(topJoker)));
-		deck2.concat(deck);
-		*/
-		
 		DeckLinkedList centerAndRight = deck.detachAt(deck.indexOf(topJoker));
 		DeckLinkedList left = deck;
 		DeckLinkedList right = new DeckLinkedList();
@@ -190,12 +155,14 @@ public class Deck {
 		rightAndCenter.concat(left);
 	
 		deck = rightAndCenter;
+		
+		CardIcons.displayDeck(this);
 	}
 	
 	/**
 	 * Step four
 	 */
-	private void stepFour() {
+	public void stepFour() {
 		// get the value of the bottom card (position 27)
 		// move that number of cards from the top of the deck to the bottom
 		// replace the bottom card on the bottom again
@@ -213,13 +180,14 @@ public class Deck {
 		deck = whatIsLeft;
 		deck.add(last);
 		
+		CardIcons.displayDeck(this);
 	}
 	
 	/**
 	 * fifth step
 	 * @return the value for keyValue
 	 */
-	private int stepFive() {
+	public int stepFive() {
 		// ** read the top cards value (28 or 27 both are 27 again) **
 		// go down into the deck that many cards
 		// return the value of the next card
@@ -249,6 +217,8 @@ public class Deck {
 		}
 		//printDeck(deck);
 		//System.out.println("Return value: " + returnMe);
+		
+		CardIcons.displayDeck(this);
 		
 		return returnMe;
 	}

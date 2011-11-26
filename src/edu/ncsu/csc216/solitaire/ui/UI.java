@@ -23,6 +23,8 @@ public class UI {
 	
 	private static DeckFrame df;
 	
+	private static Message message;
+	
 	/**
 	 * @param args The input parameters to the program
 	 */
@@ -82,16 +84,24 @@ public class UI {
 		return deck;
 	}
 	
-	public static MessageFrame messageFrame() {
+	public static MessageFrame getMessageFrame() {
 		return mf;
 	}
 	
-	public static DeckFrame deckFrame() {
+	public static DeckFrame getDeckFrame() {
 		return df;
 	}
 	
 	public static void setDeckFrame(DeckFrame df) {
 		UI.df = df;
+	}
+	
+	public static void setMessage(Message m) {
+		message = m;
+	}
+	
+	public static Message getMessage() {
+		return message;
 	}
 }
 
@@ -134,9 +144,11 @@ class MessageFrame extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent ae) {
 		Message m = new Message(messageTextArea.getText());
+		UI.setMessage(m);
+		
 		setVisible(false);
 		UI.setDeckFrame(new DeckFrame());
-		UI.deckFrame().setVisible(true);
+		UI.getDeckFrame().setVisible(true);
 		
 		if (ae.getActionCommand().toLowerCase().startsWith("e")) {
 			encType = 'e';
@@ -149,6 +161,10 @@ class MessageFrame extends JFrame implements ActionListener {
 		return messageTextArea.getText();
 	}
 	
+	public void clearMessageText() {
+		messageTextArea.setText("");
+	}
+	
 	public char getEncType() {
 		return encType;
 	}
@@ -156,10 +172,15 @@ class MessageFrame extends JFrame implements ActionListener {
 
 class DeckFrame extends JFrame implements ActionListener {
 	
-	private static final int NUM_PANELS = 4;
+	private JPanel cardPanel;
 	private JRadioButton stepByStepRadio;
 	private JRadioButton letterByLetterRadio;
 	private JRadioButton wholeMessageRadio;
+	private JLabel[] messageLabels;
+	private int currentLetterIndex = 0;
+	private static final int FULL_COLOR = 255;
+	private static final int HALF_COLOR = 128;
+	private static final int NUM_PANELS = 4;
 	
 	public DeckFrame() {
 		super();
@@ -172,7 +193,7 @@ class DeckFrame extends JFrame implements ActionListener {
 		add(mainPanel);
 		
 		//Card Panel
-		JPanel cardPanel = new JPanel();
+		cardPanel = new JPanel();
 		cardPanel.setLayout(new GridLayout(NUM_PANELS, 1));
 		mainPanel.add(cardPanel, BorderLayout.CENTER);
 		
@@ -212,12 +233,15 @@ class DeckFrame extends JFrame implements ActionListener {
 		letterByLetterRadio = new JRadioButton("Letter By Letter");
 		wholeMessageRadio = new JRadioButton("Whole Message");
 		
+		wholeMessageRadio.setSelected(true);
+		
 		radioMenu.add(stepByStepRadio);
 		radioMenu.add(letterByLetterRadio);
 		radioMenu.add(wholeMessageRadio);
 
 		JPanel runButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JButton runButton = new JButton("Run to Completion");
+		runButton.addActionListener(this);
 		runButtonPanel.add(runButton);
 		
 		controlPanel.add(stepByStepRadio);
@@ -225,22 +249,67 @@ class DeckFrame extends JFrame implements ActionListener {
 		controlPanel.add(wholeMessageRadio);
 		controlPanel.add(runButtonPanel);
 		
-		runButton.addActionListener(this);
-		
 		//Message Panel
-		JLabel messageLabel = new JLabel(UI.messageFrame().getMessageText());
-		messagePanel.add(messageLabel);
+		String message = UI.getMessageFrame().getMessageText().toUpperCase();
+		char[] messageChars = message.toCharArray();
+		messageLabels = new JLabel[messageChars.length];
+		
+		for (int i = 0; i < messageLabels.length; i++) {
+			messageLabels[i] = new JLabel("" + messageChars[i]);
+			messageLabels[i].setOpaque(true);
+			messagePanel.add(messageLabels[i]);
+		}
 		
 		pack();
 	}
 	
+	public void highlightChar(int index) {
+		messageLabels[index - 1].setBackground(null);
+		messageLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
+	}
+	
 	public void actionPerformed(ActionEvent arg0) {
-		if (stepByStepRadio.isEnabled()) {
-			
-		} else if (letterByLetterRadio.isEnabled()) {
-			
+		boolean encrypt = UI.getMessageFrame().getEncType() == 'e';
+		Message m = UI.getMessage();
+		String messageString = m.getMessage();
+		
+		Message[] messageArray = new Message[messageString.length()];
+		for (int i = 1; i < messageString.length(); i++) {
+			messageArray[i] = new Message(messageString.substring(i - 1, i));
+		}
+		
+		Deck d = UI.getDeck();
+		
+		if (stepByStepRadio.isSelected()) {
+			if (encrypt) {
+				
+			} else {
+				
+			}
+		} else if (letterByLetterRadio.isSelected()) {
+			System.out.println("LetterbyLetter");
+			System.out.println(currentLetterIndex);
+			if (encrypt) {
+				highlightChar(currentLetterIndex);
+				//messageArray[currentLetterIndex].encrypt(d);
+				currentLetterIndex++;
+			} else {
+				
+			}
 		} else {
-			
+			if (encrypt) {
+				m.encrypt(d);
+			} else {
+				m.decrypt(d);
+			}
+			currentLetterIndex = messageArray.length;
+		}
+		
+		if (currentLetterIndex == messageArray.length) {
+			setVisible(false);
+			MessageFrame mf = UI.getMessageFrame();
+			mf.clearMessageText();
+			mf.setVisible(true);
 		}
 	}
 }
