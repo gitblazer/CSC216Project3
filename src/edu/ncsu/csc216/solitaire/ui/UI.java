@@ -249,6 +249,7 @@ class DeckFrame extends JFrame implements ActionListener {
 		controlPanel.add(wholeMessageRadio);
 		controlPanel.add(runButtonPanel);
 		
+		
 		//Message Panel
 		String message = UI.getMessageFrame().getMessageText().toUpperCase();
 		char[] messageChars = message.toCharArray();
@@ -282,6 +283,7 @@ class DeckFrame extends JFrame implements ActionListener {
 		
 		if (stepByStepRadio.isSelected()) {
 			if (encrypt) {
+				//DeckFrame.runButton.setText("Click Me");
 				
 			} else {
 				
