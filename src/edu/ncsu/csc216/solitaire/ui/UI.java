@@ -273,8 +273,7 @@ class DeckFrame extends JFrame implements ActionListener {
 		messageLabels[index - 1].setBackground(null);
 		messageLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
 	}
-	
-<<<<<<< HEAD
+
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getActionCommand().equals("Letter By Letter")) {
 			runButton.setText("Next Letter");
@@ -286,39 +285,19 @@ class DeckFrame extends JFrame implements ActionListener {
 			boolean encrypt = UI.getMessageFrame().getEncType() == 'e';
 			Message m = UI.getMessage();
 			String messageString = m.getMessage();
-			
+
 			Message[] messageArray = new Message[messageString.length()];
 			for (int i = 1; i < messageString.length(); i++) {
 				messageArray[i] = new Message(messageString.substring(i - 1, i));
-=======
-	public void actionPerformed(ActionEvent arg0) {
-		boolean encrypt = UI.getMessageFrame().getEncType() == 'e';
-		Message m = UI.getMessage();
-		String messageString = m.getMessage();
-		
-		Message[] messageArray = new Message[messageString.length()];
-		for (int i = 1; i < messageString.length(); i++) {
-			messageArray[i] = new Message(messageString.substring(i - 1, i));
-		}
-		
-		Deck d = UI.getDeck();
-		
-		if (stepByStepRadio.isSelected()) {
-			if (encrypt) {
-				//DeckFrame.runButton.setText("Click Me");
-				
-			} else {
-				
->>>>>>> ef06ca7635f0e332306cf69b86ecf93321ba123c
 			}
-			
+
 			Deck d = UI.getDeck();
-			
+
 			if (stepByStepRadio.isSelected()) {
 				if (encrypt) {
-					
+
 				} else {
-					
+
 				}
 			} else if (letterByLetterRadio.isSelected()) {
 				System.out.println("LetterbyLetter");
@@ -328,7 +307,7 @@ class DeckFrame extends JFrame implements ActionListener {
 					//messageArray[currentLetterIndex].encrypt(d);
 					currentLetterIndex++;
 				} else {
-					
+
 				}
 			} else {
 				if (encrypt) {
@@ -338,7 +317,7 @@ class DeckFrame extends JFrame implements ActionListener {
 				}
 				currentLetterIndex = messageArray.length;
 			}
-			
+
 			if (currentLetterIndex == messageArray.length) {
 				setVisible(false);
 				MessageFrame mf = UI.getMessageFrame();
