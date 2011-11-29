@@ -177,6 +177,7 @@ class DeckFrame extends JFrame implements ActionListener {
 	private JRadioButton letterByLetterRadio;
 	private JRadioButton wholeMessageRadio;
 	private JLabel[] messageLabels;
+	private JLabel answerLabel;
 	private int currentLetterIndex = 0;
 	private JButton runButton;
 	private static final int FULL_COLOR = 255;
@@ -207,6 +208,11 @@ class DeckFrame extends JFrame implements ActionListener {
 		JPanel messagePanel = new JPanel();
 		messagePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		mainPanel.add(messagePanel, BorderLayout.NORTH);
+		
+		//Answer Panel
+		JPanel answerPanel = new JPanel();
+		answerPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		mainPanel.add(answerPanel, BorderLayout.SOUTH);
 		
 		//Add components to panels
 		//Card Panel
@@ -266,12 +272,20 @@ class DeckFrame extends JFrame implements ActionListener {
 			messagePanel.add(messageLabels[i]);
 		}
 		
+		//Answer Panel
+		answerLabel = new JLabel("This is a test");
+		answerPanel.add(answerLabel);
+		
 		pack();
 	}
 	
 	public void highlightChar(int index) {
-		messageLabels[index - 1].setBackground(null);
-		messageLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
+		if (index > 0) {
+			messageLabels[index - 1].setBackground(null);
+			messageLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
+		} else {
+			messageLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
+		}
 	}
 
 	public void actionPerformed(ActionEvent ae) {
@@ -295,20 +309,21 @@ class DeckFrame extends JFrame implements ActionListener {
 
 			if (stepByStepRadio.isSelected()) {
 				if (encrypt) {
-
+					if (d.getCurrentStep() == 4) {
+						
+					}
+					d.nextStep();
 				} else {
-
+					
 				}
 			} else if (letterByLetterRadio.isSelected()) {
-				System.out.println("LetterbyLetter");
-				System.out.println(currentLetterIndex);
 				if (encrypt) {
-					highlightChar(currentLetterIndex);
-					//messageArray[currentLetterIndex].encrypt(d);
-					currentLetterIndex++;
+					messageArray[currentLetterIndex].nextStep(d);
 				} else {
-
+					
 				}
+				highlightChar(currentLetterIndex);
+				currentLetterIndex++;
 			} else {
 				if (encrypt) {
 					m.encrypt(d);

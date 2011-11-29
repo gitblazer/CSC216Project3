@@ -21,6 +21,8 @@ public class Deck {
 	 * Final value for the size of the deck
 	 */
 	public static final int DECK_SIZE = 28;
+	
+	private int currentStep;
 
 	/**
 	 * The Deck ArrayList
@@ -84,7 +86,6 @@ public class Deck {
 	 * @return keyStream Valye
 	 */
 	public int getKeystreamValue()  {
-		
 		printDeck(deck);
 		stepOne();
 		//printDeck(deck);
@@ -100,19 +101,21 @@ public class Deck {
 	/**
 	 * Step one
 	 */
-	public void stepOne() {
+	private void stepOne() {
 		// find A Joker (value 27)
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		
+		currentStep = 0;
 		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).next.data));
 		CardIcons.displayDeck(this);
+		currentStep++;
 	}
 	
 	/**
 	 * Step two
 	 */
-	public void stepTwo() {
+	private void stepTwo() {
 		// find B Joker (value 28)
 		// move it down 2 positions
 		// ** still circular, 28 connects back to 1 **
@@ -122,12 +125,13 @@ public class Deck {
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
 		
 		CardIcons.displayDeck(this);
+		currentStep++;
 	}
 	
 	/**
 	 * Step Three
 	 */
-	public void stepThree() {
+	private void stepThree() {
 		// swap the top third of the deck with the bottom third of the deck, the two jokers denote the split points
 		int cutJokerA = deck.indexOf(27);
 		int cutJokerB = deck.indexOf(28);
@@ -157,12 +161,13 @@ public class Deck {
 		deck = rightAndCenter;
 		
 		CardIcons.displayDeck(this);
+		currentStep++;
 	}
 	
 	/**
 	 * Step four
 	 */
-	public void stepFour() {
+	private void stepFour() {
 		// get the value of the bottom card (position 27)
 		// move that number of cards from the top of the deck to the bottom
 		// replace the bottom card on the bottom again
@@ -181,13 +186,14 @@ public class Deck {
 		deck.add(last);
 		
 		CardIcons.displayDeck(this);
+		currentStep++;
 	}
 	
 	/**
 	 * fifth step
 	 * @return the value for keyValue
 	 */
-	public int stepFive() {
+	private int stepFive() {
 		// ** read the top cards value (28 or 27 both are 27 again) **
 		// go down into the deck that many cards
 		// return the value of the next card
@@ -220,7 +226,24 @@ public class Deck {
 		
 		CardIcons.displayDeck(this);
 		
+		currentStep = 0;
+		
 		return returnMe;
+	}
+	
+	public int nextStep() {
+		switch(currentStep) {
+			case 0: stepOne();
+			case 1: stepTwo();
+			case 2: stepThree();
+			case 3: stepFour();
+			case 4: return stepFive();
+		}
+		return -1;
+	}
+	
+	public int getCurrentStep() {
+		return currentStep;
 	}
 	
 	/**

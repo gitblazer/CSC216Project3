@@ -46,24 +46,14 @@ public class Message {
 		return String.copyValueOf(characterArray).replaceAll("\\[", " ");
 	}
 	
-	public void encryptStepOne() {
-		
-	}
-	
-	public void encryptStepTwo() {
-		
-	}
-	
-	public void encryptStepThree() {
-		
-	}
-	
-	public void encryptStepFour() {
-		
-	}
-	
-	public void encryptStepFive() {
-		
+	public char nextStep(Deck d) {
+		if (d.getCurrentStep() != 4) {
+			d.nextStep();
+		} else {
+			UI.getDeckFrame().set
+			return translate(d.nextStep());
+		}
+		return '-';
 	}
 
 	/**
@@ -93,5 +83,11 @@ public class Message {
 			characterArray[i] = (char)(message[i] + 'A' - 1);
 		}
 		return characterArray;
+	}
+	
+	private char translate(int input) {
+		int[] intArr = {input};
+		char[] charArr = translate(intArr);
+		return charArr[0];
 	}
 }
