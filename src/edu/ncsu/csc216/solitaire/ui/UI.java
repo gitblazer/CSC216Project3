@@ -92,6 +92,14 @@ public class UI {
 		return df;
 	}
 	
+	public static void setAnswerLabel(String newText) {
+		df.setAnswerLabel(newText);
+	}
+	
+	public static String getAnswerLabel() {
+		return df.getAnswerLabel();
+	}
+	
 	public static void setDeckFrame(DeckFrame df) {
 		UI.df = df;
 	}
@@ -279,6 +287,14 @@ class DeckFrame extends JFrame implements ActionListener {
 		pack();
 	}
 	
+	public void setAnswerLabel(String newText) {
+		answerLabel.setText(newText);
+	}
+	
+	public String getAnswerLabel() {
+		return answerLabel.getText();
+	}
+	
 	public void highlightChar(int index) {
 		if (index > 0) {
 			messageLabels[index - 1].setBackground(null);
@@ -306,13 +322,15 @@ class DeckFrame extends JFrame implements ActionListener {
 			}
 
 			Deck d = UI.getDeck();
-
+			
 			if (stepByStepRadio.isSelected()) {
 				if (encrypt) {
-					if (d.getCurrentStep() == 4) {
-						
+					for (int i = 0; i < messageArray.length; i++) {
+						char newChar = '/';
+						while (newChar == '/') {
+							newChar = messageArray[i].nextStep(d);
+						}
 					}
-					d.nextStep();
 				} else {
 					
 				}

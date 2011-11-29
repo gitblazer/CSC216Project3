@@ -1,6 +1,6 @@
 package edu.ncsu.csc216.solitaire.model;
 
-import edu.ncsu.csc216.solitaire.ui.UI;
+import edu.ncsu.csc216.solitaire.ui.*;
 
 /**
  * The message class
@@ -50,10 +50,12 @@ public class Message {
 		if (d.getCurrentStep() != 4) {
 			d.nextStep();
 		} else {
-			UI.getDeckFrame().set
-			return translate(d.nextStep());
+			int nextStep = d.nextStep();
+			String currentAnswer = UI.getAnswerLabel();
+			UI.setAnswerLabel(currentAnswer + translate(nextStep));
+			return translate(nextStep);
 		}
-		return '-';
+		return '/';
 	}
 
 	/**
