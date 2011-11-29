@@ -178,6 +178,7 @@ class DeckFrame extends JFrame implements ActionListener {
 	private JRadioButton wholeMessageRadio;
 	private JLabel[] messageLabels;
 	private int currentLetterIndex = 0;
+	private JButton runButton;
 	private static final int FULL_COLOR = 255;
 	private static final int HALF_COLOR = 128;
 	private static final int NUM_PANELS = 4;
@@ -233,6 +234,10 @@ class DeckFrame extends JFrame implements ActionListener {
 		letterByLetterRadio = new JRadioButton("Letter By Letter");
 		wholeMessageRadio = new JRadioButton("Whole Message");
 		
+		stepByStepRadio.addActionListener(this);
+		letterByLetterRadio.addActionListener(this);
+		wholeMessageRadio.addActionListener(this);
+		
 		wholeMessageRadio.setSelected(true);
 		
 		radioMenu.add(stepByStepRadio);
@@ -240,7 +245,7 @@ class DeckFrame extends JFrame implements ActionListener {
 		radioMenu.add(wholeMessageRadio);
 
 		JPanel runButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JButton runButton = new JButton("Run to Completion");
+		runButton = new JButton("Run to Completion");
 		runButton.addActionListener(this);
 		runButtonPanel.add(runButton);
 		
@@ -268,48 +273,56 @@ class DeckFrame extends JFrame implements ActionListener {
 		messageLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
 	}
 	
-	public void actionPerformed(ActionEvent arg0) {
-		boolean encrypt = UI.getMessageFrame().getEncType() == 'e';
-		Message m = UI.getMessage();
-		String messageString = m.getMessage();
-		
-		Message[] messageArray = new Message[messageString.length()];
-		for (int i = 1; i < messageString.length(); i++) {
-			messageArray[i] = new Message(messageString.substring(i - 1, i));
-		}
-		
-		Deck d = UI.getDeck();
-		
-		if (stepByStepRadio.isSelected()) {
-			if (encrypt) {
-				
-			} else {
-				
-			}
-		} else if (letterByLetterRadio.isSelected()) {
-			System.out.println("LetterbyLetter");
-			System.out.println(currentLetterIndex);
-			if (encrypt) {
-				highlightChar(currentLetterIndex);
-				//messageArray[currentLetterIndex].encrypt(d);
-				currentLetterIndex++;
-			} else {
-				
-			}
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getActionCommand().equals("Letter By Letter")) {
+			runButton.setText("Next Letter");
+		} else if (ae.getActionCommand().equals("Whole Message")) {
+			runButton.setText("Run To Completion");
+		} else if (ae.getActionCommand().equals("Step By Step")) {
+			runButton.setText("Next Step");
 		} else {
-			if (encrypt) {
-				m.encrypt(d);
-			} else {
-				m.decrypt(d);
+			boolean encrypt = UI.getMessageFrame().getEncType() == 'e';
+			Message m = UI.getMessage();
+			String messageString = m.getMessage();
+			
+			Message[] messageArray = new Message[messageString.length()];
+			for (int i = 1; i < messageString.length(); i++) {
+				messageArray[i] = new Message(messageString.substring(i - 1, i));
 			}
-			currentLetterIndex = messageArray.length;
-		}
-		
-		if (currentLetterIndex == messageArray.length) {
-			setVisible(false);
-			MessageFrame mf = UI.getMessageFrame();
-			mf.clearMessageText();
-			mf.setVisible(true);
+			
+			Deck d = UI.getDeck();
+			
+			if (stepByStepRadio.isSelected()) {
+				if (encrypt) {
+					
+				} else {
+					
+				}
+			} else if (letterByLetterRadio.isSelected()) {
+				System.out.println("LetterbyLetter");
+				System.out.println(currentLetterIndex);
+				if (encrypt) {
+					highlightChar(currentLetterIndex);
+					//messageArray[currentLetterIndex].encrypt(d);
+					currentLetterIndex++;
+				} else {
+					
+				}
+			} else {
+				if (encrypt) {
+					m.encrypt(d);
+				} else {
+					m.decrypt(d);
+				}
+				currentLetterIndex = messageArray.length;
+			}
+			
+			if (currentLetterIndex == messageArray.length) {
+				setVisible(false);
+				MessageFrame mf = UI.getMessageFrame();
+				mf.clearMessageText();
+				mf.setVisible(true);
+			}
 		}
 	}
 }
