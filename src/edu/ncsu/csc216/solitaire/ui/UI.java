@@ -254,6 +254,7 @@ class DeckFrame extends JFrame implements ActionListener {
 		controlPanel.add(wholeMessageRadio);
 		controlPanel.add(runButtonPanel);
 		
+		
 		//Message Panel
 		String message = UI.getMessageFrame().getMessageText().toUpperCase();
 		char[] messageChars = message.toCharArray();
@@ -273,6 +274,7 @@ class DeckFrame extends JFrame implements ActionListener {
 		messageLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
 	}
 	
+<<<<<<< HEAD
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getActionCommand().equals("Letter By Letter")) {
 			runButton.setText("Next Letter");
@@ -288,6 +290,26 @@ class DeckFrame extends JFrame implements ActionListener {
 			Message[] messageArray = new Message[messageString.length()];
 			for (int i = 1; i < messageString.length(); i++) {
 				messageArray[i] = new Message(messageString.substring(i - 1, i));
+=======
+	public void actionPerformed(ActionEvent arg0) {
+		boolean encrypt = UI.getMessageFrame().getEncType() == 'e';
+		Message m = UI.getMessage();
+		String messageString = m.getMessage();
+		
+		Message[] messageArray = new Message[messageString.length()];
+		for (int i = 1; i < messageString.length(); i++) {
+			messageArray[i] = new Message(messageString.substring(i - 1, i));
+		}
+		
+		Deck d = UI.getDeck();
+		
+		if (stepByStepRadio.isSelected()) {
+			if (encrypt) {
+				//DeckFrame.runButton.setText("Click Me");
+				
+			} else {
+				
+>>>>>>> ef06ca7635f0e332306cf69b86ecf93321ba123c
 			}
 			
 			Deck d = UI.getDeck();
