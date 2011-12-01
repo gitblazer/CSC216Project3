@@ -305,7 +305,12 @@ class DeckFrame extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent ae) {
-		if (ae.getActionCommand().equals("Letter By Letter")) {
+		if (ae.getActionCommand().equals("Process Another Message")) {
+			setVisible(false);
+			MessageFrame mf = UI.getMessageFrame();
+			mf.clearMessageText();
+			mf.setVisible(true);
+		} else if (ae.getActionCommand().equals("Letter By Letter")) {
 			runButton.setText("Next Letter");
 		} else if (ae.getActionCommand().equals("Whole Message")) {
 			runButton.setText("Run To Completion");
@@ -352,10 +357,7 @@ class DeckFrame extends JFrame implements ActionListener {
 			}
 
 			if (currentLetterIndex == messageArray.length) {
-				setVisible(false);
-				MessageFrame mf = UI.getMessageFrame();
-				mf.clearMessageText();
-				mf.setVisible(true);
+				runButton.setText("Process Another Message");
 			}
 		}
 	}
