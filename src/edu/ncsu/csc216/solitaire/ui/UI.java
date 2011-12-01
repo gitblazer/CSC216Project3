@@ -281,7 +281,7 @@ class DeckFrame extends JFrame implements ActionListener {
 		}
 		
 		//Answer Panel
-		answerLabel = new JLabel("This is a test");
+		answerLabel = new JLabel();
 		answerPanel.add(answerLabel);
 		
 		pack();
@@ -322,26 +322,25 @@ class DeckFrame extends JFrame implements ActionListener {
 			String messageString = m.getMessage();
 
 			Message[] messageArray = new Message[messageString.length()];
-			for (int i = 1; i < messageString.length(); i++) {
-				messageArray[i] = new Message(messageString.substring(i - 1, i));
+			for (int i = 0; i < messageString.length(); i++) {
+				messageArray[i] = new Message(String.valueOf(messageString.charAt(i)));
 			}
 
 			Deck d = UI.getDeck();
 			
 			if (stepByStepRadio.isSelected()) {
 				if (encrypt) {
-					for (int i = 0; i < messageArray.length; i++) {
-						char newChar = '/';
-						while (newChar == '/') {
-							newChar = messageArray[i].nextStep(d);
-						}
-					}
+					highlightChar(currentLetterIndex);
+					messageArray[currentLetterIndex].nextStep(d);
 				} else {
 					
 				}
+				if (d.getCurrentStep() == 4) {
+					currentLetterIndex++;
+				}
 			} else if (letterByLetterRadio.isSelected()) {
 				if (encrypt) {
-					messageArray[currentLetterIndex].nextStep(d);
+					messageArray[currentLetterIndex].nextLetter(d);
 				} else {
 					
 				}

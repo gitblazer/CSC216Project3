@@ -172,8 +172,6 @@ public class Deck {
 		// move that number of cards from the top of the deck to the bottom
 		// replace the bottom card on the bottom again
 		// ** if bottom card value = 27 or 28 (a joker) then use 27 regardless *
-
-		System.out.println(deck.size());
 		
 		int last = deck.get(deck.size() - 1);
 		if (last == JOKER2) {

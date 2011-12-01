@@ -8,6 +8,8 @@ import edu.ncsu.csc216.solitaire.ui.*;
  */
 public class Message {
 	
+	private static final int NUM_STEPS = 5;
+	
 	/**
 	 * the message array
 	 */
@@ -47,15 +49,17 @@ public class Message {
 	}
 	
 	public char nextStep(Deck d) {
-		if (d.getCurrentStep() != 4) {
-			d.nextStep();
-		} else {
-			int nextStep = d.nextStep();
-			String currentAnswer = UI.getAnswerLabel();
-			UI.setAnswerLabel(currentAnswer + translate(nextStep));
-			return translate(nextStep);
+		int nextStep = d.nextStep();
+		String currentAnswer = UI.getAnswerLabel();
+		UI.setAnswerLabel(currentAnswer + translate(nextStep));
+		return translate(nextStep);
+	}
+	
+	public char nextLetter(Deck d) {
+		for (int i = 0; i < NUM_STEPS - 1; i++) {
+			nextStep(d);
 		}
-		return '/';
+		return nextStep(d);
 	}
 
 	/**
@@ -82,7 +86,11 @@ public class Message {
 	private char[] translate(int[] intArr) {
 		char[] characterArray = new char[intArr.length];
 		for (int i = 0; i < intArr.length; i++) {
-			characterArray[i] = (char)(message[i] + 'A' - 1);
+			if (intArr[i] == -1) {
+				characterArray[i] = '/';
+			} else {
+				characterArray[i] = (char)(message[i] + 'A' - 1);
+			}
 		}
 		return characterArray;
 	}
