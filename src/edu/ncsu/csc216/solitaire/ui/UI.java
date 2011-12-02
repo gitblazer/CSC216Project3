@@ -86,6 +86,10 @@ public class UI {
 		return mf;
 	}
 	
+	public static void setMessageFrame(MessageFrame newFrame) {
+		mf = newFrame;
+	}
+	
 	public static void setMessage(Message m) {
 		message = m;
 	}
@@ -134,9 +138,9 @@ class MessageFrame extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent ae) {
 		Message m = new Message(messageTextArea.getText());
-		UI.setMessage(m);
+		UI.setMessage(m);		
 		
-		setVisible(false);
+		CardIcons.reset();
 		CardIcons.init().setVisible(true);
 		
 		if (ae.getActionCommand().toLowerCase().startsWith("e")) {
@@ -144,6 +148,7 @@ class MessageFrame extends JFrame implements ActionListener {
 		} else {
 			encType = 'd';
 		}
+		dispose();
 	}
 	
 	public String getMessageText() {

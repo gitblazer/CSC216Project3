@@ -86,7 +86,6 @@ public class Deck {
 	 * @return keyStream Valye
 	 */
 	public int getKeystreamValue()  {
-		printDeck(deck);
 		stepOne();
 		//printDeck(deck);
 		stepTwo();
@@ -108,7 +107,7 @@ public class Deck {
 		
 		currentStep = 0;
 		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).next.data));
-		CardIcons.init().displayDeck(this);
+		CardIcons.init().displayDeck(this);		
 	}
 	
 	/**
@@ -199,24 +198,12 @@ public class Deck {
 		}
 		
 		int returnMe = 0;
-		/*
-		if (temp4 + 1 > 27) {
-			returnMe = deck.get(temp4 + 1 - 27);
-		}
-		else {
-			returnMe = deck.get(temp4 + 1);
-		}
-		*/
-		
+				
 		returnMe = deck.get(temp4);
 	
-		//System.out.println("Keystream Value returned: " + returnMe);
-		//printDeck(deck);
 		if (returnMe == 28) {
 			returnMe = 27;
 		}
-		//printDeck(deck);
-		//System.out.println("Return value: " + returnMe);
 		
 		CardIcons.init().displayDeck(this);
 		
@@ -234,10 +221,10 @@ public class Deck {
 	
 	public int nextStep() {
 		switch(currentStep) {
-			case 0: stepOne();
-			case 1: stepTwo();
-			case 2: stepThree();
-			case 3: stepFour();
+			case 0: stepOne(); System.out.println("exited step 1, current step:" + currentStep); break;
+			case 1: stepTwo(); System.out.println("exited step 2, current step:" + currentStep); break;
+			case 2: stepThree(); System.out.println("exited step 3, current step:" + currentStep); break;
+			case 3: stepFour(); System.out.println("exited step 4, current step:" + currentStep); break;
 			case 4: return stepFive();
 		}
 		currentStep++;

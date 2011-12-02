@@ -145,7 +145,11 @@ public class CardIcons extends JFrame implements ActionListener {
 	}
 	
 	public void highlightChar(int index) {
-		if (index > 0) {
+		if (index == -1) {
+			for (int i = 0; i < messageLabels.length; i++){
+				messageLabels[i].setBackground(new Color(0, 0, 0, 0));
+			}
+		} else if (index > 0) {
 			messageLabels[index - 1].setBackground(null);
 			messageLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
 		} else {
@@ -155,10 +159,9 @@ public class CardIcons extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getActionCommand().equals("Process Another Message")) {
-			setVisible(false);
-			MessageFrame mf = UI.getMessageFrame();
-			mf.clearMessageText();
-			mf.setVisible(true);
+			UI.setMessageFrame(new MessageFrame());
+			UI.getMessageFrame().setVisible(true);
+			dispose();
 		} else if (ae.getActionCommand().equals("Letter By Letter")) {
 			runButton.setText("Next Letter");
 		} else if (ae.getActionCommand().equals("Whole Message")) {
@@ -178,6 +181,8 @@ public class CardIcons extends JFrame implements ActionListener {
 			Deck d = UI.getDeck();
 			
 			if (stepByStepRadio.isSelected()) {
+				wholeMessageRadio.setEnabled(false);
+				letterByLetterRadio.setEnabled(false);
 				if (encrypt) {
 					highlightChar(currentLetterIndex);
 					d.nextStep();
@@ -188,6 +193,8 @@ public class CardIcons extends JFrame implements ActionListener {
 					currentLetterIndex++;
 				}
 			} else if (letterByLetterRadio.isSelected()) {
+				wholeMessageRadio.setEnabled(false);
+				stepByStepRadio.setEnabled(false);
 				if (encrypt) {
 					messageArray[currentLetterIndex].nextLetter(d);
 				} else {
@@ -196,6 +203,8 @@ public class CardIcons extends JFrame implements ActionListener {
 				highlightChar(currentLetterIndex);
 				currentLetterIndex++;
 			} else {
+				stepByStepRadio.setEnabled(false);
+				letterByLetterRadio.setEnabled(false);
 				if (encrypt) {
 					m.encrypt(d);
 				} else {
@@ -235,6 +244,10 @@ public class CardIcons extends JFrame implements ActionListener {
 			icons[i] = new ImageIcon("cards/" + cards.get(i) + ".gif");
 		}
 		repaint();
+	}
+	
+	public static void reset() {
+		iconsObject = new CardIcons();
 	}
 }
 
