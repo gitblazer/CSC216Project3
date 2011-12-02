@@ -1,6 +1,6 @@
 To Do:
 
-Deck should impelement the Iteratable interface
+Deck should impelement the Iterable interface
 
 DeckLinkedList should implement DeckLinkedListIterator interface
 
