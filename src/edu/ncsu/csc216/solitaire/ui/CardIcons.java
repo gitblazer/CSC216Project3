@@ -249,6 +249,7 @@ public class CardIcons extends JFrame implements ActionListener {
 		for (int i = 0; i < icons.length; i++) {
 			icons[i] = new ImageIcon("cards/" + cards.get(i) + ".gif");
 		}
+		cardPanel.repaint();
 		repaint();
 	}
 	
