@@ -215,6 +215,9 @@ public class Deck {
 	}
 	
 	private char translate(int value) {
+		if (value == 27) {
+			return ' ';
+		}
 		return (char)('A' + value - 1);
 	}
 	

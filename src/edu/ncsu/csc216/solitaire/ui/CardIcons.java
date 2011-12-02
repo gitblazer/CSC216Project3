@@ -119,8 +119,8 @@ public class CardIcons extends JFrame implements ActionListener {
 		
 		
 		//Message Panel
-		String message = UI.getMessageFrame().getMessageText().toUpperCase();
-		char[] messageChars = message.toCharArray();
+		Message message = new Message(UI.getMessageFrame().getMessageText());
+		char messageChars[] = message.getMessage().replaceAll("\\[", " ").toCharArray();
 		messageLabels = new JLabel[messageChars.length];
 		
 		for (int i = 0; i < messageLabels.length; i++) {
