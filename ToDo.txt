@@ -1,17 +1,5 @@
 To Do:
 
-Deck should impelement the Iterable interface
-
-DeckLinkedList should implement DeckLinkedListIterator interface
-
-Create inner class DeckLinkedListIterator in DeckLinkedList
-
-An instance of DeckLinkedListIterator is returned via the DeckLinkedList.iterator() method
-Your DeckLinkedListIterator should satisfy the contract defined by java.util.Iterator:
-
-next() should throw a NoSuchElementException if the next element isn't available
-remove() should throw an UnsupportedOperationException since it is not needed for this project
-
 Update deck display when deck updates 
 add highlighting of updated cards on step by step
 add highlighting of keystream card on letter by letter
