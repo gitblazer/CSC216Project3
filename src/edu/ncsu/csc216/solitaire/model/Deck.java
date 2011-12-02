@@ -106,7 +106,6 @@ public class Deck implements Iterable<DeckLinkedList> {
 		
 		currentStep = 0;
 		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).next.data));
-		CardIcons.init().displayDeck(this);		
 	}
 	
 	/**
@@ -121,7 +120,6 @@ public class Deck implements Iterable<DeckLinkedList> {
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
 		
-		CardIcons.init().displayDeck(this);
 	}
 	
 	/**
@@ -156,7 +154,6 @@ public class Deck implements Iterable<DeckLinkedList> {
 	
 		deck = rightAndCenter;
 		
-		CardIcons.init().displayDeck(this);
 	}
 	
 	/**
@@ -178,7 +175,6 @@ public class Deck implements Iterable<DeckLinkedList> {
 		deck = whatIsLeft;
 		deck.add(last);
 		
-		CardIcons.init().displayDeck(this);
 	}
 	
 	/**
@@ -204,7 +200,7 @@ public class Deck implements Iterable<DeckLinkedList> {
 			returnMe = 27;
 		}
 		
-		CardIcons.init().displayDeck(this);
+		CardIcons.init().displayDeck(deck);
 
 		String currentAnswer = CardIcons.init().getAnswerLabel();
 		CardIcons.init().setAnswerLabel(currentAnswer + translate(returnMe));
@@ -230,6 +226,7 @@ public class Deck implements Iterable<DeckLinkedList> {
 			case 4: System.out.println("exited step 5, current step:" + currentStep); return stepFive();
 		}
 		currentStep++;
+		CardIcons.init().displayDeck(deck);
 		return -1;
 	}
 	

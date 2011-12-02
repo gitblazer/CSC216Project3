@@ -20,6 +20,7 @@ public class CardIcons extends JFrame implements ActionListener {
 	 * The icons of the deck
 	 */
 	private static ImageIcon[] icons;
+	private JPanel mainPanel;
 	private static CardIcons iconsObject;
 	private JPanel[] cardPanels;
 	private JPanel cardPanel;
@@ -47,7 +48,7 @@ public class CardIcons extends JFrame implements ActionListener {
 		
 		//Create panels
 		//Main Panel
-		JPanel mainPanel = new JPanel();
+		mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
 		add(mainPanel);
 		
@@ -73,22 +74,7 @@ public class CardIcons extends JFrame implements ActionListener {
 		
 		//Add components to panels
 		//Card Panel
-		cardPanels = new JPanel[NUM_PANELS];
-		
-		for (int i = 0; i < cardPanels.length; i++) {
-			cardPanels[i] = new JPanel();
-			cardPanels[i].setLayout(new FlowLayout());
-			cardPanel.add(cardPanels[i]);
-		}
-		
 		initIcons();
-		ImageIcon icons[] = icons();
-		
-		for (int i = 0; i < cardPanels.length; i++) {
-			for (int j = i * icons.length / NUM_PANELS; j < (i + 1) * icons.length / NUM_PANELS; j++) {
-				cardPanels[i].add(new JLabel(icons[j]));
-			}
-		}
 		
 		//Control Panel
 		ButtonGroup radioMenu = new ButtonGroup();
@@ -186,12 +172,12 @@ public class CardIcons extends JFrame implements ActionListener {
 				if (encrypt) {
 					highlightChar(currentLetterIndex);
 					d.nextStep();
+					if (d.getCurrentStep() == 5) {
+						currentLetterIndex++;
+						d.resetCurrentStep();
+					}
 				} else {
 					
-				}
-				if (d.getCurrentStep() == 5) {
-					currentLetterIndex++;
-					d.resetCurrentStep();
 				}
 			} else if (letterByLetterRadio.isSelected()) {
 				wholeMessageRadio.setEnabled(false);
@@ -231,6 +217,13 @@ public class CardIcons extends JFrame implements ActionListener {
 	 * CardIcons variable
 	 */
 	public void initIcons() {
+		cardPanels = new JPanel[NUM_PANELS];
+		for (int i = 0; i < cardPanels.length; i++) {
+			cardPanels[i] = new JPanel();
+			cardPanels[i].setLayout(new FlowLayout());
+			cardPanel.add(cardPanels[i]);
+		}
+		
 		Deck d = UI.getDeck();
 		icons = new ImageIcon[d.deck().size()];
 		displayDeck(d);
@@ -245,12 +238,23 @@ public class CardIcons extends JFrame implements ActionListener {
 	 * @param d The deck to display
 	 */
 	public void displayDeck(Deck d) {
-		DeckLinkedList cards = d.deck();
+		displayDeck(d.deck());
+	}
+	
+	public void displayDeck(DeckLinkedList d) {
+		Deck.printDeck(d);
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = new ImageIcon("cards/" + cards.get(i) + ".gif");
+			icons[i] = new ImageIcon("cards/" + d.get(i) + ".gif");
 		}
-		cardPanel.repaint();
+		for (int i = 0; i < cardPanels.length; i++) {
+			cardPanels[i].removeAll();
+			for (int j = i * icons.length / NUM_PANELS; j < (i + 1) * icons.length / NUM_PANELS; j++) {
+				cardPanels[i].add(new JLabel(icons[j]));
+			}
+			cardPanels[i].repaint();
+		}
 		repaint();
+		
 	}
 	
 	public static void reset() {
