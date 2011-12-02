@@ -49,7 +49,7 @@ public class Message {
 	}
 	
 	public char nextLetter(Deck d) {
-		for (int i = 0; i < NUM_STEPS - 1; i++) {
+		for (int i = 0; i < NUM_STEPS; i++) {
 			d.nextStep();
 		}
 		return translate(d.nextStep());

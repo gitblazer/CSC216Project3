@@ -189,19 +189,25 @@ public class CardIcons extends JFrame implements ActionListener {
 				} else {
 					
 				}
-				if (d.getCurrentStep() == 4) {
+				if (d.getCurrentStep() == 5) {
 					currentLetterIndex++;
+					d.resetCurrentStep();
 				}
 			} else if (letterByLetterRadio.isSelected()) {
 				wholeMessageRadio.setEnabled(false);
 				stepByStepRadio.setEnabled(false);
 				if (encrypt) {
-					messageArray[currentLetterIndex].nextLetter(d);
+					for (int i = 0; i < Deck.NUM_STEPS; i++) {
+						highlightChar(currentLetterIndex);
+						d.nextStep();
+						if (d.getCurrentStep() == 5) {
+							currentLetterIndex++;
+							d.resetCurrentStep();
+						}
+					}
 				} else {
 					
 				}
-				highlightChar(currentLetterIndex);
-				currentLetterIndex++;
 			} else {
 				stepByStepRadio.setEnabled(false);
 				letterByLetterRadio.setEnabled(false);

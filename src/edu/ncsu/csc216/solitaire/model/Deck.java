@@ -22,6 +22,8 @@ public class Deck {
 	 */
 	public static final int DECK_SIZE = 28;
 	
+	public static final int NUM_STEPS = 5;
+	
 	private int currentStep = 0;
 
 	/**
@@ -87,13 +89,10 @@ public class Deck {
 	 */
 	public int getKeystreamValue()  {
 		stepOne();
-		//printDeck(deck);
 		stepTwo();
-		//printDeck(deck);
 		stepThree();
 		stepFour();
 		int value = stepFive();
-		//System.out.println(value);
 		return value;
 	}
 	
@@ -206,11 +205,11 @@ public class Deck {
 		}
 		
 		CardIcons.init().displayDeck(this);
-		
-		currentStep = 0;
 
 		String currentAnswer = CardIcons.init().getAnswerLabel();
 		CardIcons.init().setAnswerLabel(currentAnswer + translate(returnMe));
+		
+		currentStep++;
 		
 		return returnMe;
 	}
@@ -225,7 +224,7 @@ public class Deck {
 			case 1: stepTwo(); System.out.println("exited step 2, current step:" + currentStep); break;
 			case 2: stepThree(); System.out.println("exited step 3, current step:" + currentStep); break;
 			case 3: stepFour(); System.out.println("exited step 4, current step:" + currentStep); break;
-			case 4: return stepFive();
+			case 4: System.out.println("exited step 5, current step:" + currentStep); return stepFive();
 		}
 		currentStep++;
 		return -1;
@@ -233,6 +232,10 @@ public class Deck {
 	
 	public int getCurrentStep() {
 		return currentStep;
+	}
+	
+	public void resetCurrentStep() {
+		currentStep = 0;
 	}
 	
 	/**
