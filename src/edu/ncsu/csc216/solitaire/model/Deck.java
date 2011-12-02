@@ -2,6 +2,10 @@ package edu.ncsu.csc216.solitaire.model;
 
 // changed this from java.util.linked to what is below...
 import edu.ncsu.csc216.solitaire.model.DeckLinkedList;
+import edu.ncsu.csc216.solitaire.ui.CardIcons;
+import edu.ncsu.csc216.solitaire.ui.UI;
+
+import java.util.Iterator;
 
 /**
  * The Deck of Cards
@@ -17,12 +21,14 @@ public class Deck {
 	 * Final value for the size of the deck
 	 */
 	public static final int DECK_SIZE = 28;
+	
+	private int currentStep;
 
 	/**
 	 * The Deck ArrayList
 	 * 
 	 */
-	private DeckLinkedList deck = new DeckLinkedList(); //I removed the <Integer> types from this, mite be needed though
+	private DeckLinkedList deck = new DeckLinkedList();
 	
 	/**
 	 * Creates the deck arrayList
@@ -80,7 +86,6 @@ public class Deck {
 	 * @return keyStream Valye
 	 */
 	public int getKeystreamValue()  {
-		
 		printDeck(deck);
 		stepOne();
 		//printDeck(deck);
@@ -101,7 +106,10 @@ public class Deck {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		
+		currentStep = 0;
 		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).next.data));
+		CardIcons.displayDeck(this);
+		currentStep++;
 	}
 	
 	/**
@@ -115,6 +123,9 @@ public class Deck {
 		
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
+		
+		CardIcons.displayDeck(this);
+		currentStep++;
 	}
 	
 	/**
@@ -135,47 +146,6 @@ public class Deck {
 			bottomJoker = JOKER1;
 		}
 		
-		/*
-		
-		int value = deck.get(DECK_SIZE - 1);
-		if (deck.get(0) != topJoker && deck.get(0) != bottomJoker) {
-			value = deck.get(0);
-		} else if (deck.get(0) == topJoker) {
-			deck.add(-1);
-			value = -1;
-		}
-		while (deck.indexOf(topJoker) != 0) {
-			//move top value to bottom of deck and then delete
-			deck.add(deck.get(0));
-			deck.remove(0);
-		}		
-		while (deck.indexOf(value) != deck.indexOf(bottomJoker) + 1 && deck.indexOf(bottomJoker) != deck.indexOf(value)) {
-			//move values between bottom joker and the decks original bottom to the top and delete
-			if (deck.indexOf(value) == 0) {
-				deck.addFirst(deck.get(deck.indexOf(value) + DECK_SIZE - 2));
-			} else {
-				deck.addFirst(deck.get(deck.indexOf(value) - 1));
-			}
-			
-			if (deck.indexOf(value) == 0) {
-				deck.remove(deck.indexOf(value) + DECK_SIZE - 2);
-			} else {
-				deck.remove(deck.indexOf(value) - 1);
-			}
-		}
-		if (value == -1) {
-			deck.removeLast();
-		}
-		
-		*/
-		
-		//ITERATION 2....
-		/*
-		DeckLinkedList deck2 = deck.detachAt(deck.indexOf(bottomJoker));
-		deck2.concat(deck.detachAt(deck.indexOf(topJoker)));
-		deck2.concat(deck);
-		*/
-		
 		DeckLinkedList centerAndRight = deck.detachAt(deck.indexOf(topJoker));
 		DeckLinkedList left = deck;
 		DeckLinkedList right = new DeckLinkedList();
@@ -189,6 +159,9 @@ public class Deck {
 		rightAndCenter.concat(left);
 	
 		deck = rightAndCenter;
+		
+		CardIcons.displayDeck(this);
+		currentStep++;
 	}
 	
 	/**
@@ -199,8 +172,6 @@ public class Deck {
 		// move that number of cards from the top of the deck to the bottom
 		// replace the bottom card on the bottom again
 		// ** if bottom card value = 27 or 28 (a joker) then use 27 regardless *
-
-		System.out.println(deck.size());
 		
 		int last = deck.get(deck.size() - 1);
 		if (last == JOKER2) {
@@ -212,6 +183,8 @@ public class Deck {
 		deck = whatIsLeft;
 		deck.add(last);
 		
+		CardIcons.displayDeck(this);
+		currentStep++;
 	}
 	
 	/**
@@ -249,7 +222,26 @@ public class Deck {
 		//printDeck(deck);
 		//System.out.println("Return value: " + returnMe);
 		
+		CardIcons.displayDeck(this);
+		
+		currentStep = 0;
+		
 		return returnMe;
+	}
+	
+	public int nextStep() {
+		switch(currentStep) {
+			case 0: stepOne();
+			case 1: stepTwo();
+			case 2: stepThree();
+			case 3: stepFour();
+			case 4: return stepFive();
+		}
+		return -1;
+	}
+	
+	public int getCurrentStep() {
+		return currentStep;
 	}
 	
 	/**
@@ -273,4 +265,7 @@ public class Deck {
 		//----------------------
 	}
 	
+	public DeckLinkedList deck() {
+		return deck;
+	}
 }
