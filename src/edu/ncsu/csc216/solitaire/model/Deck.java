@@ -22,7 +22,7 @@ public class Deck {
 	 */
 	public static final int DECK_SIZE = 28;
 	
-	private int currentStep;
+	private int currentStep = 0;
 
 	/**
 	 * The Deck ArrayList
@@ -108,8 +108,7 @@ public class Deck {
 		
 		currentStep = 0;
 		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).next.data));
-		CardIcons.displayDeck(this);
-		currentStep++;
+		CardIcons.init().displayDeck(this);
 	}
 	
 	/**
@@ -124,8 +123,7 @@ public class Deck {
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
 		deck.exchange(deck.indexOf(JOKER2), deck.indexOf(deck.findNode(deck.indexOf(JOKER2)).next.data));
 		
-		CardIcons.displayDeck(this);
-		currentStep++;
+		CardIcons.init().displayDeck(this);
 	}
 	
 	/**
@@ -160,8 +158,7 @@ public class Deck {
 	
 		deck = rightAndCenter;
 		
-		CardIcons.displayDeck(this);
-		currentStep++;
+		CardIcons.init().displayDeck(this);
 	}
 	
 	/**
@@ -183,8 +180,7 @@ public class Deck {
 		deck = whatIsLeft;
 		deck.add(last);
 		
-		CardIcons.displayDeck(this);
-		currentStep++;
+		CardIcons.init().displayDeck(this);
 	}
 	
 	/**
@@ -222,11 +218,18 @@ public class Deck {
 		//printDeck(deck);
 		//System.out.println("Return value: " + returnMe);
 		
-		CardIcons.displayDeck(this);
+		CardIcons.init().displayDeck(this);
 		
 		currentStep = 0;
+
+		String currentAnswer = CardIcons.init().getAnswerLabel();
+		CardIcons.init().setAnswerLabel(currentAnswer + translate(returnMe));
 		
 		return returnMe;
+	}
+	
+	private char translate(int value) {
+		return (char)('A' + value - 1);
 	}
 	
 	public int nextStep() {
@@ -237,6 +240,7 @@ public class Deck {
 			case 3: stepFour();
 			case 4: return stepFive();
 		}
+		currentStep++;
 		return -1;
 	}
 	

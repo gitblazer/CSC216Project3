@@ -7,7 +7,7 @@ public class DeckLinkedListIterator {
 	private ListNode current;
 
 	public DeckLinkedListIterator() {
-		
+		//current = front
 	}
 	
 	public boolean hasNext() {

@@ -48,18 +48,11 @@ public class Message {
 		return String.copyValueOf(characterArray).replaceAll("\\[", " ");
 	}
 	
-	public char nextStep(Deck d) {
-		int nextStep = d.nextStep();
-		String currentAnswer = UI.getAnswerLabel();
-		UI.setAnswerLabel(currentAnswer + translate(nextStep));
-		return translate(nextStep);
-	}
-	
 	public char nextLetter(Deck d) {
 		for (int i = 0; i < NUM_STEPS - 1; i++) {
-			nextStep(d);
+			d.nextStep();
 		}
-		return nextStep(d);
+		return translate(d.nextStep());
 	}
 
 	/**
