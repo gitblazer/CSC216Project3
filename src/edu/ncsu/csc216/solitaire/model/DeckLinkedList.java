@@ -1,12 +1,13 @@
 package edu.ncsu.csc216.solitaire.model;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
  * The LinkedList for the Deck of cards
  * @author William Blazer, Andrew Kofink
  */
-public class DeckLinkedList {
+public class DeckLinkedList implements Iterable {
 	
 	/**
 	 * The front node of the list
@@ -282,5 +283,35 @@ public class DeckLinkedList {
 	 */
 	public int size() {
 		return size;
+	}
+
+	public Iterator iterator() {
+		return new DeckLinkedListIterator(front);
+	}
+}
+
+class DeckLinkedListIterator implements Iterator {
+	
+	private ListNode current;
+
+	public DeckLinkedListIterator(ListNode front) {
+		current = front;
+	}
+	
+	public boolean hasNext() {
+		return current.next != null;
+	}
+	
+	public Integer next() {
+		if (hasNext()) {
+			current = current.next;
+		} else {
+			throw new NoSuchElementException();
+		}
+		return current.data;
+	}
+	
+	public void remove() {
+		throw new UnsupportedOperationException();
 	}
 }
