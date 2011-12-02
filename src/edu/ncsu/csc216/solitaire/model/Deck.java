@@ -11,7 +11,7 @@ import java.util.Iterator;
  * The Deck of Cards
  * @author Andrew Kofink, William Blazer
  */
-public class Deck {
+public class Deck implements Iterable<Deck> {
 	
 	private static final int JOKER1 = 27;
 	
