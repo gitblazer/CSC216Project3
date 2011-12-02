@@ -66,6 +66,8 @@ public class UI {
 				}
 				
 				deck = new Deck(deckInts);
+			} else if (returnValue == JFileChooser.CANCEL_OPTION) {
+				System.exit(0);
 			} else {
 				throw new FileNotFoundException();
 			}
