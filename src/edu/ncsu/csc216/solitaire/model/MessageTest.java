@@ -24,7 +24,6 @@ public class MessageTest extends TestCase {
 			Deck d2 = new Deck(DeckTest.testDecks[i]);
 			Message me = new Message(encryptedMessage);
 			String decryptedMessage = me.decrypt(d2);
-			//System.out.println(encryptedMessage + " | " + decryptedMessage);
 			assertEquals(decryptedMessage, startingMessage);
 		}
 	}

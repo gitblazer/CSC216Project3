@@ -27,6 +27,7 @@ public class CardIcons extends JFrame implements ActionListener {
 	private JPanel mainPanel;
 	private static CardIcons iconsObject;
 	private JPanel[] cardPanels;
+	private JPanel[] individualCardPanels;
 	private JPanel cardPanel;
 	private JRadioButton stepByStepRadio;
 	private JRadioButton letterByLetterRadio;
@@ -35,9 +36,11 @@ public class CardIcons extends JFrame implements ActionListener {
 	private JLabel answerLabel;
 	private int currentLetterIndex;
 	private JButton runButton;
+	private char[] messageChars;
 	private static final int FULL_COLOR = 255;
 	private static final int HALF_COLOR = 128;
 	private static final int NUM_PANELS = 4;
+	private static final int NUM_CARDS = 28;
 	
 	public static CardIcons init() {
 		if (iconsObject == null) {
@@ -111,7 +114,7 @@ public class CardIcons extends JFrame implements ActionListener {
 			
 			//Message Panel
 			Message message = new Message(UI.getMessageFrame().getMessageText());
-			char messageChars[] = message.getMessage().replaceAll("\\[", " ").toCharArray();
+			messageChars = message.getMessage().replaceAll("\\[", " ").toCharArray();
 			messageLabels = new JLabel[messageChars.length];
 			
 			for (int i = 0; i < messageLabels.length; i++) {
@@ -148,6 +151,14 @@ public class CardIcons extends JFrame implements ActionListener {
 			messageLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
 		}
 	}
+	
+	public static char translate(int value) {
+		return (char)(value + 'A' - 1);
+	}
+	
+	public static int translate(char ch) {
+		return (int)(ch - 'A' + 1);
+	}
 
 	public void actionPerformed(ActionEvent ae) {
 		displayDeck(UI.getDeck());
@@ -177,8 +188,15 @@ public class CardIcons extends JFrame implements ActionListener {
 				wholeMessageRadio.setEnabled(false);
 				letterByLetterRadio.setEnabled(false);
 				highlightChar(currentLetterIndex);
-				d.nextStep();
-				if (d.getCurrentStep() == 5) {
+				int ans = d.nextStep();
+				displayDeck(d);
+				if (ans != -1) {
+					if (ans + translate(messageChars[currentLetterIndex]) > Deck.DECK_SIZE - 1) {
+						ans -= (Deck.DECK_SIZE - 1);
+					}
+					char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
+					answerLabel.setText(answerLabel.getText() + String.valueOf(newLetter).replaceAll("\\[", " "));
+					
 					currentLetterIndex++;
 					d.resetCurrentStep();
 				}
@@ -217,17 +235,22 @@ public class CardIcons extends JFrame implements ActionListener {
 	 */
 	public void initIcons() {
 		cardPanels = new JPanel[NUM_PANELS];
+		individualCardPanels = new JPanel[NUM_CARDS];
 		for (int i = 0; i < cardPanels.length; i++) {
 			cardPanels[i] = new JPanel();
 			cardPanels[i].setLayout(new FlowLayout());
 			cardPanel.add(cardPanels[i]);
+			
+			for (int j = i * individualCardPanels.length / NUM_PANELS; j < (i + 1) * individualCardPanels.length / NUM_PANELS; j++) {
+				individualCardPanels[j] = new JPanel();
+				cardPanels[i].add(individualCardPanels[j]);
+				individualCardPanels[j].setVisible(true);
+			}
 		}
 		
-		if (UI.getDeck() != null) {
-			Deck d = UI.getDeck();
-			icons = new ImageIcon[d.deck().size()];
-			displayDeck(d);
-		}
+		Deck d = UI.getDeck();
+		icons = new ImageIcon[d.deck().size()];
+		displayDeck(d);
 	}
 	
 	public ImageIcon[] icons() {
@@ -249,12 +272,11 @@ public class CardIcons extends JFrame implements ActionListener {
 		for (int i = 0; i < cardPanels.length; i++) {
 			cardPanels[i].removeAll();
 			for (int j = i * icons.length / NUM_PANELS; j < (i + 1) * icons.length / NUM_PANELS; j++) {
-				cardPanels[i].add(new JLabel(icons[j]));
+				individualCardPanels[j].removeAll();
+				individualCardPanels[j].add(new JLabel(icons[j]));
+				cardPanels[i].add(individualCardPanels[j]);
 			}
-			cardPanels[i].repaint();
 		}
-		repaint();
-		
 	}
 	
 	public static void reset() {
