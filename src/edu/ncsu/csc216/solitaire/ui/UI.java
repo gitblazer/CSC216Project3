@@ -23,6 +23,8 @@ public class UI {
 	
 	private static Message message;
 	
+	private static int[] deckInts;
+	
 	/**
 	 * @param args The input parameters to the program
 	 */
@@ -60,7 +62,7 @@ public class UI {
 
 				//Gather file contents into an array of integers
 				in = new Scanner(f);
-				int[] deckInts = new int[28];
+				deckInts = new int[28];
 				for (int i = 0; i < deckInts.length; i++) {
 					deckInts[i] = in.nextInt();
 				}
@@ -72,16 +74,20 @@ public class UI {
 				throw new FileNotFoundException();
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("File not found.");
+			JOptionPane.showMessageDialog(null, "Invalid File");
 			userInterface();
 		} catch (DataFormatException dfe) {
-			System.out.println("Invalid file.");
+			JOptionPane.showMessageDialog(null, "Invalid File");
 			userInterface();
 		}
 	}
 	
 	public static Deck getDeck() {
 		return deck;
+	}
+	
+	public static void resetDeck() {
+		deck = new Deck(deckInts);
 	}
 	
 	public static MessageFrame getMessageFrame() {

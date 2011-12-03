@@ -42,6 +42,11 @@ public class Deck implements Iterable<Integer> {
 	private DeckLinkedList deck = new DeckLinkedList();
 	
 	/**
+	 * The deck prior to being changed by one of the steps 1-5
+	 */
+	private DeckLinkedList oldDeck = deck;
+	
+	/**
 	 * Creates the deck arrayList
 	 * @param deckArray Array with the deck values
 	 */
@@ -111,6 +116,7 @@ public class Deck implements Iterable<Integer> {
 		// swap it with the card in position below it
 		// ** if joker is position 28, then it circulates to position 1 **
 		
+		
 		currentStep = 0;
 		deck.exchange(deck.indexOf(JOKER1) , deck.indexOf(deck.findNode(deck.indexOf(JOKER1)).next.data));
 	}
@@ -134,6 +140,7 @@ public class Deck implements Iterable<Integer> {
 	 */
 	private void stepThree() {
 		// swap the top third of the deck with the bottom third of the deck, the two jokers denote the split points
+		
 		int cutJokerA = deck.indexOf(27);
 		int cutJokerB = deck.indexOf(28);
 		int topJoker = 0;
@@ -229,6 +236,7 @@ public class Deck implements Iterable<Integer> {
 	 * @return returns -1 until the keystream value is returned
 	 */
 	public int nextStep() {
+		oldDeck = deck();
 		switch(currentStep) {
 			case 0: stepOne(); break;
 			case 1: stepTwo(); break;
@@ -256,17 +264,20 @@ public class Deck implements Iterable<Integer> {
 		currentStep = 0;
 	}
 	
+	public DeckLinkedList getOldDeck() {
+		return oldDeck;
+	}
 	
 	/**
 	 * used to print the deck for debugging
 	 * @param deck2 deck to be printed
 	 */
-	/*public static void printDeck(DeckLinkedList deck2) { 
+	public static void printDeck(DeckLinkedList deck) { 
 		// below is a loop to print out the arraylist  for debugging purposes
 		//--------------------------
 		System.out.print("Deck: ");
-		for (int i = 0; i < 28; i++) {
-			System.out.print(deck2.get(i));
+		for (int i = 0; i < DECK_SIZE; i++) {
+			System.out.print(deck.get(i));
 			if (i != 27) {
 				System.out.print(", ");
 			}
@@ -277,13 +288,16 @@ public class Deck implements Iterable<Integer> {
 		
 		//----------------------
 	}
-	*/
 	
 	/**
 	 * @return a deck
 	 */
 	public DeckLinkedList deck() {
-		return deck;
+		DeckLinkedList newDeck = new DeckLinkedList();
+		for (int i = 0; i < DECK_SIZE; i++) {
+			newDeck.add(deck.get(i));
+		}
+		return newDeck;
 	}	
 	
 	/** 
