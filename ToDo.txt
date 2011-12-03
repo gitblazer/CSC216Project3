@@ -1,12 +1,2 @@
 To Do:
 
-Update deck display when deck updates 
-add highlighting of updated cards on step by step
-add highlighting of keystream card on letter by letter
-add highlighting of letter that was output for letter by letter
-remove highlighting after running to completion
-
-Use a fresh deck when getting a new message
-
-Use pop-up dialogs for exceptions
-	invalid file
