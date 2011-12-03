@@ -153,6 +153,19 @@ public class CardIcons extends JFrame implements ActionListener {
 		}
 	}
 	
+	public void highlightAnswerChar(int index) {
+		if (index == -1) {
+			for (int i = 0; i < answerLabels.length; i++){
+				answerLabels[i].setBackground(new Color(0, 0, 0, 0));
+			}
+		} else if (index > 0) {
+			answerLabels[index - 1].setBackground(null);
+			answerLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
+		} else {
+			answerLabels[index].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
+		}
+	}
+	
 	public static char translate(int value) {
 		if (value == NUM_LETTERS) {
 			return '[';
@@ -221,6 +234,7 @@ public class CardIcons extends JFrame implements ActionListener {
 						}
 						char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
 						answerLabels[currentLetterIndex].setText("" + String.valueOf(newLetter).replaceAll("\\[", " "));
+						highlightAnswerChar(currentLetterIndex);
 						
 						currentLetterIndex++;
 						d.resetCurrentStep();
