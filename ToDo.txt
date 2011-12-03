@@ -10,9 +10,3 @@ Use a fresh deck when getting a new message
 
 Use pop-up dialogs for exceptions
 	invalid file
-
-Comment Code
-
-Clean up code to match formatting rules
-
-Add 2 more Black Box tests (total of 5)
