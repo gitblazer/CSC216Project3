@@ -194,7 +194,6 @@ public class CardIcons extends JFrame implements ActionListener {
 		} else if (ae.getActionCommand().equals("Step By Step")) {
 			runButton.setText("Next Step");
 		} else {
-			boolean encrypt = UI.getMessageFrame().getEncType() == 'e';
 			Message m = UI.getMessage();
 			String messageString = m.getMessage();
 
@@ -202,8 +201,6 @@ public class CardIcons extends JFrame implements ActionListener {
 			for (int i = 0; i < messageString.length(); i++) {
 				messageArray[i] = new Message(String.valueOf(messageString.charAt(i)));
 			}
-
-			Deck d = UI.getDeck();
 			
 			if (stepByStepRadio.isSelected()) {
 				wholeMessageRadio.setEnabled(false);
@@ -220,19 +217,7 @@ public class CardIcons extends JFrame implements ActionListener {
 				letterByLetterRadio.setEnabled(false);
 				for (int j = 0; j < messageArray.length; j++) {
 					for (int i = 0; i < Deck.NUM_STEPS; i++) {
-						highlightMessageChar(currentLetterIndex);
-						int ans = d.nextStep();
-						displayDeck(d);
-						if (ans != -1) {
-							if (ans + translate(messageChars[currentLetterIndex]) > Deck.DECK_SIZE - 1) {
-								ans -= (Deck.DECK_SIZE - 1);
-							}
-							char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
-							answerLabels[currentLetterIndex].setText("" + String.valueOf(newLetter).replaceAll("\\[", " "));
-							
-							currentLetterIndex++;
-							d.resetCurrentStep();
-						}
+						processStep();
 					}
 				}
 			}
