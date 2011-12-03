@@ -41,6 +41,7 @@ public class CardIcons extends JFrame implements ActionListener {
 	private static final int HALF_COLOR = 128;
 	private static final int NUM_PANELS = 4;
 	private static final int NUM_CARDS = 28;
+	private static final int NUM_LETTERS = 27;
 	
 	public static CardIcons init() {
 		if (iconsObject == null) {
@@ -153,16 +154,23 @@ public class CardIcons extends JFrame implements ActionListener {
 	}
 	
 	public static char translate(int value) {
+		if (value == NUM_LETTERS) {
+			return '[';
+		}
 		return (char)(value + 'A' - 1);
 	}
 	
 	public static int translate(char ch) {
+		if (ch == ' ') {
+			return NUM_LETTERS;
+		}
 		return (int)(ch - 'A' + 1);
 	}
 
 	public void actionPerformed(ActionEvent ae) {
 		displayDeck(UI.getDeck());
 		if (ae.getActionCommand().equals("Process Another Message")) {
+			UI.resetDeck();
 			UI.setMessageFrame(new MessageFrame());
 			UI.getMessageFrame().setVisible(true);
 			dispose();
@@ -205,8 +213,15 @@ public class CardIcons extends JFrame implements ActionListener {
 				stepByStepRadio.setEnabled(false);
 				for (int i = 0; i < Deck.NUM_STEPS; i++) {
 					highlightChar(currentLetterIndex);
-					d.nextStep();
-					if (d.getCurrentStep() == 5) {
+					int ans = d.nextStep();
+					displayDeck(d);
+					if (ans != -1) {
+						if (ans + translate(messageChars[currentLetterIndex]) > Deck.DECK_SIZE - 1) {
+							ans -= (Deck.DECK_SIZE - 1);
+						}
+						char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
+						answerLabel.setText(answerLabel.getText() + String.valueOf(newLetter).replaceAll("\\[", " "));
+						
 						currentLetterIndex++;
 						d.resetCurrentStep();
 					}
@@ -215,7 +230,23 @@ public class CardIcons extends JFrame implements ActionListener {
 				stepByStepRadio.setEnabled(false);
 				letterByLetterRadio.setEnabled(false);
 				if (encrypt) {
-					m.encrypt(d);
+					for (int j = 0; j < messageArray.length; j++) {
+						for (int i = 0; i < Deck.NUM_STEPS; i++) {
+							highlightChar(currentLetterIndex);
+							int ans = d.nextStep();
+							displayDeck(d);
+							if (ans != -1) {
+								if (ans + translate(messageChars[currentLetterIndex]) > Deck.DECK_SIZE - 1) {
+									ans -= (Deck.DECK_SIZE - 1);
+								}
+								char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
+								answerLabel.setText(answerLabel.getText() + String.valueOf(newLetter).replaceAll("\\[", " "));
+								
+								currentLetterIndex++;
+								d.resetCurrentStep();
+							}
+						}
+					}
 				} else {
 					m.decrypt(d);
 				}
