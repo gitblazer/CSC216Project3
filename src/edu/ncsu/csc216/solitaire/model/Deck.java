@@ -4,6 +4,7 @@ package edu.ncsu.csc216.solitaire.model;
 import edu.ncsu.csc216.solitaire.model.DeckLinkedList;
 import edu.ncsu.csc216.solitaire.ui.CardIcons;
 import edu.ncsu.csc216.solitaire.ui.UI;
+import java.util.Iterator;
 
 /**
  * The Deck of Cards
@@ -263,7 +264,7 @@ public class Deck implements Iterable<Integer> {
 		return deck;
 	}
 
-	public DeckLinkedListIterator iterator() {
-		return new DeckLinkedListIterator(deck.findNode(0));
+	public Iterator<Integer> iterator() {
+		return deck.iterator();
 	}
 }

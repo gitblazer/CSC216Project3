@@ -1,7 +1,5 @@
 package edu.ncsu.csc216.solitaire.model;
 
-import edu.ncsu.csc216.solitaire.ui.*;
-
 /**
  * The message class
  * @author William Blazer, Andrew Kofink
