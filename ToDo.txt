@@ -13,8 +13,6 @@ Use pop-up dialogs for exceptions
 
 Comment Code
 
-Write Tests for DeckLinkedListIterator
-
 Clean up code to match formatting rules
 
 Add 2 more Black Box tests (total of 5)
