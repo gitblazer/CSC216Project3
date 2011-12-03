@@ -9,7 +9,7 @@ import edu.ncsu.csc216.solitaire.ui.UI;
  * The Deck of Cards
  * @author Andrew Kofink, William Blazer
  */
-public class Deck implements Iterable<ListNode> {
+public class Deck implements Iterable<Integer> {
 	
 	private static final int JOKER1 = 27;
 	

@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * The LinkedList for the Deck of cards
  * @author William Blazer, Andrew Kofink
  */
-public class DeckLinkedList implements Iterable<ListNode> {
+public class DeckLinkedList implements Iterable<Integer> {
 	
 	/**
 	 * The front node of the list
@@ -290,7 +290,7 @@ public class DeckLinkedList implements Iterable<ListNode> {
 	}
 }
 
-class DeckLinkedListIterator implements Iterator<ListNode> {
+class DeckLinkedListIterator implements Iterator<Integer> {
 	
 	private ListNode current;
 
@@ -302,13 +302,13 @@ class DeckLinkedListIterator implements Iterator<ListNode> {
 		return current.next != null;
 	}
 	
-	public ListNode next() {
+	public Integer next() {
 		if (hasNext()) {
 			current = current.next;
 		} else {
 			throw new NoSuchElementException();
 		}
-		return current;
+		return current.data;
 	}
 	
 	public void remove() {
