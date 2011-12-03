@@ -45,7 +45,7 @@ public class DeckLinkedList implements Iterable<Integer> {
 				addFirst (values[i]);
 			}
 		} else {
-			for (int value: values) {
+			for (int value : values) {
 				add(value);
 			}
 		}
@@ -54,7 +54,7 @@ public class DeckLinkedList implements Iterable<Integer> {
 	/**
 	 * A helper method for add(int value)
 	 * @param value The value to be added
-	 * @param index The current parsed index
+	 * @param current The current parsed index
 	 */
 	private void add(int value, ListNode current) {
 		if (front == null) {
@@ -285,23 +285,44 @@ public class DeckLinkedList implements Iterable<Integer> {
 		return size;
 	}
 
+	/**
+	 * returns the iterator
+	 * @return the iterator
+	 */
 	public DeckLinkedListIterator iterator() {
 		return new DeckLinkedListIterator(this);
 	}
 }
 
+/**
+ * the deck linked list iterator class
+ * @author akofink + weblazer
+ */
 class DeckLinkedListIterator implements Iterator<Integer> {
 	
+	/**
+	 * current listnode
+	 */
 	private ListNode current;
 
+	/**
+	 * another constructor
+	 */
 	public DeckLinkedListIterator() {
 		this(null);
 	}
 	
+	/**
+	 * constructor for iterator
+	 * @param dll iterator
+	 */
 	public DeckLinkedListIterator(DeckLinkedList dll) {
 		current = dll.findNode(0);
 	}
 	
+	/**
+	 * checks to see if the next value exists
+	 */
 	public boolean hasNext() {
 		if (current != null) {
 			return current.next != null;
@@ -309,6 +330,9 @@ class DeckLinkedListIterator implements Iterator<Integer> {
 		return false;
 	}
 	
+	/**
+	 * moves to the next value
+	 */
 	public Integer next() {
 		if (hasNext()) {
 			current = current.next;
@@ -318,6 +342,9 @@ class DeckLinkedListIterator implements Iterator<Integer> {
 		}
 	}
 	
+	/**
+	 * removes a value
+	 */
 	public void remove() {
 		throw new UnsupportedOperationException();
 	}

@@ -12,8 +12,14 @@ import java.util.Iterator;
  */
 public class Deck implements Iterable<Integer> {
 	
+	/**
+	 * value of the first joker
+	 */
 	private static final int JOKER1 = 27;
 	
+	/**
+	 * value of the 2nd joker
+	 */
 	private static final int JOKER2 = 28;
 	
 	/**
@@ -21,8 +27,14 @@ public class Deck implements Iterable<Integer> {
 	 */
 	public static final int DECK_SIZE = 28;
 	
+	/**
+	 * number of steps
+	 */
 	public static final int NUM_STEPS = 5;
 	
+	/**
+	 * the current step
+	 */
 	private int currentStep = 0;
 
 	/**
@@ -37,7 +49,6 @@ public class Deck implements Iterable<Integer> {
 	 */
 	public Deck(int[] deckArray ) {
 		// checks the int[] deck for the existance of 1-28 before
-		// building it into linked list
 		boolean valueFound = false;	
 		//checks for values greater or less than 1-28
 		for (int j = 0; j < deckArray.length; j++) {
@@ -62,8 +73,7 @@ public class Deck implements Iterable<Integer> {
 				throw new IllegalArgumentException("A duplicate value exists");
 			}	
 			exists[deckArray[i]] = true;
-		}
-		
+		}		
 		//makes sure 1-28 exist in the deck
 		for (int j = 1; j <= 28; j++) {
 			valueFound = false;
@@ -211,6 +221,11 @@ public class Deck implements Iterable<Integer> {
 		return returnMe;
 	}
 	
+	/**
+	 * translates int values into char values
+	 * @param value integer value
+	 * @return converted char value
+	 */
 	private char translate(int value) {
 		if (value == 27) {
 			return ' ';
@@ -218,6 +233,10 @@ public class Deck implements Iterable<Integer> {
 		return (char)('A' + value - 1);
 	}
 	
+	/**
+	 * cycles through the steps on bye one
+	 * @return returns -1 until the keystream value is returned
+	 */
 	public int nextStep() {
 		switch(currentStep) {
 			case 0: stepOne(); System.out.println("exited step 1, current step:" + currentStep); break;
@@ -231,10 +250,17 @@ public class Deck implements Iterable<Integer> {
 		return -1;
 	}
 	
+	/**
+	 * returns the current step
+	 * @return the current step
+	 */
 	public int getCurrentStep() {
 		return currentStep;
 	}
 	
+	/**
+	 * resets the step count
+	 */
 	public void resetCurrentStep() {
 		currentStep = 0;
 	}
@@ -260,10 +286,16 @@ public class Deck implements Iterable<Integer> {
 		//----------------------
 	}
 	
+	/**
+	 * @return a deck
+	 */
 	public DeckLinkedList deck() {
 		return deck;
-	}
-
+	}	
+	
+	/** 
+	 * @return the deck iterator
+	 */
 	public Iterator<Integer> iterator() {
 		return deck.iterator();
 	}
