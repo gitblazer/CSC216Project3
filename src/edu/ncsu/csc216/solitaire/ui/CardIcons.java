@@ -208,68 +208,72 @@ public class CardIcons extends JFrame implements ActionListener {
 			if (stepByStepRadio.isSelected()) {
 				wholeMessageRadio.setEnabled(false);
 				letterByLetterRadio.setEnabled(false);
-				highlightMessageChar(currentLetterIndex);
-				int ans = d.nextStep();
-				displayDeck(d);
-				if (ans != -1) {
-					if (ans + translate(messageChars[currentLetterIndex]) > Deck.DECK_SIZE - 1) {
-						ans -= (Deck.DECK_SIZE - 1);
-					}
-					char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
-					answerLabels[currentLetterIndex].setText("" + String.valueOf(newLetter).replaceAll("\\[", " "));
-					
-					currentLetterIndex++;
-					d.resetCurrentStep();
-				}
+				processStep();
 			} else if (letterByLetterRadio.isSelected()) {
 				wholeMessageRadio.setEnabled(false);
 				stepByStepRadio.setEnabled(false);
 				for (int i = 0; i < Deck.NUM_STEPS; i++) {
-					highlightMessageChar(currentLetterIndex);
-					int ans = d.nextStep();
-					displayDeck(d);
-					if (ans != -1) {
-						if (ans + translate(messageChars[currentLetterIndex]) > Deck.DECK_SIZE - 1) {
-							ans -= (Deck.DECK_SIZE - 1);
-						}
-						char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
-						answerLabels[currentLetterIndex].setText("" + String.valueOf(newLetter).replaceAll("\\[", " "));
-						highlightAnswerChar(currentLetterIndex);
-						
-						currentLetterIndex++;
-						d.resetCurrentStep();
-					}
+					processStep();
 				}
 			} else {
 				stepByStepRadio.setEnabled(false);
 				letterByLetterRadio.setEnabled(false);
-				if (encrypt) {
-					for (int j = 0; j < messageArray.length; j++) {
-						for (int i = 0; i < Deck.NUM_STEPS; i++) {
-							highlightMessageChar(currentLetterIndex);
-							int ans = d.nextStep();
-							displayDeck(d);
-							if (ans != -1) {
-								if (ans + translate(messageChars[currentLetterIndex]) > Deck.DECK_SIZE - 1) {
-									ans -= (Deck.DECK_SIZE - 1);
-								}
-								char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
-								answerLabels[currentLetterIndex].setText("" + String.valueOf(newLetter).replaceAll("\\[", " "));
-								
-								currentLetterIndex++;
-								d.resetCurrentStep();
+				for (int j = 0; j < messageArray.length; j++) {
+					for (int i = 0; i < Deck.NUM_STEPS; i++) {
+						highlightMessageChar(currentLetterIndex);
+						int ans = d.nextStep();
+						displayDeck(d);
+						if (ans != -1) {
+							if (ans + translate(messageChars[currentLetterIndex]) > Deck.DECK_SIZE - 1) {
+								ans -= (Deck.DECK_SIZE - 1);
 							}
+							char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
+							answerLabels[currentLetterIndex].setText("" + String.valueOf(newLetter).replaceAll("\\[", " "));
+							
+							currentLetterIndex++;
+							d.resetCurrentStep();
 						}
 					}
-				} else {
-					m.decrypt(d);
 				}
-				currentLetterIndex = messageArray.length;
 			}
 
 			if (currentLetterIndex == messageArray.length) {
 				runButton.setText("Process Another Message");
 			}
+		}
+	}
+	
+	/**
+	 * Processes one step of the encrypt or decrypt cycle
+	 */
+	private void processStep() {
+		Deck d = UI.getDeck();
+		highlightMessageChar(currentLetterIndex);
+		int ans = d.nextStep();
+		displayDeck(d);
+		if (ans != -1) {
+			char newLetter = '/';
+			if (UI.getEncType() == 'e') {
+				if (ans + translate(messageChars[currentLetterIndex]) > Deck.DECK_SIZE - 1) {
+					ans -= (Deck.DECK_SIZE - 1);
+				}
+				newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
+			} else if (UI.getEncType() == 'd') {
+				int newLetterInt = translate(messageChars[currentLetterIndex]) - ans;
+				if (newLetterInt <= 0) {
+					newLetterInt += Deck.DECK_SIZE - 1;
+				}
+				newLetter = translate(newLetterInt);
+			}
+			
+			answerLabels[currentLetterIndex].setText("" + String.valueOf(newLetter).replaceAll("\\[", " "));
+			
+			if (letterByLetterRadio.isSelected()) {
+				highlightAnswerChar(currentLetterIndex);
+			}
+			
+			currentLetterIndex++;
+			d.resetCurrentStep();
 		}
 	}
 
