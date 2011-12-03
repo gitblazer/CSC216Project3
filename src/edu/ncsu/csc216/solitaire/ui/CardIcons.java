@@ -298,14 +298,14 @@ public class CardIcons extends JFrame implements ActionListener {
 	
 	public void displayDeck(DeckLinkedList d) {
 		for (int i = 0; i < icons.length; i++) {
+			System.out.println("cards/" + d.get(i) + ".gif");
 			icons[i] = new ImageIcon("cards/" + d.get(i) + ".gif");
 		}
 		for (int i = 0; i < cardPanels.length; i++) {
-			cardPanels[i].removeAll();
 			for (int j = i * icons.length / NUM_PANELS; j < (i + 1) * icons.length / NUM_PANELS; j++) {
 				individualCardPanels[j].removeAll();
 				individualCardPanels[j].add(new JLabel(icons[j]));
-				cardPanels[i].add(individualCardPanels[j]);
+				individualCardPanels[j].repaint();
 			}
 		}
 	}

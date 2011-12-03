@@ -74,10 +74,10 @@ public class UI {
 				throw new FileNotFoundException();
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("File not found.");
+			JOptionPane.showMessageDialog(null, "Invalid File");
 			userInterface();
 		} catch (DataFormatException dfe) {
-			System.out.println("Invalid file.");
+			JOptionPane.showMessageDialog(null, "Invalid File");
 			userInterface();
 		}
 	}
