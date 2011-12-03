@@ -237,7 +237,6 @@ public class Deck implements Iterable<Integer> {
 	 */
 	public int nextStep() {
 		oldDeck = deck();
-		printDeck(deck);
 		switch(currentStep) {
 			case 0: stepOne(); break;
 			case 1: stepTwo(); break;

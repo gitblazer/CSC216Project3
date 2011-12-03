@@ -35,10 +35,11 @@ public class CardIcons extends JFrame implements ActionListener {
 	private JRadioButton letterByLetterRadio;
 	private JRadioButton wholeMessageRadio;
 	private JLabel[] messageLabels;
-	private JLabel answerLabel;
+	private JLabel[] answerLabels;
 	private int currentLetterIndex;
 	private JButton runButton;
 	private char[] messageChars;
+	private char[] answerChars;
 	private static final int FULL_COLOR = 255;
 	private static final int HALF_COLOR = 128;
 	private static final int NUM_PANELS = 4;
@@ -127,21 +128,19 @@ public class CardIcons extends JFrame implements ActionListener {
 		}
 		
 		//Answer Panel
-		answerLabel = new JLabel();
-		answerPanel.add(answerLabel);
+		answerChars = new char[messageChars.length];
+		answerLabels = new JLabel[answerChars.length];
+		
+		for (int i = 0; i < answerLabels.length; i++) {
+			answerLabels[i] = new JLabel("" + answerChars[i]);
+			answerLabels[i].setOpaque(true);
+			answerPanel.add(answerLabels[i]);
+		}
 		
 		pack();
 	}
 	
-	public void setAnswerLabel(String newText) {
-		answerLabel.setText(newText);
-	}
-	
-	public String getAnswerLabel() {
-		return answerLabel.getText();
-	}
-	
-	public void highlightChar(int index) {
+	public void highlightMessageChar(int index) {
 		if (index == -1) {
 			for (int i = 0; i < messageLabels.length; i++){
 				messageLabels[i].setBackground(new Color(0, 0, 0, 0));
@@ -196,7 +195,7 @@ public class CardIcons extends JFrame implements ActionListener {
 			if (stepByStepRadio.isSelected()) {
 				wholeMessageRadio.setEnabled(false);
 				letterByLetterRadio.setEnabled(false);
-				highlightChar(currentLetterIndex);
+				highlightMessageChar(currentLetterIndex);
 				int ans = d.nextStep();
 				displayDeck(d);
 				if (ans != -1) {
@@ -204,7 +203,7 @@ public class CardIcons extends JFrame implements ActionListener {
 						ans -= (Deck.DECK_SIZE - 1);
 					}
 					char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
-					answerLabel.setText(answerLabel.getText() + String.valueOf(newLetter).replaceAll("\\[", " "));
+					answerLabels[currentLetterIndex].setText("" + String.valueOf(newLetter).replaceAll("\\[", " "));
 					
 					currentLetterIndex++;
 					d.resetCurrentStep();
@@ -213,7 +212,7 @@ public class CardIcons extends JFrame implements ActionListener {
 				wholeMessageRadio.setEnabled(false);
 				stepByStepRadio.setEnabled(false);
 				for (int i = 0; i < Deck.NUM_STEPS; i++) {
-					highlightChar(currentLetterIndex);
+					highlightMessageChar(currentLetterIndex);
 					int ans = d.nextStep();
 					displayDeck(d);
 					if (ans != -1) {
@@ -221,7 +220,7 @@ public class CardIcons extends JFrame implements ActionListener {
 							ans -= (Deck.DECK_SIZE - 1);
 						}
 						char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
-						answerLabel.setText(answerLabel.getText() + String.valueOf(newLetter).replaceAll("\\[", " "));
+						answerLabels[currentLetterIndex].setText("" + String.valueOf(newLetter).replaceAll("\\[", " "));
 						
 						currentLetterIndex++;
 						d.resetCurrentStep();
@@ -233,7 +232,7 @@ public class CardIcons extends JFrame implements ActionListener {
 				if (encrypt) {
 					for (int j = 0; j < messageArray.length; j++) {
 						for (int i = 0; i < Deck.NUM_STEPS; i++) {
-							highlightChar(currentLetterIndex);
+							highlightMessageChar(currentLetterIndex);
 							int ans = d.nextStep();
 							displayDeck(d);
 							if (ans != -1) {
@@ -241,7 +240,7 @@ public class CardIcons extends JFrame implements ActionListener {
 									ans -= (Deck.DECK_SIZE - 1);
 								}
 								char newLetter = translate(translate(messageChars[currentLetterIndex]) + ans);
-								answerLabel.setText(answerLabel.getText() + String.valueOf(newLetter).replaceAll("\\[", " "));
+								answerLabels[currentLetterIndex].setText("" + String.valueOf(newLetter).replaceAll("\\[", " "));
 								
 								currentLetterIndex++;
 								d.resetCurrentStep();
@@ -294,13 +293,20 @@ public class CardIcons extends JFrame implements ActionListener {
 			icons[i] = new ImageIcon("cards/" + dll.get(i) + ".gif");
 			individualCardPanels[i].add(new JLabel(icons[i]));
 			
-			individualCardPanels[i].setBackground(new Color(0,0,0,0));
-			if (dll.get(i) != d.getOldDeck().get(i)) {
-				individualCardPanels[i].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
+			individualCardPanels[i].setBackground(Color.WHITE);
+			if (stepByStepRadio != null && stepByStepRadio.isSelected()) {
+				if (dll.get(i) != d.getOldDeck().get(i)) {
+					individualCardPanels[i].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
+				}
+			} else if (letterByLetterRadio != null && letterByLetterRadio.isSelected() && d.getCurrentStep() == 5) {
+				int temp = dll.get(0);
+				if (temp == 28) {
+					temp = 27;
+				}
+				individualCardPanels[dll.indexOf(dll.get(temp))].setBackground(new Color(0, HALF_COLOR / 2, FULL_COLOR, HALF_COLOR / 2));
 			}
 			
 			individualCardPanels[i].revalidate();
-			//individualCardPanels[i].repaint();
 		}
 	}
 	
