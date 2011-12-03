@@ -15,7 +15,7 @@ public class DeckLinkedList implements Iterable<Integer> {
 	private ListNode front;
 	
 	/**
-	 * The currens size of the list
+	 * The current size of the list
 	 */
 	private int size;
 	
@@ -286,7 +286,7 @@ public class DeckLinkedList implements Iterable<Integer> {
 	}
 
 	public DeckLinkedListIterator iterator() {
-		return new DeckLinkedListIterator(front);
+		return new DeckLinkedListIterator(this);
 	}
 }
 
@@ -294,21 +294,28 @@ class DeckLinkedListIterator implements Iterator<Integer> {
 	
 	private ListNode current;
 
-	public DeckLinkedListIterator(ListNode front) {
-		current = front;
+	public DeckLinkedListIterator() {
+		this(null);
+	}
+	
+	public DeckLinkedListIterator(DeckLinkedList dll) {
+		current = dll.findNode(0);
 	}
 	
 	public boolean hasNext() {
-		return current.next != null;
+		if (current != null) {
+			return current.next != null;
+		}
+		return false;
 	}
 	
 	public Integer next() {
 		if (hasNext()) {
 			current = current.next;
+			return current.data;
 		} else {
 			throw new NoSuchElementException();
 		}
-		return current.data;
 	}
 	
 	public void remove() {
