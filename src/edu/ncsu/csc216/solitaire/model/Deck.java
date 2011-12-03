@@ -2,8 +2,6 @@ package edu.ncsu.csc216.solitaire.model;
 
 // changed this from java.util.linked to what is below...
 import edu.ncsu.csc216.solitaire.model.DeckLinkedList;
-import edu.ncsu.csc216.solitaire.ui.CardIcons;
-import edu.ncsu.csc216.solitaire.ui.UI;
 import java.util.Iterator;
 
 /**
@@ -209,13 +207,6 @@ public class Deck implements Iterable<Integer> {
 			returnMe = 27;
 		}
 		
-		if (UI.getDeck() != null) {
-			CardIcons.init().displayDeck(deck);
-
-			String currentAnswer = CardIcons.init().getAnswerLabel();
-			CardIcons.init().setAnswerLabel(currentAnswer + translate(returnMe));
-		}
-		
 		currentStep++;
 		
 		return returnMe;
@@ -230,7 +221,7 @@ public class Deck implements Iterable<Integer> {
 		if (value == 27) {
 			return ' ';
 		}
-		return (char)('A' + value - 1);
+		return (char)(('A' + value - 1));
 	}
 	
 	/**
@@ -239,14 +230,13 @@ public class Deck implements Iterable<Integer> {
 	 */
 	public int nextStep() {
 		switch(currentStep) {
-			case 0: stepOne(); System.out.println("exited step 1, current step:" + currentStep); break;
-			case 1: stepTwo(); System.out.println("exited step 2, current step:" + currentStep); break;
-			case 2: stepThree(); System.out.println("exited step 3, current step:" + currentStep); break;
-			case 3: stepFour(); System.out.println("exited step 4, current step:" + currentStep); break;
-			case 4: System.out.println("exited step 5, current step:" + currentStep); return stepFive();
+			case 0: stepOne(); break;
+			case 1: stepTwo(); break;
+			case 2: stepThree(); break;
+			case 3: stepFour(); break;
+			case 4: return stepFive();
 		}
 		currentStep++;
-		CardIcons.init().displayDeck(deck);
 		return -1;
 	}
 	

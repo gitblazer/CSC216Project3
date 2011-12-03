@@ -150,6 +150,7 @@ public class CardIcons extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent ae) {
+		displayDeck(UI.getDeck());
 		if (ae.getActionCommand().equals("Process Another Message")) {
 			UI.setMessageFrame(new MessageFrame());
 			UI.getMessageFrame().setVisible(true);
@@ -175,30 +176,22 @@ public class CardIcons extends JFrame implements ActionListener {
 			if (stepByStepRadio.isSelected()) {
 				wholeMessageRadio.setEnabled(false);
 				letterByLetterRadio.setEnabled(false);
-				if (encrypt) {
+				highlightChar(currentLetterIndex);
+				d.nextStep();
+				if (d.getCurrentStep() == 5) {
+					currentLetterIndex++;
+					d.resetCurrentStep();
+				}
+			} else if (letterByLetterRadio.isSelected()) {
+				wholeMessageRadio.setEnabled(false);
+				stepByStepRadio.setEnabled(false);
+				for (int i = 0; i < Deck.NUM_STEPS; i++) {
 					highlightChar(currentLetterIndex);
 					d.nextStep();
 					if (d.getCurrentStep() == 5) {
 						currentLetterIndex++;
 						d.resetCurrentStep();
 					}
-				} else {
-					
-				}
-			} else if (letterByLetterRadio.isSelected()) {
-				wholeMessageRadio.setEnabled(false);
-				stepByStepRadio.setEnabled(false);
-				if (encrypt) {
-					for (int i = 0; i < Deck.NUM_STEPS; i++) {
-						highlightChar(currentLetterIndex);
-						d.nextStep();
-						if (d.getCurrentStep() == 5) {
-							currentLetterIndex++;
-							d.resetCurrentStep();
-						}
-					}
-				} else {
-					
 				}
 			} else {
 				stepByStepRadio.setEnabled(false);
@@ -250,7 +243,6 @@ public class CardIcons extends JFrame implements ActionListener {
 	}
 	
 	public void displayDeck(DeckLinkedList d) {
-		Deck.printDeck(d);
 		for (int i = 0; i < icons.length; i++) {
 			icons[i] = new ImageIcon("cards/" + d.get(i) + ".gif");
 		}
