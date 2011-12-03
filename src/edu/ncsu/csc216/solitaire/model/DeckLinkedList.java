@@ -298,6 +298,10 @@ class DeckLinkedListIterator implements Iterator<Integer> {
 		current = front;
 	}
 	
+	public DeckLinkedListIterator() {
+		this(null);
+	}
+	
 	public boolean hasNext() {
 		return current.next != null;
 	}
@@ -314,4 +318,5 @@ class DeckLinkedListIterator implements Iterator<Integer> {
 	public void remove() {
 		throw new UnsupportedOperationException();
 	}
+	
 }
