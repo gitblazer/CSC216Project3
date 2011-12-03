@@ -235,6 +235,7 @@ public class Deck implements Iterable<Integer> {
 			case 2: stepThree(); break;
 			case 3: stepFour(); break;
 			case 4: return stepFive();
+			default: return -1;
 		}
 		currentStep++;
 		return -1;
@@ -255,11 +256,12 @@ public class Deck implements Iterable<Integer> {
 		currentStep = 0;
 	}
 	
+	
 	/**
 	 * used to print the deck for debugging
 	 * @param deck2 deck to be printed
 	 */
-	public static void printDeck(DeckLinkedList deck2) { 
+	/*public static void printDeck(DeckLinkedList deck2) { 
 		// below is a loop to print out the arraylist  for debugging purposes
 		//--------------------------
 		System.out.print("Deck: ");
@@ -275,6 +277,7 @@ public class Deck implements Iterable<Integer> {
 		
 		//----------------------
 	}
+	*/
 	
 	/**
 	 * @return a deck

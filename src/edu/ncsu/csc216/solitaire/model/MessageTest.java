@@ -35,5 +35,16 @@ public class MessageTest extends TestCase {
 	public void testDecrypt() {
 		testEncrypt();
 	}
-
+	
+	public void testNextLetter() {
+		int[] intArr = DeckTest.testDecks[0];
+		Deck d = new Deck(intArr);
+		Message testM = new Message("ARGHY");
+		assertEquals('/' , testM.nextLetter(d));
+	}
+	
+	public void testGetMessage() {
+		Message testM = new Message("ARGHY");
+		assertEquals("ARGHY", testM.getMessage());
+	}
 }

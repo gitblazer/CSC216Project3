@@ -272,6 +272,7 @@ public class DeckLinkedList implements Iterable<Integer> {
 	
 	/**
 	 * Removes the last node in the list
+	 * @return The last value
 	 */
 	public int removeLast() {
 		return remove(size - 1);
@@ -290,63 +291,57 @@ public class DeckLinkedList implements Iterable<Integer> {
 	 * @return the iterator
 	 */
 	public DeckLinkedListIterator iterator() {
-		return new DeckLinkedListIterator(this);
+		return new DeckLinkedListIterator();
+	}
+	
+	/**
+	 * the deck linked list iterator class
+	 * @author akofink + weblazer
+	 */
+	class DeckLinkedListIterator implements Iterator<Integer> {
+		
+		/**
+		 * current listnode
+		 */
+		private ListNode current;
+
+		/**
+		 * another constructor
+		 */
+		public DeckLinkedListIterator() {
+			current = front;
+		}
+		
+		/**
+		 * checks to see if the next value exists
+		 */
+		public boolean hasNext() {
+			if (current != null) {
+				return current.next != null;
+			}
+			return false;
+		}
+		
+		/**
+		 * moves to the next value
+		 */
+		public Integer next() {
+			if (hasNext()) {
+				current = current.next;
+				return current.data;
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
+		
+		/**
+		 * removes a value
+		 */
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+		
 	}
 }
 
-/**
- * the deck linked list iterator class
- * @author akofink + weblazer
- */
-class DeckLinkedListIterator implements Iterator<Integer> {
-	
-	/**
-	 * current listnode
-	 */
-	private ListNode current;
 
-	/**
-	 * another constructor
-	 */
-	public DeckLinkedListIterator() {
-		this(null);
-	}
-	
-	/**
-	 * constructor for iterator
-	 * @param dll iterator
-	 */
-	public DeckLinkedListIterator(DeckLinkedList dll) {
-		current = dll.findNode(0);
-	}
-	
-	/**
-	 * checks to see if the next value exists
-	 */
-	public boolean hasNext() {
-		if (current != null) {
-			return current.next != null;
-		}
-		return false;
-	}
-	
-	/**
-	 * moves to the next value
-	 */
-	public Integer next() {
-		if (hasNext()) {
-			current = current.next;
-			return current.data;
-		} else {
-			throw new NoSuchElementException();
-		}
-	}
-	
-	/**
-	 * removes a value
-	 */
-	public void remove() {
-		throw new UnsupportedOperationException();
-	}
-	
-}
