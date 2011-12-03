@@ -5,13 +5,11 @@ import edu.ncsu.csc216.solitaire.model.DeckLinkedList;
 import edu.ncsu.csc216.solitaire.ui.CardIcons;
 import edu.ncsu.csc216.solitaire.ui.UI;
 
-import java.util.Iterator;
-
 /**
  * The Deck of Cards
  * @author Andrew Kofink, William Blazer
  */
-public class Deck implements Iterable<DeckLinkedList> {
+public class Deck implements Iterable<ListNode> {
 	
 	private static final int JOKER1 = 27;
 	
@@ -200,10 +198,12 @@ public class Deck implements Iterable<DeckLinkedList> {
 			returnMe = 27;
 		}
 		
-		CardIcons.init().displayDeck(deck);
+		if (UI.getDeck() != null) {
+			CardIcons.init().displayDeck(deck);
 
-		String currentAnswer = CardIcons.init().getAnswerLabel();
-		CardIcons.init().setAnswerLabel(currentAnswer + translate(returnMe));
+			String currentAnswer = CardIcons.init().getAnswerLabel();
+			CardIcons.init().setAnswerLabel(currentAnswer + translate(returnMe));
+		}
 		
 		currentStep++;
 		
@@ -263,9 +263,7 @@ public class Deck implements Iterable<DeckLinkedList> {
 		return deck;
 	}
 
-	@Override
-	public Iterator<DeckLinkedList> iterator() {
-		Iterator<DeckLinkedList> deckIterator = deck.iterator();
-		return deckIterator;
+	public DeckLinkedListIterator iterator() {
+		return new DeckLinkedListIterator(deck.findNode(0));
 	}
 }
