@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * The LinkedList for the Deck of cards
  * @author William Blazer, Andrew Kofink
  */
-public class DeckLinkedList implements Iterable {
+public class DeckLinkedList implements Iterable<Integer> {
 	
 	/**
 	 * The front node of the list
@@ -15,7 +15,7 @@ public class DeckLinkedList implements Iterable {
 	private ListNode front;
 	
 	/**
-	 * The currens size of the list
+	 * The current size of the list
 	 */
 	private int size;
 	
@@ -45,7 +45,7 @@ public class DeckLinkedList implements Iterable {
 				addFirst (values[i]);
 			}
 		} else {
-			for (int value: values) {
+			for (int value : values) {
 				add(value);
 			}
 		}
@@ -54,7 +54,7 @@ public class DeckLinkedList implements Iterable {
 	/**
 	 * A helper method for add(int value)
 	 * @param value The value to be added
-	 * @param index The current parsed index
+	 * @param current The current parsed index
 	 */
 	private void add(int value, ListNode current) {
 		if (front == null) {
@@ -272,6 +272,7 @@ public class DeckLinkedList implements Iterable {
 	
 	/**
 	 * Removes the last node in the list
+	 * @return The last value
 	 */
 	public int removeLast() {
 		return remove(size - 1);
@@ -285,33 +286,62 @@ public class DeckLinkedList implements Iterable {
 		return size;
 	}
 
-	public Iterator iterator() {
-		return new DeckLinkedListIterator(front);
+	/**
+	 * returns the iterator
+	 * @return the iterator
+	 */
+	public DeckLinkedListIterator iterator() {
+		return new DeckLinkedListIterator();
 	}
-}
+	
+	/**
+	 * the deck linked list iterator class
+	 * @author akofink + weblazer
+	 */
+	class DeckLinkedListIterator implements Iterator<Integer> {
+		
+		/**
+		 * current listnode
+		 */
+		private ListNode current;
 
-class DeckLinkedListIterator implements Iterator {
-	
-	private ListNode current;
-
-	public DeckLinkedListIterator(ListNode front) {
-		current = front;
-	}
-	
-	public boolean hasNext() {
-		return current.next != null;
-	}
-	
-	public Integer next() {
-		if (hasNext()) {
-			current = current.next;
-		} else {
-			throw new NoSuchElementException();
+		/**
+		 * another constructor
+		 */
+		public DeckLinkedListIterator() {
+			current = front;
 		}
-		return current.data;
-	}
-	
-	public void remove() {
-		throw new UnsupportedOperationException();
+		
+		/**
+		 * checks to see if the next value exists
+		 */
+		public boolean hasNext() {
+			if (current != null) {
+				return current.next != null;
+			}
+			return false;
+		}
+		
+		/**
+		 * moves to the next value
+		 */
+		public Integer next() {
+			if (hasNext()) {
+				current = current.next;
+				return current.data;
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
+		
+		/**
+		 * removes a value
+		 */
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+		
 	}
 }
+
+

@@ -1,6 +1,9 @@
 package edu.ncsu.csc216.solitaire.model;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import edu.ncsu.csc216.solitaire.model.DeckLinkedList.DeckLinkedListIterator;
 
 import junit.framework.TestCase;
 
@@ -371,13 +374,39 @@ public class DeckLinkedListTest extends TestCase {
 	 * Tests the size getter
 	 */
 	public void testSize() {
-		int[] intArr = {4,6,8,10,12,14,16};
+		int[] intArr = DeckTest.testDecks[0];
 		DeckLinkedList dll = new DeckLinkedList();
 		
 		assertEquals(dll.size(), 0);
 		dll.add(4);
 		assertEquals(dll.size(), 1);
 		dll.add(intArr);
-		assertEquals(dll.size(), 8);
+		assertEquals(dll.size(), 29);
+	}
+	
+	public void testIterator() {
+		DeckLinkedList dll = new DeckLinkedList();
+		assertEquals(DeckLinkedListIterator.class, dll.iterator().getClass());
+	}
+	
+	public void testDeckLinkedListiterator() {
+		int[] intArr = DeckTest.testDecks[0];
+		Deck d = new Deck(intArr);
+		DeckLinkedList dll = d.deck();
+		DeckLinkedListIterator dlli = dll.iterator();
+		assertTrue(dlli.hasNext());
+	}
+	
+	public void testRemoveForIterator() {
+		int[] intArr = DeckTest.testDecks[0];
+		Deck d = new Deck(intArr);
+		DeckLinkedList dll = d.deck();
+		DeckLinkedListIterator dlli = dll.iterator();
+		try {
+			dlli.remove();
+			assertTrue(false);
+		} catch (UnsupportedOperationException uoe) {
+			assertTrue(true);
+		}
 	}
 }

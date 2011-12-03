@@ -99,6 +99,10 @@ public class UI {
 	public static Message getMessage() {
 		return message;
 	}
+	
+	public static char getEncType() {
+		return mf.getEncType();
+	}
 }
 
 class MessageFrame extends JFrame implements ActionListener {

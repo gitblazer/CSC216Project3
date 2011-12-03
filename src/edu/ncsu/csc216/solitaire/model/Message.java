@@ -1,7 +1,5 @@
 package edu.ncsu.csc216.solitaire.model;
 
-import edu.ncsu.csc216.solitaire.ui.*;
-
 /**
  * The message class
  * @author William Blazer, Andrew Kofink
@@ -48,6 +46,11 @@ public class Message {
 		return String.copyValueOf(characterArray).replaceAll("\\[", " ");
 	}
 	
+	/**
+	 * returns the next letter translated from the message
+	 * @param d the deck to be used
+	 * @return the translated char
+	 */
 	public char nextLetter(Deck d) {
 		for (int i = 0; i < NUM_STEPS; i++) {
 			d.nextStep();
@@ -72,10 +75,19 @@ public class Message {
 		return String.copyValueOf(characterArray).replaceAll("\\[", " ");
 	}
 	
+	/**
+	 * returns the message
+	 * @return the message
+	 */
 	public String getMessage() {
 		return String.copyValueOf(translate(message));
 	}
 	
+	/**
+	 * translates and array of ints to chars
+	 * @param intArr the array of ints
+	 * @return the array of converted chars
+	 */
 	private char[] translate(int[] intArr) {
 		char[] characterArray = new char[intArr.length];
 		for (int i = 0; i < intArr.length; i++) {
@@ -88,6 +100,11 @@ public class Message {
 		return characterArray;
 	}
 	
+	/**
+	 * translates the int into a char
+	 * @param input the int value
+	 * @return converted char value
+	 */
 	private char translate(int input) {
 		int[] intArr = {input};
 		char[] charArr = translate(intArr);

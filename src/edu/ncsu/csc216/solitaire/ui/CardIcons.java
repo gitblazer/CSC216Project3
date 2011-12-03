@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.smartcardio.CardPermission;
 import javax.swing.*;
 
 import edu.ncsu.csc216.solitaire.model.Deck;
@@ -17,9 +16,15 @@ import edu.ncsu.csc216.solitaire.model.Message;
 public class CardIcons extends JFrame implements ActionListener {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * The icons of the deck
 	 */
 	private static ImageIcon[] icons;
+	private JPanel mainPanel;
 	private static CardIcons iconsObject;
 	private JPanel[] cardPanels;
 	private JPanel cardPanel;
@@ -43,97 +48,84 @@ public class CardIcons extends JFrame implements ActionListener {
 	
 	public CardIcons() {
 		super();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//Create panels
-		//Main Panel
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BorderLayout());
-		add(mainPanel);
-		
-		//Card Panel
-		cardPanel = new JPanel();
-		cardPanel.setLayout(new GridLayout(NUM_PANELS, 1));
-		mainPanel.add(cardPanel, BorderLayout.CENTER);
-		
-		//Control Panel
-		JPanel controlPanel = new JPanel();
-		controlPanel.setLayout(new GridLayout(NUM_PANELS, 1));
-		mainPanel.add(controlPanel, BorderLayout.EAST);
-		
-		//Message Panel
-		JPanel messagePanel = new JPanel();
-		messagePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		mainPanel.add(messagePanel, BorderLayout.NORTH);
-		
-		//Answer Panel
-		JPanel answerPanel = new JPanel();
-		answerPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		mainPanel.add(answerPanel, BorderLayout.SOUTH);
-		
-		//Add components to panels
-		//Card Panel
-		cardPanels = new JPanel[NUM_PANELS];
-		
-		for (int i = 0; i < cardPanels.length; i++) {
-			cardPanels[i] = new JPanel();
-			cardPanels[i].setLayout(new FlowLayout());
-			cardPanel.add(cardPanels[i]);
-		}
-		
-		initIcons();
-		ImageIcon icons[] = icons();
-		
-		for (int i = 0; i < cardPanels.length; i++) {
-			for (int j = i * icons.length / NUM_PANELS; j < (i + 1) * icons.length / NUM_PANELS; j++) {
-				cardPanels[i].add(new JLabel(icons[j]));
-			}
-		}
-		
-		//Control Panel
-		ButtonGroup radioMenu = new ButtonGroup();
-		
-		stepByStepRadio = new JRadioButton("Step By Step");
-		letterByLetterRadio = new JRadioButton("Letter By Letter");
-		wholeMessageRadio = new JRadioButton("Whole Message");
-		
-		stepByStepRadio.addActionListener(this);
-		letterByLetterRadio.addActionListener(this);
-		wholeMessageRadio.addActionListener(this);
-		
-		wholeMessageRadio.setSelected(true);
-		
-		radioMenu.add(stepByStepRadio);
-		radioMenu.add(letterByLetterRadio);
-		radioMenu.add(wholeMessageRadio);
+		if (UI.getDeck() != null) {
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+			//Create panels
+			//Main Panel
+			mainPanel = new JPanel();
+			mainPanel.setLayout(new BorderLayout());
+			add(mainPanel);
+			
+			//Card Panel
+			cardPanel = new JPanel();
+			cardPanel.setLayout(new GridLayout(NUM_PANELS, 1));
+			mainPanel.add(cardPanel, BorderLayout.CENTER);
+			
+			//Control Panel
+			JPanel controlPanel = new JPanel();
+			controlPanel.setLayout(new GridLayout(NUM_PANELS, 1));
+			mainPanel.add(controlPanel, BorderLayout.EAST);
+			
+			//Message Panel
+			JPanel messagePanel = new JPanel();
+			messagePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+			mainPanel.add(messagePanel, BorderLayout.NORTH);
+			
+			//Answer Panel
+			JPanel answerPanel = new JPanel();
+			answerPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+			mainPanel.add(answerPanel, BorderLayout.SOUTH);
+			
+			//Add components to panels
+			//Card Panel
+			initIcons();
+			
+			//Control Panel
+			ButtonGroup radioMenu = new ButtonGroup();
+			
+			stepByStepRadio = new JRadioButton("Step By Step");
+			letterByLetterRadio = new JRadioButton("Letter By Letter");
+			wholeMessageRadio = new JRadioButton("Whole Message");
+			
+			stepByStepRadio.addActionListener(this);
+			letterByLetterRadio.addActionListener(this);
+			wholeMessageRadio.addActionListener(this);
+			
+			wholeMessageRadio.setSelected(true);
+			
+			radioMenu.add(stepByStepRadio);
+			radioMenu.add(letterByLetterRadio);
+			radioMenu.add(wholeMessageRadio);
 
-		JPanel runButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		runButton = new JButton("Run to Completion");
-		runButton.addActionListener(this);
-		runButtonPanel.add(runButton);
-		
-		controlPanel.add(stepByStepRadio);
-		controlPanel.add(letterByLetterRadio);
-		controlPanel.add(wholeMessageRadio);
-		controlPanel.add(runButtonPanel);
-		
-		
-		//Message Panel
-		Message message = new Message(UI.getMessageFrame().getMessageText());
-		char messageChars[] = message.getMessage().replaceAll("\\[", " ").toCharArray();
-		messageLabels = new JLabel[messageChars.length];
-		
-		for (int i = 0; i < messageLabels.length; i++) {
-			messageLabels[i] = new JLabel("" + messageChars[i]);
-			messageLabels[i].setOpaque(true);
-			messagePanel.add(messageLabels[i]);
+			JPanel runButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+			runButton = new JButton("Run to Completion");
+			runButton.addActionListener(this);
+			runButtonPanel.add(runButton);
+			
+			controlPanel.add(stepByStepRadio);
+			controlPanel.add(letterByLetterRadio);
+			controlPanel.add(wholeMessageRadio);
+			controlPanel.add(runButtonPanel);
+			
+			
+			//Message Panel
+			Message message = new Message(UI.getMessageFrame().getMessageText());
+			char messageChars[] = message.getMessage().replaceAll("\\[", " ").toCharArray();
+			messageLabels = new JLabel[messageChars.length];
+			
+			for (int i = 0; i < messageLabels.length; i++) {
+				messageLabels[i] = new JLabel("" + messageChars[i]);
+				messageLabels[i].setOpaque(true);
+				messagePanel.add(messageLabels[i]);
+			}
+			
+			//Answer Panel
+			answerLabel = new JLabel();
+			answerPanel.add(answerLabel);
+			
+			pack();
 		}
-		
-		//Answer Panel
-		answerLabel = new JLabel();
-		answerPanel.add(answerLabel);
-		
-		pack();
 	}
 	
 	public void setAnswerLabel(String newText) {
@@ -158,6 +150,7 @@ public class CardIcons extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent ae) {
+		displayDeck(UI.getDeck());
 		if (ae.getActionCommand().equals("Process Another Message")) {
 			UI.setMessageFrame(new MessageFrame());
 			UI.getMessageFrame().setVisible(true);
@@ -183,12 +176,8 @@ public class CardIcons extends JFrame implements ActionListener {
 			if (stepByStepRadio.isSelected()) {
 				wholeMessageRadio.setEnabled(false);
 				letterByLetterRadio.setEnabled(false);
-				if (encrypt) {
-					highlightChar(currentLetterIndex);
-					d.nextStep();
-				} else {
-					
-				}
+				highlightChar(currentLetterIndex);
+				d.nextStep();
 				if (d.getCurrentStep() == 5) {
 					currentLetterIndex++;
 					d.resetCurrentStep();
@@ -196,17 +185,13 @@ public class CardIcons extends JFrame implements ActionListener {
 			} else if (letterByLetterRadio.isSelected()) {
 				wholeMessageRadio.setEnabled(false);
 				stepByStepRadio.setEnabled(false);
-				if (encrypt) {
-					for (int i = 0; i < Deck.NUM_STEPS; i++) {
-						highlightChar(currentLetterIndex);
-						d.nextStep();
-						if (d.getCurrentStep() == 5) {
-							currentLetterIndex++;
-							d.resetCurrentStep();
-						}
+				for (int i = 0; i < Deck.NUM_STEPS; i++) {
+					highlightChar(currentLetterIndex);
+					d.nextStep();
+					if (d.getCurrentStep() == 5) {
+						currentLetterIndex++;
+						d.resetCurrentStep();
 					}
-				} else {
-					
 				}
 			} else {
 				stepByStepRadio.setEnabled(false);
@@ -231,9 +216,18 @@ public class CardIcons extends JFrame implements ActionListener {
 	 * CardIcons variable
 	 */
 	public void initIcons() {
-		Deck d = UI.getDeck();
-		icons = new ImageIcon[d.deck().size()];
-		displayDeck(d);
+		cardPanels = new JPanel[NUM_PANELS];
+		for (int i = 0; i < cardPanels.length; i++) {
+			cardPanels[i] = new JPanel();
+			cardPanels[i].setLayout(new FlowLayout());
+			cardPanel.add(cardPanels[i]);
+		}
+		
+		if (UI.getDeck() != null) {
+			Deck d = UI.getDeck();
+			icons = new ImageIcon[d.deck().size()];
+			displayDeck(d);
+		}
 	}
 	
 	public ImageIcon[] icons() {
@@ -245,12 +239,22 @@ public class CardIcons extends JFrame implements ActionListener {
 	 * @param d The deck to display
 	 */
 	public void displayDeck(Deck d) {
-		DeckLinkedList cards = d.deck();
+		displayDeck(d.deck());
+	}
+	
+	public void displayDeck(DeckLinkedList d) {
 		for (int i = 0; i < icons.length; i++) {
-			icons[i] = new ImageIcon("cards/" + cards.get(i) + ".gif");
+			icons[i] = new ImageIcon("cards/" + d.get(i) + ".gif");
 		}
-		cardPanel.repaint();
+		for (int i = 0; i < cardPanels.length; i++) {
+			cardPanels[i].removeAll();
+			for (int j = i * icons.length / NUM_PANELS; j < (i + 1) * icons.length / NUM_PANELS; j++) {
+				cardPanels[i].add(new JLabel(icons[j]));
+			}
+			cardPanels[i].repaint();
+		}
 		repaint();
+		
 	}
 	
 	public static void reset() {

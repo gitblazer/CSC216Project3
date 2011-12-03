@@ -1,5 +1,9 @@
 package edu.ncsu.csc216.solitaire.model;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
+import edu.ncsu.csc216.solitaire.model.DeckLinkedList.DeckLinkedListIterator;
+
 import junit.framework.TestCase;
 
 /**
@@ -47,5 +51,35 @@ public class DeckTest extends TestCase {
 			}
 		}
 	}
+	
+	public void testNextStep() {
+		int cur = d.getCurrentStep();
+		if (cur < 4) {
+			d.nextStep();
+			assertEquals(cur + 1, d.getCurrentStep());
+			d.nextStep();
+			d.nextStep();
+			d.nextStep();
+			d.nextStep();			
+		}
+	}
+	
+	public void testGetCurrentStep() {
+		testNextStep();
+	}
+	
+	public void testResetCurrentStep() {
+		d.nextStep();
+		d.resetCurrentStep();
+		assertEquals(0, d.getCurrentStep());
+	}
+	
+	public void testDeck() {
+		assertEquals(d.deck().getClass(), DeckLinkedList.class);
+	}
 
+	public void testIterator() {
+		Deck d = new Deck(testDecks[0]);
+		assertEquals(d.iterator().getClass(), DeckLinkedListIterator.class);
+	}
 }
